@@ -2,18 +2,16 @@ package site.sleepmate.backend.domain;
 
 
 import jakarta.persistence.*;
-import lombok.AccessLevel;
-import lombok.Builder;
-import lombok.Getter;
-import lombok.NoArgsConstructor;
+import lombok.*;
 
 import java.time.LocalDateTime;
 
+@Builder
 @Entity
 @Getter
 @NoArgsConstructor(access = AccessLevel.PROTECTED)
+@AllArgsConstructor
 public class VideoRecordLog {
-
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     @Column(name = "video_log_seq", updatable = false)
@@ -32,11 +30,11 @@ public class VideoRecordLog {
     @Column(name = "capture", nullable = false)
     private String capture;
 
-    @Builder
-    public VideoRecordLog(Member memberSeq, LocalDateTime time, int posture, String capture) {
-        this.memberSeq = memberSeq;
-        this.time = time;
-        this.posture = posture;
-        this.capture = capture;
-    }
+//    @Builder
+//    public VideoRecordLog(Member memberSeq, LocalDateTime time, int posture, String capture) {
+//        this.memberSeq = memberSeq;
+//        this.time = time;
+//        this.posture = posture;
+//        this.capture = capture;
+//    }
 }
