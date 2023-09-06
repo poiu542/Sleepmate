@@ -6,11 +6,9 @@ import lombok.*;
 
 import java.time.LocalDateTime;
 
-@Builder
 @Entity
 @Getter
 @NoArgsConstructor(access = AccessLevel.PROTECTED)
-@AllArgsConstructor
 public class VideoRecordLog {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
