@@ -7,7 +7,6 @@ import java.time.LocalDateTime;
 import java.util.ArrayList;
 import java.util.List;
 
-@Entity
 @Getter
 @NoArgsConstructor(access = AccessLevel.PROTECTED)
 public class Member {
@@ -23,25 +22,25 @@ public class Member {
     private String nickname;
 
     @Column(name = "gender", nullable = false)
-    private char gender;
+    private Character gender;
 
     @Column(name = "birth", nullable = false)
     private String birth;
 
     @Column(name = "hasWatch", nullable = false)
-    private boolean hasWatch;
+    private Boolean hasWatch;
 
     @Column(name = "manual", nullable = false)
-    private boolean manual;
+    private Boolean manual;
 
     @Column(name = "alarm")
     private LocalDateTime alarm;
 
     @Column(name = "crescendo", nullable = false)
-    private boolean crescendo;
+    private Boolean crescendo;
 
     @Column(name = "isDelecated", nullable = false)
-    private boolean isDelecated;
+    private Boolean isDelecated;
 
     @OneToMany(mappedBy = "memberSeq")
     private List<WatchRecord> watchRecords = new ArrayList<WatchRecord>();
@@ -50,7 +49,7 @@ public class Member {
     private List<VideoRecord> videoRecords = new ArrayList<VideoRecord>();
 
     @Builder
-    public Member(String email, String nickname, char gender, String birth, boolean hasWatch, boolean manual, LocalDateTime alarm, boolean crescendo, boolean isDelecated) {
+    public Member(String email, String nickname, Character gender, String birth, Boolean hasWatch, Boolean manual, LocalDateTime alarm, Boolean crescendo, Boolean isDelecated) {
         this.email = email;
         this.nickname = nickname;
         this.gender = gender;

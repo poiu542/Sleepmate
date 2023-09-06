@@ -6,14 +6,13 @@ import lombok.*;
 
 import java.time.LocalDateTime;
 
-@Entity
 @Getter
 @NoArgsConstructor(access = AccessLevel.PROTECTED)
 public class VideoRecordLog {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     @Column(name = "video_log_seq", updatable = false)
-    private long videoLogSeq;
+    private Long videoLogSeq;
 
     @ManyToOne(fetch = FetchType.LAZY)
     @JoinColumn(name = "memberSeq")
@@ -23,16 +22,16 @@ public class VideoRecordLog {
     private LocalDateTime time;
 
     @Column(name = "posture", nullable = false)
-    private int posture;
+    private Integer posture;
 
     @Column(name = "capture", nullable = false)
     private String capture;
 
-//    @Builder
-//    public VideoRecordLog(Member memberSeq, LocalDateTime time, int posture, String capture) {
-//        this.memberSeq = memberSeq;
-//        this.time = time;
-//        this.posture = posture;
-//        this.capture = capture;
-//    }
+    @Builder
+    public VideoRecordLog(Member memberSeq, LocalDateTime time, Integer posture, String capture) {
+        this.memberSeq = memberSeq;
+        this.time = time;
+        this.posture = posture;
+        this.capture = capture;
+    }
 }
