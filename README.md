@@ -69,7 +69,7 @@
 | --- | --- | --- |
 | LSH | KMS | KYI |
 
-| picture | picture | picture |
+| picture | picture | ![wonjun](/resources/wonjun90120.jpg) |
 | --- | --- | --- |
 | SDY | SSH | CWJ |
 
