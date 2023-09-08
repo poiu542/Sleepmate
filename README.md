@@ -71,7 +71,7 @@
 
 | picture | picture | ![wonjun](/resources/wonjun90120.jpg) |
 | --- | --- | --- |
-| SDY | SSH | CWJ |
+| SDY | SSH | 천WJ |
 
 <br>
 
