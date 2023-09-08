@@ -2,7 +2,7 @@
   <br />
   <!-- <img src="./readme_assets/ssafy-mate_logo.png" alt="SLEEP MATE" width="200px" height="200px" /> -->
   <br />
-  <h1>싸피 메이트 (SSAFY MATE)</h1>
+  <h1>슬립 메이트 (SLEEP MATE)</h1>
   <!-- <div>
     <img src="https://img.shields.io/badge/NGINX-Active-2ea04?&logo=nginx&logoColor=white" alt="NGINX" />
     <img src="https://img.shields.io/github/v/release/ssafy-mate/ssafy-mate_front-end?color=%23068fc6" alt="GitHub release (latest by date)" />
@@ -64,11 +64,11 @@
 
 ## 8. 개발 팀 소개
 
-| picture | picture | picture |
+| BE | FE | BE |
 | --- | --- | --- |
 | LSH | KMS | KYI |
 
-| picture | picture | picture |
+| FE | FE | BE |
 | --- | --- | --- |
 | SDY | SSH | CWJ |
 
