@@ -65,7 +65,7 @@
 
 ## 8. 개발 팀 소개
 
-| picture | picture | picture |
+| ![seunghyun](/resources/104187750.png) | picture | picture |
 | --- | --- | --- |
 | LSH | KMS | KYI |
 
