@@ -23,10 +23,13 @@ public class Member {
     private String nickname;
 
     @Column(name = "gender", nullable = false)
-    private Character gender;
+    private String gender;
 
     @Column(name = "birth", nullable = false)
     private String birth;
+
+    @Column(name = "role", nullable = false)
+    private String role;
 
     @Column(name = "hasWatch", nullable = false)
     private Boolean hasWatch;
@@ -50,11 +53,12 @@ public class Member {
     private List<VideoRecord> videoRecords = new ArrayList<VideoRecord>();
 
     @Builder
-    public Member(String email, String nickname, Character gender, String birth, Boolean hasWatch, Boolean manual, LocalDateTime alarm, Boolean crescendo, Boolean isDelecated) {
+    public Member(String email, String nickname, String gender, String birth, String role, Boolean hasWatch, Boolean manual, LocalDateTime alarm, Boolean crescendo, Boolean isDelecated) {
         this.email = email;
         this.nickname = nickname;
         this.gender = gender;
         this.birth = birth;
+        this.role = role;
         this.hasWatch = hasWatch;
         this.manual = manual;
         this.alarm = alarm;

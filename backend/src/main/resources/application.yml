@@ -23,15 +23,16 @@ spring:
     oauth2:
       client:
         registration:
-          kakao:
+          Kakao:
             client-id: 1e4417060773b8517915b413b7a1942d
-            redirect-uri: "http://localhost:8080/oauth/kakao"
+            client-secret: qojEPeaAxaWWYPNBO3Q3IKJxn4N5kBxo
+            redirect-uri: "http://localhost:8080/login/oauth2/code/kakao"
             client-authentication-method: POST
             authorization-grant-type: authorization_code
-            scope: profile_nickname, profile_image, account_email, gender, birthday, friends #동의 항목
             client-name: Kakao
+            scope: profile_nickname, profile_image, account_email, gender, birthday, friends #동의 항목
         provider:
-          kakao:
+          Kakao:
             authorization-uri: https://kauth.kakao.com/oauth/authorize
             token-uri: https://kauth.kakao.com/oauth/token
             user-info-uri: https://kapi.kakao.com/v2/user/me
