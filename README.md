@@ -65,9 +65,9 @@
 
 ## 8. 개발 팀 소개
 
-| ![seunghyun](/resources/104187750.png) | picture | picture |
+| ![seunghyun](/resources/resized_lsh.png) | picture | picture |
 | --- | --- | --- |
-| LSH | KMS | KYI |
+| **이승현**<br>백엔드 & 배포 | KMS | KYI |
 
 | picture | picture | ![wonjun](/resources/wonjun90120.jpg) |
 | --- | --- | --- |
