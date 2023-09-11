@@ -43,6 +43,7 @@
 <br>
 
 ## 3. 기술 스택
+- 프론트엔드 : React Native, Tailwind
 
 <br>
 
@@ -64,13 +65,13 @@
 
 ## 8. 개발 팀 소개
 
-| BE | FE | BE |
+| ![seunghyun](/resources/104187750.png) | picture | picture |
 | --- | --- | --- |
 | LSH | KMS | KYI |
 
-| FE | FE | BE |
+| picture | picture | ![wonjun](/resources/wonjun90120.jpg) |
 | --- | --- | --- |
-| SDY | SSH | CWJ |
+| SDY | SSH | 천WJ |
 
 <br>
 
