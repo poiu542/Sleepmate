@@ -10,6 +10,7 @@ import java.util.List;
 @Entity
 @Getter
 @NoArgsConstructor(access = AccessLevel.PROTECTED)
+@RequiredArgsConstructor
 public class Member {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
@@ -27,9 +28,6 @@ public class Member {
 
     @Column(name = "birth", nullable = false)
     private String birth;
-
-    @Column(name = "role", nullable = false)
-    private String role;
 
     @Column(name = "hasWatch", nullable = false)
     private Boolean hasWatch;
@@ -51,18 +49,4 @@ public class Member {
 
     @OneToMany(mappedBy = "memberSeq")
     private List<VideoRecord> videoRecords = new ArrayList<VideoRecord>();
-
-    @Builder
-    public Member(String email, String nickname, String gender, String birth, String role, Boolean hasWatch, Boolean manual, LocalDateTime alarm, Boolean crescendo, Boolean isDelecated) {
-        this.email = email;
-        this.nickname = nickname;
-        this.gender = gender;
-        this.birth = birth;
-        this.role = role;
-        this.hasWatch = hasWatch;
-        this.manual = manual;
-        this.alarm = alarm;
-        this.crescendo = crescendo;
-        this.isDelecated = isDelecated;
-    }
 }

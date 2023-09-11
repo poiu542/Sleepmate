@@ -2,7 +2,9 @@ package site.sleepmate.backend.service;
 
 
 import com.google.gson.JsonElement;
+import com.google.gson.JsonObject;
 import com.google.gson.JsonParser;
+import site.sleepmate.backend.repository.MemberRepository;
 
 import java.io.*;
 import java.net.HttpURLConnection;
@@ -10,6 +12,8 @@ import java.net.URL;
 
 public class OauthService {
     public String getKakaoAccessToken(String code) {
+        final MemberRepository memberRepository;
+
         String access_Token = "";
         String refresh_Token = "";
         String reqURL = "https://kauth.kakao.com/oauth/token";
@@ -94,20 +98,41 @@ public class OauthService {
             System.out.println("response body : " + result);
 
             //Gson 라이브러리로 JSON파싱
-            JsonParser parser = new JsonParser();
-            JsonElement element = parser.parse(result);
+            JsonElement element = JsonParser.parseString(result);
+            JsonObject properties = element.getAsJsonObject().get("properties").getAsJsonObject();
+            JsonObject kakaoAccount = element.getAsJsonObject().get("kakao_account").getAsJsonObject();
 
             int id = element.getAsJsonObject().get("id").getAsInt();
             boolean hasEmail = element.getAsJsonObject().get("kakao_account").getAsJsonObject().get("has_email").getAsBoolean();
+            boolean hasBirthday = element.getAsJsonObject().get("kakao_account").getAsJsonObject().get("has_birthday").getAsBoolean();
+            boolean hasGender = element.getAsJsonObject().get("kakao_account").getAsJsonObject().get("has_gender").getAsBoolean();
 
             String email = "";
+            String nickname = properties.getAsJsonObject().get("nickname").getAsString();
+            String birthday = "";
+            String gender = "";
 
             if(hasEmail){
                 email = element.getAsJsonObject().get("kakao_account").getAsJsonObject().get("email").getAsString();
             }
 
+            if (hasBirthday) {
+                birthday = element.getAsJsonObject().get("kakao_account").getAsJsonObject().get("birthday").getAsString();
+            }
+
+            if (hasGender) {
+                gender = element.getAsJsonObject().get("kakao_account").getAsJsonObject().get("gender").getAsString();
+            }
+
+
             System.out.println("id : " + id);
             System.out.println("email : " + email);
+            System.out.println("nickname : " + nickname);
+            System.out.println("birthday : " + birthday);
+            System.out.println("gender = " + gender);
+
+
+
 
             br.close();
 
