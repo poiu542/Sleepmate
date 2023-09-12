@@ -32,8 +32,6 @@
 
 10. 실행 방법
 
-<br>
-
 ## 1. 웹 서비스 소개
 - 슬립메이트(SleepMate)는 유저들의 수면 자세와 생체정보를 이용해 유저들의 수면을 분석하고 올바른 수면습관을 추천해주는 서비스입니다. 적외선 지원 RTSP 연결 카메라, 헬스커넥트를 통한 삼성헬스 데이터, 워치의 심박수와 자이로센서에서 얻어온 정보를 활용하여 통합적인 수면 진단을 제공합니다.    
 <br>
@@ -44,6 +42,7 @@
 
 ## 3. 기술 스택
 - 프론트엔드 : React Native, Tailwind
+- 백엔드 : 
 
 <br>
 
@@ -66,8 +65,8 @@
 ## 8. 개발 팀 소개
 
 | ![seunghyun](/resources/resized_lsh.png) | picture | picture |
-| --- | --- | --- |
-| **이승현**<br>백엔드 & 배포 | KMS | KYI |
+| :---: | :---: | :---: |
+| **이승현**<br>백엔드 & 배포<br>이 시대의 참 팀장 | KMS | KYI |
 
 | ![dayoung](/resources/dayoung.png) | picture | ![wonjun](/resources/wonjun90120.jpg) |
 | --- | --- | --- |
