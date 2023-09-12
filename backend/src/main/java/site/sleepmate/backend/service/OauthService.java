@@ -4,15 +4,23 @@ package site.sleepmate.backend.service;
 import com.google.gson.JsonElement;
 import com.google.gson.JsonObject;
 import com.google.gson.JsonParser;
+import lombok.RequiredArgsConstructor;
+import org.springframework.stereotype.Service;
+import site.sleepmate.backend.domain.Member;
+import site.sleepmate.backend.dto.KakaoLoginRequestDto;
 import site.sleepmate.backend.repository.MemberRepository;
 
 import java.io.*;
 import java.net.HttpURLConnection;
 import java.net.URL;
+import java.time.LocalDateTime;
 
+@Service
+@RequiredArgsConstructor
 public class OauthService {
+    private final MemberRepository memberRepository;
+
     public String getKakaoAccessToken(String code) {
-        final MemberRepository memberRepository;
 
         String access_Token = "";
         String refresh_Token = "";
@@ -100,9 +108,7 @@ public class OauthService {
             //Gson 라이브러리로 JSON파싱
             JsonElement element = JsonParser.parseString(result);
             JsonObject properties = element.getAsJsonObject().get("properties").getAsJsonObject();
-            JsonObject kakaoAccount = element.getAsJsonObject().get("kakao_account").getAsJsonObject();
 
-            int id = element.getAsJsonObject().get("id").getAsInt();
             boolean hasEmail = element.getAsJsonObject().get("kakao_account").getAsJsonObject().get("has_email").getAsBoolean();
             boolean hasBirthday = element.getAsJsonObject().get("kakao_account").getAsJsonObject().get("has_birthday").getAsBoolean();
             boolean hasGender = element.getAsJsonObject().get("kakao_account").getAsJsonObject().get("has_gender").getAsBoolean();
@@ -124,15 +130,21 @@ public class OauthService {
                 gender = element.getAsJsonObject().get("kakao_account").getAsJsonObject().get("gender").getAsString();
             }
 
-
-            System.out.println("id : " + id);
             System.out.println("email : " + email);
             System.out.println("nickname : " + nickname);
             System.out.println("birthday : " + birthday);
             System.out.println("gender = " + gender);
 
-
-
+            memberRepository.save(Member.builder()
+                    .email(email)
+                    .nickname(nickname)
+                    .gender(birthday)
+                    .birth(gender)
+                    .hasWatch(false)
+                    .manual(true)
+                    .alarm(LocalDateTime.MAX)
+                    .crescendo(false)
+                    .build());
 
             br.close();
 
