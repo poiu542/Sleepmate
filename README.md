@@ -68,9 +68,11 @@
 | :---: | :---: | :---: |
 | **이승현**<br>백엔드 & 배포<br>이 시대의 참 팀장 | KMS | KYI |
 
-| picture | picture | ![wonjun](/resources/wonjun90120.jpg) |
-| :---: | :---: | :---: |
+
+| ![dayoung](/resources/dayoung.png) | picture | ![wonjun](/resources/wonjun90120.jpg) |
+| --- | --- | --- |
 | SDY | SSH | **천원준**<br>백엔드 & ML/DL<br>흘러가는 대로 사는 사람 |
+
 
 <br>
 
