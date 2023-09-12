@@ -7,7 +7,6 @@ import com.google.gson.JsonParser;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
 import site.sleepmate.backend.domain.Member;
-import site.sleepmate.backend.dto.KakaoLoginRequestDto;
 import site.sleepmate.backend.repository.MemberRepository;
 
 import java.io.*;
@@ -138,12 +137,13 @@ public class OauthService {
             memberRepository.save(Member.builder()
                     .email(email)
                     .nickname(nickname)
-                    .gender(birthday)
-                    .birth(gender)
+                    .gender(gender)
+                    .birth(birthday)
                     .hasWatch(false)
                     .manual(true)
-                    .alarm(LocalDateTime.MAX)
+                    .alarm(LocalDateTime.now())
                     .crescendo(false)
+                    .isDelecated(true)
                     .build());
 
             br.close();
