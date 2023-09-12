@@ -69,7 +69,7 @@
 | --- | --- | --- |
 | **이승현**<br>백엔드 & 배포 | KMS | KYI |
 
-| picture | picture | ![wonjun](/resources/wonjun90120.jpg) |
+| ![dayoung](/resources/dayoung.png) | picture | ![wonjun](/resources/wonjun90120.jpg) |
 | --- | --- | --- |
 | SDY | SSH | 천WJ |
 
