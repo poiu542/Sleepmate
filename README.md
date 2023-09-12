@@ -42,6 +42,7 @@
 
 ## 3. 기술 스택
 - 프론트엔드 : React Native, Tailwind
+- 백엔드 : 
 
 <br>
 
