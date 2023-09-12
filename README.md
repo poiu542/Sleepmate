@@ -64,11 +64,11 @@
 ## 8. 개발 팀 소개
 
 | ![seunghyun](/resources/resized_lsh.png) | picture | picture |
-| --- | --- | --- |
-| **이승현**<br>백엔드 & 배포 | KMS | KYI |
+| :---: | :---: | :---: |
+| **이승현**<br>백엔드 & 배포<br>이 시대의 참 팀장 | KMS | KYI |
 
 | picture | picture | ![wonjun](/resources/wonjun90120.jpg) |
-| --- | --- | --- |
+| :---: | :---: | :---: |
 | SDY | SSH | 천WJ |
 
 <br>
