@@ -134,6 +134,7 @@ public class OauthService {
             System.out.println("birthday : " + birthday);
             System.out.println("gender = " + gender);
 
+
             memberRepository.save(Member.builder()
                     .email(email)
                     .nickname(nickname)
