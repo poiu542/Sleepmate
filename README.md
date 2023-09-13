@@ -71,9 +71,9 @@
 | **이승현**<br>백엔드 & 배포<br>이 시대의 참 팀장 | KMS | KYI |
 
 
-| ![dayoung](/resources/dayoung.png) | ![ShinSanha](https://github.com/SahhaShin/DANGDANGHAE/assets/33896511/fd7ca3fe-691b-429c-91f4-5b1380b04e62) | ![wonjun](/resources/wonjun90120.jpg) |
+| ![dayoung](https://avatars.githubusercontent.com/u/111489407?s=400&u=e857ddbe8196a56a9f305833ebc6703eebfa545e&v=4) | ![ShinSanha](https://github.com/SahhaShin/DANGDANGHAE/assets/33896511/fd7ca3fe-691b-429c-91f4-5b1380b04e62) | ![wonjun](/resources/wonjun90120.jpg) |
 | --- | --- | --- |
-| SDY | **신산하**<br>프론트엔드<br>이것은 디자이너인가 개발자인가 | **천원준**<br>백엔드 & ML/DL<br>흘러가는 대로 사는 사람 |
+| **석다영**<br>프론트엔드 | **신산하**<br>프론트엔드<br>이것은 디자이너인가 개발자인가 | **천원준**<br>백엔드 & ML/DL<br>흘러가는 대로 사는 사람 |
 
 
 <br>
