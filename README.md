@@ -46,6 +46,7 @@
 - 백엔드 : Spring Boot, Spring Data JPA, FastAPI
 - DB : MySQL
 - 안드로이드 : Kotlin
+- 서버 : AWS EC2, NginX, Jenkins
 
 <br>
 
