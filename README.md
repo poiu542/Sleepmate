@@ -42,7 +42,7 @@
 <br>
 
 ## 3. 기술 스택
-- 프론트엔드 : React Native, Tailwind
+- 프론트엔드 : React Native, Tailwind, Recoil
 - 백엔드 : Spring Boot, Spring Data JPA, FastAPI
 - DB : MySQL
 - 안드로이드 : Kotlin
