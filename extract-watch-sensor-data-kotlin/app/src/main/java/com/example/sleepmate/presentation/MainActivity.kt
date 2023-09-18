@@ -42,7 +42,7 @@ import kotlinx.coroutines.launch
 class MainActivity : ComponentActivity() {
     // UDP 클라이언트
     private val udpClient: UdpClient by lazy {
-        UdpClient("192.168.171.200", 9894)
+        UdpClient("192.168.119.200", 9894)
     }
 
     // 권한 요청
@@ -79,39 +79,6 @@ class MainActivity : ComponentActivity() {
 
 @Composable
 fun WearApp(greetingName: String, context: Context, udpClient: UdpClient) {
-    /**
-     * 심장 박동수 센서 데이터 가져오기
-     */
-//    // 센서 매니저
-//    val sensorManager = context.getSystemService(Context.SENSOR_SERVICE) as SensorManager
-//
-//    // 심박수 변수
-//    val heartRateValue = remember { mutableStateOf(0.0f) }
-//
-//    // 심박수 센서 가져오기
-//    val heartRateSensor = sensorManager.getDefaultSensor(Sensor.TYPE_HEART_RATE)
-//
-//    // SensorEventListener 설정
-//    val heartRateListener: SensorEventListener = object : SensorEventListener {
-//        // 센서 정확도의 변경 시 처리
-//        override fun onAccuracyChanged(p0: Sensor?, p1: Int) {}
-//
-//        // 센서의 값이 변경 되었을 때 메서드
-//        override fun onSensorChanged(event: SensorEvent) {
-//            if (event.sensor.type == Sensor.TYPE_HEART_RATE) {
-//                heartRateValue.value = event.values[0]
-//                CoroutineScope(Dispatchers.IO).launch {
-//                    try {
-//                        udpClient.sendData("data : " + heartRateValue.value)
-//                        Log.d("MainActivity", "Data sent" + heartRateValue.value)
-//                        delay(10000)
-//                    } catch (e: Exception) {
-//                        Log.e("MainActivity", "Error sending data: ${e.message}", e)
-//                    }
-//                }
-//            }
-//        }
-//    }
 
     // 화면 구성 부분
     SleepmateTheme {

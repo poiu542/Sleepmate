@@ -18,26 +18,22 @@ import android.os.IBinder
 import android.util.Log
 import androidx.core.app.NotificationCompat
 import com.example.sleepmate.presentation.MainActivity
-import kotlinx.coroutines.CoroutineScope
-import kotlinx.coroutines.Dispatchers
+import kotlinx.coroutines.GlobalScope
 import kotlinx.coroutines.delay
 import kotlinx.coroutines.launch
+import kotlinx.coroutines.runBlocking
 
 class MyForegroundService : Service() {
     private lateinit var sensorManager: SensorManager
     private lateinit var heartRateSensor: Sensor
     private lateinit var heartRateListener: SensorEventListener
 
-    private val udpClient: UdpClient by lazy {
-        UdpClient("192.168.171.200", 9894)
-    }
-
     override fun onCreate() {
         super.onCreate()
         // Notification 채널 생성 및 등록
         if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.O) {
-            val channelId = "mychannel" // 채널 ID
-            val channelName = "SleepMate" // 채널 이름
+            val channelId = "sleepMate"
+            val channelName = "SleepMate"
             val importance = NotificationManager.IMPORTANCE_DEFAULT
             val channel = NotificationChannel(channelId, channelName, importance)
 
@@ -48,8 +44,7 @@ class MyForegroundService : Service() {
     }
 
     override fun onStartCommand(intent: Intent?, flags: Int, startId: Int): Int {
-        // Foreground 서비스를 계속 실행하기 위한 Notification 설정
-        val notification: Notification = NotificationCompat.Builder(this, "mychannel")
+        val notification: Notification = NotificationCompat.Builder(this, "sleepMate")
             .setContentTitle("Foreground Service")
             .setContentText("데이터 전송 중")
             .setContentIntent(
@@ -72,16 +67,24 @@ class MyForegroundService : Service() {
             override fun onAccuracyChanged(sensor: Sensor?, accuracy: Int) {}
 
             override fun onSensorChanged(event: SensorEvent?) {
-                CoroutineScope(Dispatchers.IO).launch {
-                    if (event?.sensor?.type == Sensor.TYPE_HEART_RATE) {
-                        val heartRateValue = event.values[0]
+                var transData = GlobalScope.launch {
+                    val udpClient: UdpClient by lazy {
+                        UdpClient("192.168.119.200", 9894)
+                    }
 
-                        // 센서 값이 변경되면 바로 전송
-                        try {
-                            udpClient.sendData("data : $heartRateValue")
-                            Log.d("Foreground", "Data sent : " + heartRateValue)
-                        } catch (e: Exception) {
-                            Log.e("Foreground", "Error sending data: ${e.message}", e)
+                    if (event?.sensor?.type == Sensor.TYPE_HEART_RATE) {
+                        var heartRateValue = event.values[0]
+
+                        runBlocking {
+                            launch {
+                                try {
+                                    udpClient.sendData("data : $heartRateValue")
+                                    Log.d("Foreground", "Data sent : " + heartRateValue)
+                                } catch (e: Exception) {
+                                    Log.e("Foreground", "Error sending data: ${e.message}", e)
+                                }
+                                delay(10000)
+                            }
                         }
                     }
                 }
