@@ -42,7 +42,8 @@ import kotlinx.coroutines.launch
 class MainActivity : ComponentActivity() {
     // UDP 클라이언트
     private val udpClient: UdpClient by lazy {
-        UdpClient("192.168.119.200", 9894)
+        // 여기에 버튼을 눌렀을 때 연결될 인터넷 ipAddress 넣기
+        UdpClient("192.168.31.160", 9894)
     }
 
     // 권한 요청
@@ -89,16 +90,8 @@ fun WearApp(greetingName: String, context: Context, udpClient: UdpClient) {
             verticalArrangement = Arrangement.Center,
             horizontalAlignment = Alignment.CenterHorizontally,
         ) {
-            HeartRateDisplay(0.0f)
             SendUdpDataButton(udpClient)
         }
-    }
-}
-
-@Composable
-fun HeartRateDisplay(heartRateValue: Float) {
-    Column {
-        Text("Now Heart Rate : $heartRateValue")
     }
 }
 

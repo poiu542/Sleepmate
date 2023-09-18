@@ -19,14 +19,15 @@ import android.util.Log
 import androidx.core.app.NotificationCompat
 import com.example.sleepmate.presentation.MainActivity
 import kotlinx.coroutines.GlobalScope
-import kotlinx.coroutines.delay
 import kotlinx.coroutines.launch
-import kotlinx.coroutines.runBlocking
 
 class MyForegroundService : Service() {
     private lateinit var sensorManager: SensorManager
     private lateinit var heartRateSensor: Sensor
     private lateinit var heartRateListener: SensorEventListener
+
+    private var lastSentTimeMillis: Long = 0
+    private val sendDataIntervalMillis: Long = 10000
 
     override fun onCreate() {
         super.onCreate()
@@ -67,23 +68,24 @@ class MyForegroundService : Service() {
             override fun onAccuracyChanged(sensor: Sensor?, accuracy: Int) {}
 
             override fun onSensorChanged(event: SensorEvent?) {
-                var transData = GlobalScope.launch {
-                    val udpClient: UdpClient by lazy {
-                        UdpClient("192.168.119.200", 9894)
-                    }
+                if (event?.sensor?.type == Sensor.TYPE_HEART_RATE) {
+                    val currentTimeMillis = System.currentTimeMillis()
+                    if (currentTimeMillis - lastSentTimeMillis >= sendDataIntervalMillis) {
+                        val heartRateValue = event.values[0]
 
-                    if (event?.sensor?.type == Sensor.TYPE_HEART_RATE) {
-                        var heartRateValue = event.values[0]
-
-                        runBlocking {
-                            launch {
-                                try {
-                                    udpClient.sendData("data : $heartRateValue")
-                                    Log.d("Foreground", "Data sent : " + heartRateValue)
-                                } catch (e: Exception) {
-                                    Log.e("Foreground", "Error sending data: ${e.message}", e)
+                        GlobalScope.launch {
+                            try {
+                                val udpClient: UdpClient by lazy {
+                                    // 여기에 연결한 인터넷 ipAddress 넣기
+                                    UdpClient("192.168.119.212", 9894)
                                 }
-                                delay(10000)
+
+                                udpClient.sendData("data : $heartRateValue")
+                                Log.d("Foreground", "Data sent : $heartRateValue")
+
+                                lastSentTimeMillis = currentTimeMillis
+                            } catch (e: Exception) {
+                                Log.e("Foreground", "Error sending data: ${e.message}", e)
                             }
                         }
                     }
@@ -94,7 +96,7 @@ class MyForegroundService : Service() {
         sensorManager.registerListener(
             heartRateListener,
             heartRateSensor,
-            100000
+            SensorManager.SENSOR_DELAY_NORMAL
         )
 
         // START_STICKY를 반환하여 서비스가 종료될 경우 시스템이 자동으로 다시 시작하도록 합니다.
