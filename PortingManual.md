@@ -41,9 +41,9 @@ pipeline {
         stage('Rm') {
             steps {
                 sh '''
-                docker stop sleep_mate_container
-                docker rm -f sleep_mate_container
-                docker rmi -f sleep_mate
+                docker stop sleep_mate_container || true
+                docker rm -f sleep_mate_container || true
+                docker rmi -f sleep_mate || true
                 '''
             }
             post {
@@ -83,4 +83,17 @@ pipeline {
         }
     }
 }
+```
+
+## Dockerfile
+```docker
+FROM jenkins/jenkins:jdk17
+
+COPY backend/build/libs/backend-0.0.1-SNAPSHOT.jar sleep-mate.jar
+
+COPY application-dev.yml /config/application-dev.yml
+
+EXPOSE 8080
+
+ENTRYPOINT ["sh", "-c", "java -jar -Dspring.config.location=/config/application-dev.yml -Dspring.profiles.active=dev sleep-mate.jar"]
 ```
