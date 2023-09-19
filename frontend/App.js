@@ -1,13 +1,18 @@
 import { StatusBar } from 'expo-status-bar';
 import { StyleSheet, Text, View } from 'react-native';
-import { NavigationContainer } from '@react-navigation/native';
-import tw from 'twrnc'
+import AppNavigation from './navigation/AppNavigation.jsx';
+import {
+  RecoilRoot,
+} from 'recoil';
+
 export default function App() {
   return (
-    <View style={tw `flex`}>
-      <Text>Open up App.js to start working on your app!</Text>
-      <StatusBar style="auto" />
-    </View>
+    <RecoilRoot>
+      {/* <StatusBar style="light"/> */}
+      {/* <TabNavigation></TabNavigation> */}
+      <AppNavigation>
+      </AppNavigation>
+    </RecoilRoot>
   );
 }
 
