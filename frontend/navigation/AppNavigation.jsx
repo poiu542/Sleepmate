@@ -13,7 +13,7 @@ import tw from "twrnc";
 
 const Stack = createNativeStackNavigator();
 const Tab = createBottomTabNavigator();
-
+import {Home} from "../screens/Home"
 
 
 // 상단 네비게이션 버튼 컴포넌트 모음
@@ -97,9 +97,9 @@ const CancelInviteButton = ({navigation}) => {
 const AppNavigation = () => {
   return (
     <NavigationContainer>
-      {/* <Stack.Navigator 
-        initialRouteName='Intro'>
-        <Stack.Screen name='Intro' component={Intro} options={{headerShown:false}} /> */}
+      <Stack.Navigator
+        initialRouteName='Home'>
+        <Stack.Screen name='Home' component={Home} options={{headerShown:false}} />
 
         {/* <Stack.Screen
             name="MainTabNavigator"
@@ -113,7 +113,7 @@ const AppNavigation = () => {
             }}
           /> */}
         
-      {/* </Stack.Navigator> */}
+      </Stack.Navigator>
     </NavigationContainer>
   )
 }
