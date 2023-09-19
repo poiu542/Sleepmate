@@ -47,6 +47,7 @@
 - DB : MySQL
 - 안드로이드 : Kotlin
 - 서버 : AWS EC2, NginX, Jenkins
+- AI : OpenCV, Tensorflow
 
 <br>
 
