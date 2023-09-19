@@ -8,13 +8,17 @@ import tw from "twrnc";
 const IntroExplain = () => {
     return(
         <View style={tw`flex-1`}>
-            <Video
+            <Video 
+                style={tw`absolute top-0 left-0 right-0 bottom-0`}
                 source={require("../assets/videos/walkingLoad.mp4")}
-                resizeMode="contain"
-                isLooping
+                resizeMode="cover"
+                repeat={true}
+                shouldPlay={true}
+                isLooping={true}
             />
+            <View style={tw`absolute top-0 left-0 right-0 bottom-0 bg-black opacity-30`}></View>
         </View>
     )
 }
 
-return IntroExplain;
+export default IntroExplain;
