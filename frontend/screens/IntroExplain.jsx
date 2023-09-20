@@ -11,12 +11,49 @@ const IntroExplain = () => {
     const [animation1, setAnimation1] = useState(null);
     const [animation2, setAnimation2] = useState(null);
     const [animation3, setAnimation3] = useState(null);
+    const [sceen, setSceen] = useState(1);
+
 
     const height = Dimensions.get("window").height-150;
-
     useEffect(() => {
-        if (animation1) animation1.slideInUp(1000); // 첫 번째 애니메이션
-    }, [animation1]);
+        if (sceen===1 && animation1) {
+            setTimeout(() => {
+                animation1.fadeOut(2000).then(() => {
+                    setAnimation2(animation2Ref => {
+                        setSceen(2);
+                        if (animation2Ref) {
+                            animation2Ref.fadeIn(2000);
+                        }
+                        return animation2Ref;
+                    });
+                });
+            }, 2000); // 1초 후에 animation1을 사라지게 하고 animation2를 나타나게 함
+        }
+
+        if (sceen===2 && animation1) {
+            setTimeout(() => {
+                animation2.fadeOut(3000).then(() => {
+                    setSceen(3);
+                    setAnimation3(animation3Ref => {
+                        if (animation3Ref) {
+                            animation3Ref.fadeIn(3000);
+                        }
+                        return animation3Ref;
+                    });
+                });
+            }, 3000); // 1초 후에 animation1을 사라지게 하고 animation2를 나타나게 함
+        }
+
+        if (sceen===3 && animation1) {
+            setTimeout(() => {
+                animation3.fadeOut(3000).then(() => {
+                    setSceen(4);
+                    // return animation4Ref;
+                });
+            }, 3000); // 1초 후에 animation1을 사라지게 하고 animation2를 나타나게 함
+        }
+    }, [sceen, animation1]);
+
 
     return(
         <View style={tw`flex-1`}>
@@ -32,9 +69,11 @@ const IntroExplain = () => {
                 isLooping={true}
             />
             <View style={tw`absolute top-0 left-0 right-0 bottom-0 bg-black opacity-40`}></View>
-            <Animatable.View ref={(ref) => setAnimation1(ref)} style={tw`flex-1`}>
-                <Text style={tw`absolute top-0 left-0 right-0 bottom-0 text-white text-5 mt-[${height}] ml-[40%]`}>환영합니다.</Text>
-            </Animatable.View>
+            <View style={tw`flex-1`}>
+                <Animatable.Text ref={(ref) => setAnimation1(ref)} style={ sceen===1?tw`absolute top-0 left-0 right-0 bottom-0 text-white text-5 mt-[${height}] text-center`:tw`hidden`}>환영합니다.</Animatable.Text>
+                <Animatable.Text ref={(ref) => setAnimation2(ref)} style={sceen===2?tw`absolute top-0 left-0 right-0 bottom-0 text-white text-5 mt-[${height}] text-center` :tw`hidden`}>{`저는 여러분의 숙면을 도와드릴\nsleep mate입니다.`}</Animatable.Text>
+                <Animatable.Text ref={(ref) => setAnimation3(ref)} style={sceen===3?tw`absolute top-0 left-0 right-0 bottom-0 text-white text-5 mt-[${height}] text-center`:tw`hidden`}>몇 가지 질문을 드리겠습니다.</Animatable.Text>
+            </View>
         </View>
     )
 }
