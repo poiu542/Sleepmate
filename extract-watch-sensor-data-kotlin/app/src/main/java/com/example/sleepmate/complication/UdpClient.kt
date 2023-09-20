@@ -1,13 +1,14 @@
 package com.example.sleepmate.complication
 
 import android.content.ContentValues.TAG
+import android.content.Context
 import android.util.Log
 import java.lang.Exception
 import java.net.DatagramPacket
 import java.net.DatagramSocket
 import java.net.InetAddress
 
-class UdpClient(private val serverAddress: String, private val serverPort: Int) {
+class UdpClient(internal val context: Context, private val serverAddress: String, private val serverPort: Int) {
     fun sendData(data: String) {
         try {
             val socket = DatagramSocket()

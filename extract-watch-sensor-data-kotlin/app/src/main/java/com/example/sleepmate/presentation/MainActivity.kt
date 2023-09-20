@@ -17,6 +17,7 @@ import androidx.activity.result.contract.ActivityResultContracts
 import androidx.compose.foundation.background
 import androidx.compose.foundation.layout.Arrangement
 import androidx.compose.foundation.layout.Column
+import androidx.compose.foundation.layout.Row
 import androidx.compose.foundation.layout.fillMaxSize
 import androidx.compose.foundation.layout.padding
 import androidx.compose.runtime.Composable
@@ -39,14 +40,13 @@ import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.delay
 import kotlinx.coroutines.launch
 
+private var isServiceRunning = false
 class MainActivity : ComponentActivity() {
-    // UDP 클라이언트
+
     private val udpClient: UdpClient by lazy {
-        // 여기에 버튼을 눌렀을 때 연결될 인터넷 ipAddress 넣기
-        UdpClient("192.168.31.160", 9894)
+        UdpClient(this,"192.168.119.200", 9894)
     }
 
-    // 권한 요청
     private val permissions = arrayOf(
         Manifest.permission.BODY_SENSORS,
         Manifest.permission.BODY_SENSORS_BACKGROUND,
@@ -57,20 +57,10 @@ class MainActivity : ComponentActivity() {
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContent {
-            // 어플리케이션에 부여할 권한을 요청
             ActivityCompat.requestPermissions(this, permissions, requestCode)
 
-            // UDP 클라이언트 초기화
             WearApp("Android", context = this, udpClient = udpClient)
-
-            // Foreground 서비스
-            startForegroundService()
         }
-    }
-
-    private fun startForegroundService() {
-        val serviceIntent = Intent(this, MyForegroundService::class.java)
-        ContextCompat.startForegroundService(this, serviceIntent)
     }
 
     override fun onDestroy() {
@@ -78,19 +68,37 @@ class MainActivity : ComponentActivity() {
     }
 }
 
+fun startForegroundService(context: Context) {
+    val serviceIntent = Intent(context, MyForegroundService::class.java)
+    ContextCompat.startForegroundService(context, serviceIntent)
+}
+
+fun endForegroundService(context: Context) {
+    val serviceIntent = Intent(context, MyForegroundService::class.java)
+    context.stopService(serviceIntent)
+}
+
 @Composable
 fun WearApp(greetingName: String, context: Context, udpClient: UdpClient) {
-
-    // 화면 구성 부분
     SleepmateTheme {
-        Column(
+        Row(
             modifier = Modifier
                 .fillMaxSize()
                 .background(MaterialTheme.colors.background),
-            verticalArrangement = Arrangement.Center,
-            horizontalAlignment = Alignment.CenterHorizontally,
+            horizontalArrangement = Arrangement.Center,
+            verticalAlignment = Alignment.CenterVertically,
         ) {
-            SendUdpDataButton(udpClient)
+            SendUdpDataButton(udpClient = udpClient)
+        }
+        Row(
+            modifier = Modifier
+                .fillMaxSize()
+                .background(MaterialTheme.colors.background),
+            horizontalArrangement = Arrangement.Center,
+            verticalAlignment = Alignment.CenterVertically,
+        ) {
+            startSendingData(context)
+            endSendingData(context)
         }
     }
 }
@@ -100,7 +108,7 @@ fun SendUdpDataButton(udpClient: UdpClient) {
     Button(
         onClick = {
             Log.d(TAG, "Button Clicked")
-            val dataToSend = "전송할 데이터"
+            val dataToSend = "연결 확인 중입니다."
             CoroutineScope(Dispatchers.IO).launch {
                 try {
                     udpClient.sendData(dataToSend)
@@ -113,5 +121,33 @@ fun SendUdpDataButton(udpClient: UdpClient) {
         modifier = Modifier.padding(16.dp)
     ) {
         Text("UDP 데이터 전송")
+    }
+}
+
+@Composable
+fun startSendingData(context: Context) {
+    Button(
+        onClick = {
+            Log.d(TAG, "Start Sending Data")
+            isServiceRunning = true
+            startForegroundService(context)
+        },
+        modifier = Modifier.padding(16.dp)
+    ) {
+        Text("전송 시작")
+    }
+}
+
+@Composable
+fun endSendingData(context: Context) {
+    Button(
+        onClick = {
+            Log.d(TAG, "End Sending Data")
+            isServiceRunning = false
+            endForegroundService(context)
+        },
+        modifier = Modifier.padding(16.dp)
+    ) {
+        Text("전송 끝")
     }
 }
