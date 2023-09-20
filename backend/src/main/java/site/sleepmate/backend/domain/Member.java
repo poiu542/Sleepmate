@@ -48,6 +48,15 @@ public class Member {
     @OneToMany(mappedBy = "memberSeq")
     private List<VideoRecord> videoRecords = new ArrayList<VideoRecord>();
 
+    @OneToMany(mappedBy = "memberSeq")
+    private List<LuxRecord> luxRecords = new ArrayList<LuxRecord>();
+
+    @OneToMany(mappedBy = "memberSeq")
+    private List<VideoOrder> videoOrders = new ArrayList<VideoOrder>();
+
+    @OneToMany(mappedBy = "memberSeq")
+    private List<AccelerometerRecord> accelerometerRecords = new ArrayList<AccelerometerRecord>();
+
     @Builder
     public Member(String email, String nickname, String gender, String ageRange, Boolean hasWatch, Boolean noServey, Time alarm, Boolean crescendo) {
         this.email = email;
