@@ -44,7 +44,7 @@ public class Member {
     private Boolean crescendo;
 
     @OneToMany(mappedBy = "memberSeq")
-    private List<WatchRecord> watchRecords = new ArrayList<WatchRecord>();
+    private List<HeartRateRecord> heartRateRecords = new ArrayList<HeartRateRecord>();
 
     @OneToMany(mappedBy = "memberSeq")
     private List<VideoRecord> videoRecords = new ArrayList<VideoRecord>();
