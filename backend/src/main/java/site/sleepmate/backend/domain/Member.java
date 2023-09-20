@@ -2,8 +2,9 @@ package site.sleepmate.backend.domain;
 
 import jakarta.persistence.*;
 import lombok.*;
+import org.hibernate.annotations.ColumnDefault;
 
-import java.time.LocalDateTime;
+import java.sql.Time;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -26,23 +27,21 @@ public class Member {
     @Column(name = "gender", nullable = false)
     private String gender;
 
-    @Column(name = "birth", nullable = false)
-    private String birth;
+    @Column(name = "birthyear", nullable = false)
+    private String birthYear;
 
-    @Column(name = "hasWatch", nullable = false)
+    @Column(name = "has_watch", nullable = false)
     private Boolean hasWatch;
 
-    @Column(name = "manual", nullable = false)
-    private Boolean manual;
+    @Column(name = "no_survey", nullable = false)
+    private Boolean noServey;
 
-    @Column(name = "alarm")
-    private LocalDateTime alarm;
+    @Column(name = "alarm", nullable = false)
+    @ColumnDefault("07:00:00")
+    private Time alarm;
 
     @Column(name = "crescendo", nullable = false)
     private Boolean crescendo;
-
-    @Column(name = "isDelecated", nullable = false)
-    private Boolean isDelecated;
 
     @OneToMany(mappedBy = "memberSeq")
     private List<WatchRecord> watchRecords = new ArrayList<WatchRecord>();
@@ -51,16 +50,14 @@ public class Member {
     private List<VideoRecord> videoRecords = new ArrayList<VideoRecord>();
 
     @Builder
-
-    public Member(String email, String nickname, String gender, String birth, Boolean hasWatch, Boolean manual, LocalDateTime alarm, Boolean crescendo, Boolean isDelecated) {
+    public Member(String email, String nickname, String gender, String birthYear, Boolean hasWatch, Boolean noServey, Time alarm, Boolean crescendo) {
         this.email = email;
         this.nickname = nickname;
         this.gender = gender;
-        this.birth = birth;
+        this.birthYear = birthYear;
         this.hasWatch = hasWatch;
-        this.manual = manual;
+        this.noServey = noServey;
         this.alarm = alarm;
         this.crescendo = crescendo;
-        this.isDelecated = isDelecated;
     }
 }
