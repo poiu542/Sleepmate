@@ -12,7 +12,7 @@ import site.sleepmate.backend.repository.MemberRepository;
 import java.io.*;
 import java.net.HttpURLConnection;
 import java.net.URL;
-import java.time.LocalDateTime;
+import java.sql.Time;
 
 @Service
 @RequiredArgsConstructor
@@ -109,20 +109,20 @@ public class OauthService {
             JsonObject properties = element.getAsJsonObject().get("properties").getAsJsonObject();
 
             boolean hasEmail = element.getAsJsonObject().get("kakao_account").getAsJsonObject().get("has_email").getAsBoolean();
-            boolean hasBirthday = element.getAsJsonObject().get("kakao_account").getAsJsonObject().get("has_birthday").getAsBoolean();
+            boolean hasAgeRange = element.getAsJsonObject().get("kakao_account").getAsJsonObject().get("has_age_range").getAsBoolean();
             boolean hasGender = element.getAsJsonObject().get("kakao_account").getAsJsonObject().get("has_gender").getAsBoolean();
 
             String email = "";
             String nickname = properties.getAsJsonObject().get("nickname").getAsString();
-            String birthday = "";
+            String AgeRange = "";
             String gender = "";
 
             if(hasEmail){
                 email = element.getAsJsonObject().get("kakao_account").getAsJsonObject().get("email").getAsString();
             }
 
-            if (hasBirthday) {
-                birthday = element.getAsJsonObject().get("kakao_account").getAsJsonObject().get("birthday").getAsString();
+            if (hasAgeRange) {
+                AgeRange = element.getAsJsonObject().get("kakao_account").getAsJsonObject().get("age_range").getAsString();
             }
 
             if (hasGender) {
@@ -131,7 +131,7 @@ public class OauthService {
 
             System.out.println("email : " + email);
             System.out.println("nickname : " + nickname);
-            System.out.println("birthday : " + birthday);
+            System.out.println("AgeRange : " + AgeRange);
             System.out.println("gender = " + gender);
 
 
@@ -139,12 +139,11 @@ public class OauthService {
                     .email(email)
                     .nickname(nickname)
                     .gender(gender)
-                    .birth(birthday)
+                    .ageRange(AgeRange)
                     .hasWatch(false)
-                    .manual(true)
-                    .alarm(LocalDateTime.now())
+                    .alarm(Time.valueOf("07:00:00"))
+                    .noServey(true)
                     .crescendo(false)
-                    .isDelecated(true)
                     .build());
 
             br.close();

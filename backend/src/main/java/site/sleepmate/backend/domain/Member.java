@@ -27,8 +27,8 @@ public class Member {
     @Column(name = "gender", nullable = false)
     private String gender;
 
-    @Column(name = "birthyear", nullable = false)
-    private String birthYear;
+    @Column(name = "age_range", nullable = false)
+    private String ageRange;
 
     @Column(name = "has_watch", nullable = false)
     private Boolean hasWatch;
@@ -37,7 +37,6 @@ public class Member {
     private Boolean noServey;
 
     @Column(name = "alarm", nullable = false)
-    @ColumnDefault("07:00:00")
     private Time alarm;
 
     @Column(name = "crescendo", nullable = false)
@@ -50,11 +49,11 @@ public class Member {
     private List<VideoRecord> videoRecords = new ArrayList<VideoRecord>();
 
     @Builder
-    public Member(String email, String nickname, String gender, String birthYear, Boolean hasWatch, Boolean noServey, Time alarm, Boolean crescendo) {
+    public Member(String email, String nickname, String gender, String ageRange, Boolean hasWatch, Boolean noServey, Time alarm, Boolean crescendo) {
         this.email = email;
         this.nickname = nickname;
         this.gender = gender;
-        this.birthYear = birthYear;
+        this.ageRange = ageRange;
         this.hasWatch = hasWatch;
         this.noServey = noServey;
         this.alarm = alarm;
