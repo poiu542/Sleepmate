@@ -21,24 +21,20 @@ public class VideoRecord {
     @JoinColumn(name = "memberSeq")
     private Member memberSeq;
 
+    @Column(name = "time", nullable = false)
+    private LocalDateTime time;
+
     @Column(name = "posture", nullable = false)
     private Integer posture;
-
-    @Column(name = "start_time", nullable = false)
-    private LocalDateTime startTime;
-
-    @Column(name = "end_time", nullable = false)
-    private LocalDateTime endTime;
 
     @Column(name = "capture", nullable = false)
     private String capture;
 
     @Builder
-    public VideoRecord(Member memberSeq, Integer posture, LocalDateTime startTime, LocalDateTime endTime, String capture) {
+    public VideoRecord(Member memberSeq, LocalDateTime time, Integer posture, String capture) {
         this.memberSeq = memberSeq;
+        this.time = time;
         this.posture = posture;
-        this.startTime = startTime;
-        this.endTime = endTime;
         this.capture = capture;
     }
 }
