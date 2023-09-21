@@ -76,9 +76,9 @@ class MyForegroundService : Service() {
         lightSensor = sensorManager.getDefaultSensor(Sensor.TYPE_LIGHT)
 
         // 센서 리스트 확인하기
-        var sensorList:List<Sensor> = sensorManager.getSensorList(23)
+        var sensorList:List<Sensor> = sensorManager.getSensorList(-1)
 
-        Log.d("wakeupGesture", sensorList.toString())
+        Log.d("sensorList", sensorList.toString())
 
         heartRateListener = object : SensorEventListener {
             override fun onAccuracyChanged(sensor: Sensor?, accuracy: Int) {}
@@ -175,7 +175,8 @@ class MyForegroundService : Service() {
         sensorManager.registerListener(
             accelerometerListener,
             accelerometerSensor,
-            SensorManager.SENSOR_DELAY_NORMAL
+            SensorManager.SENSOR_DELAY_NORMAL,
+            SensorManager.SENSOR_STATUS_ACCURACY_HIGH
         )
 
         sensorManager.registerListener(

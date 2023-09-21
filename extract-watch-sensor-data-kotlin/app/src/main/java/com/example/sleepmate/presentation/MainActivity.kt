@@ -88,15 +88,6 @@ fun WearApp(greetingName: String, context: Context, udpClient: UdpClient) {
             horizontalArrangement = Arrangement.Center,
             verticalAlignment = Alignment.CenterVertically,
         ) {
-            SendUdpDataButton(udpClient = udpClient)
-        }
-        Row(
-            modifier = Modifier
-                .fillMaxSize()
-                .background(MaterialTheme.colors.background),
-            horizontalArrangement = Arrangement.Center,
-            verticalAlignment = Alignment.CenterVertically,
-        ) {
             startSendingData(context)
             endSendingData(context)
         }
