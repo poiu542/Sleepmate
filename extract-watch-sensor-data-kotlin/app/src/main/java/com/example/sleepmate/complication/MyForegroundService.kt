@@ -23,9 +23,16 @@ import kotlinx.coroutines.GlobalScope
 import kotlinx.coroutines.launch
 import kotlin.math.roundToLong
 
+/**
+ * Foreground 서비스 코드
+ * 아래에 Udp 전송을 할 서버 주소를 입력하는 부분을 알 맞게 고쳐야 함
+ * 서버 단에서는 포트만 열어주면 되고, 추가적인 방화벽 설정이 필요할 것
+ */
+
 class MyForegroundService : Service() {
     private lateinit var sensorManager: SensorManager
 
+    // 사용하는 센서 종류
     private lateinit var heartRateSensor: Sensor
     private lateinit var accelerometerSensor: Sensor
     private lateinit var lightSensor: Sensor
@@ -37,12 +44,16 @@ class MyForegroundService : Service() {
     private var heartRateLastSentTimeMillis: Long = 0
     private var accelerometerLastSentTimeMillis: Long = 0
     private var lightLastSentTimeMillis: Long = 0
+
+    // 센서 인터벌 : 몇 초 후에 센서 값을 전송할 것인지 ms 단위
     private val heartRateIntervalMillis: Long = 10000
     private val accelerometerIntervalMillis: Long = 1000
     private val lightIntervalMillis: Long = 20 * 60 * 1000
 
     override fun onCreate() {
         super.onCreate()
+
+        // 포그라운드 서비스를 위한 기본적인 알림창 구현
         if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.O) {
             val channelId = "sleepMate"
             val channelName = "SleepMate"
@@ -69,17 +80,17 @@ class MyForegroundService : Service() {
 
         startForeground(1, notification)
 
-        // Sensor
+        // Sensor 적용
         sensorManager = getSystemService(Context.SENSOR_SERVICE) as SensorManager
         heartRateSensor = sensorManager.getDefaultSensor(Sensor.TYPE_HEART_RATE)
         accelerometerSensor = sensorManager.getDefaultSensor(Sensor.TYPE_ACCELEROMETER)
         lightSensor = sensorManager.getDefaultSensor(Sensor.TYPE_LIGHT)
 
-        // 센서 리스트 확인하기
-        var sensorList:List<Sensor> = sensorManager.getSensorList(-1)
+        // 센서 리스트 확인하기 - 사용하는 기기의 전체 센서의 리스트를 Log로 확인하고 싶을 때 사용
+//        var sensorList:List<Sensor> = sensorManager.getSensorList(-1)
+//        Log.d("sensorList", sensorList.toString())
 
-        Log.d("sensorList", sensorList.toString())
-
+        // HeartRate 센서
         heartRateListener = object : SensorEventListener {
             override fun onAccuracyChanged(sensor: Sensor?, accuracy: Int) {}
 
@@ -108,6 +119,7 @@ class MyForegroundService : Service() {
             }
         }
 
+        // 가속도 센서
         accelerometerListener = object : SensorEventListener {
             override fun onAccuracyChanged(sensor: Sensor?, accuracy: Int) {}
 
@@ -138,6 +150,7 @@ class MyForegroundService : Service() {
             }
         }
 
+        // 조도 센서
         lightListener = object : SensorEventListener {
             override fun onAccuracyChanged(sensor: Sensor?, accuracy: Int) {}
 
@@ -166,6 +179,7 @@ class MyForegroundService : Service() {
             }
         }
 
+        // 센서 매니저에 등록을 해야 동작 시작 + 센서의 감도, 주기를 설정 가능
         sensorManager.registerListener(
             heartRateListener,
             heartRateSensor,
