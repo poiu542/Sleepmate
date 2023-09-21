@@ -8,6 +8,11 @@ import * as Animatable from 'react-native-animatable';
 // 컴포넌트
 import ClockPicker from "../components/Clock/ClockPicker";
 import ConfirmBtn from "../components/Button/ConfirmBtn";
+import DropDownTime from "../components/DropDown/DropDownTime";
+
+// recoil
+import {useRecoilState} from "recoil";
+import {sceenNumberState} from '../recoil/intro/sceenNumberAtom';
 
 
 const IntroExplain = () => {
@@ -16,10 +21,15 @@ const IntroExplain = () => {
     const [animation2, setAnimation2] = useState(null);
     const [animation3, setAnimation3] = useState(null);
     const [animation4, setAnimation4] = useState(null);
-    const [sceen, setSceen] = useState(1);
+    const [animation5, setAnimation5] = useState(null);
+    const [animation6, setAnimation6] = useState(null);
+    const [animation7, setAnimation7] = useState(null);
+    const [sceen, setSceen] = useRecoilState(sceenNumberState);
 
 
     const height = Dimensions.get("window").height-150;
+
+    // 애니메이션 효과
     useEffect(() => {
         if (sceen===1 && animation1) {
             setTimeout(() => {
@@ -62,7 +72,50 @@ const IntroExplain = () => {
                 });
             }, 3000); // 1초 후에 animation1을 사라지게 하고 animation2를 나타나게 함
         }
+
+        if (sceen===5 && animation1) {
+            setTimeout(() => {
+                animation4.fadeOut(3000).then(() => {
+                    setAnimation5(animation5Ref => {
+                        if (animation5Ref) {
+                            animation5Ref.fadeIn(3000);
+                        }
+                        return animation5Ref;
+                    });
+                });
+            }, 3000); // 1초 후에 animation1을 사라지게 하고 animation2를 나타나게 함
+        }
+
+        if (sceen===6 && animation1) {
+            setTimeout(() => {
+                animation5.fadeOut(3000).then(() => {
+                    setSceen(7);
+                    setAnimation5(animation5Ref => {
+                        if (animation5Ref) {
+                            animation5Ref.fadeIn(3000);
+                        }
+                        return animation5Ref;
+                    });
+                });
+            }, 3000); // 1초 후에 animation1을 사라지게 하고 animation2를 나타나게 함
+        }
+
+        if (sceen===7 && animation1) {
+            setTimeout(() => {
+                animation6.fadeOut(3000).then(() => {
+                    setSceen(7);
+                    setAnimation7(animation7Ref => {
+                        if (animation7Ref) {
+                            animation7Ref.fadeIn(3000);
+                        }
+                        return animation7Ref;
+                    });
+                });
+            }, 3000); // 1초 후에 animation1을 사라지게 하고 animation2를 나타나게 함
+        }
+
     }, [sceen, animation1]);
+    
 
     return(
         <View style={tw`flex-1`}>
@@ -86,11 +139,15 @@ const IntroExplain = () => {
                 <Animatable.View ref={(ref) => setAnimation4(ref)} style={sceen===4?tw`absolute top-0 left-0 right-0 bottom-0`:`hidden`}>
                     <ClockPicker display={sceen}/>
                 </Animatable.View>
-                
                 <ConfirmBtn display={sceen}/>
+                <Animatable.Text ref={(ref) => setAnimation4(ref)} style={sceen===4?tw`absolute top-0 left-0 right-0 bottom-0 text-white text-5 mt-[${height}] text-center`:tw`hidden`}>평소 몇 시에 잠에 드시나요?</Animatable.Text>
                 
-                <Animatable.Text ref={(ref) => setAnimation4(ref)} style={sceen===4?tw`absolute top-0 left-0 right-0 bottom-0 text-white text-5 mt-[${height}] text-center`:tw`hidden`}>주로 몇시에 주무시나요?</Animatable.Text>
+                <DropDownTime display={sceen}/>
+                <Animatable.Text ref={(ref) => setAnimation5(ref)} style={sceen===5?tw`absolute top-0 left-0 right-0 bottom-0 text-white text-5 mt-[${height}] text-center`:tw`hidden`}>평소 몇 시간 정도 잠을 자시나요?</Animatable.Text>
             
+                <Animatable.Text ref={(ref) => setAnimation6(ref)} style={sceen===6?tw`absolute top-0 left-0 right-0 bottom-0 text-white text-5 mt-[${height}] text-center`:tw`hidden`}>대답 감사합니다.</Animatable.Text>
+
+                <Animatable.Text ref={(ref) => setAnimation7(ref)} style={sceen===7?tw`absolute top-0 left-0 right-0 bottom-0 text-white text-5 mt-[${height}] text-center`:tw`hidden`}>{`sleep mate가\n행복한 수면 경험을 선사해드리겠습니다.`}</Animatable.Text>
             </View>
         </View>
     )
