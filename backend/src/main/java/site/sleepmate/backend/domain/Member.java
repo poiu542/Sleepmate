@@ -2,14 +2,16 @@ package site.sleepmate.backend.domain;
 
 import jakarta.persistence.*;
 import lombok.*;
+import org.hibernate.annotations.ColumnDefault;
 
-import java.time.LocalDateTime;
+import java.sql.Time;
 import java.util.ArrayList;
 import java.util.List;
 
 @Entity
 @Getter
 @NoArgsConstructor(access = AccessLevel.PROTECTED)
+@AllArgsConstructor
 public class Member {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
@@ -23,42 +25,47 @@ public class Member {
     private String nickname;
 
     @Column(name = "gender", nullable = false)
-    private Character gender;
+    private String gender;
 
-    @Column(name = "birth", nullable = false)
-    private String birth;
+    @Column(name = "age_range", nullable = false)
+    private String ageRange;
 
-    @Column(name = "hasWatch", nullable = false)
+    @Column(name = "has_watch", nullable = false)
     private Boolean hasWatch;
 
-    @Column(name = "manual", nullable = false)
-    private Boolean manual;
+    @Column(name = "no_survey", nullable = false)
+    private Boolean noServey;
 
-    @Column(name = "alarm")
-    private LocalDateTime alarm;
+    @Column(name = "alarm", nullable = false)
+    private Time alarm;
 
     @Column(name = "crescendo", nullable = false)
     private Boolean crescendo;
 
-    @Column(name = "isDelecated", nullable = false)
-    private Boolean isDelecated;
-
     @OneToMany(mappedBy = "memberSeq")
-    private List<WatchRecord> watchRecords = new ArrayList<WatchRecord>();
+    private List<HeartRateRecord> heartRateRecords = new ArrayList<HeartRateRecord>();
 
     @OneToMany(mappedBy = "memberSeq")
     private List<VideoRecord> videoRecords = new ArrayList<VideoRecord>();
 
+    @OneToMany(mappedBy = "memberSeq")
+    private List<LuxRecord> luxRecords = new ArrayList<LuxRecord>();
+
+    @OneToMany(mappedBy = "memberSeq")
+    private List<VideoOrder> videoOrders = new ArrayList<VideoOrder>();
+
+    @OneToMany(mappedBy = "memberSeq")
+    private List<AccelerometerRecord> accelerometerRecords = new ArrayList<AccelerometerRecord>();
+
     @Builder
-    public Member(String email, String nickname, Character gender, String birth, Boolean hasWatch, Boolean manual, LocalDateTime alarm, Boolean crescendo, Boolean isDelecated) {
+    public Member(String email, String nickname, String gender, String ageRange, Boolean hasWatch, Boolean noServey, Time alarm, Boolean crescendo) {
         this.email = email;
         this.nickname = nickname;
         this.gender = gender;
-        this.birth = birth;
+        this.ageRange = ageRange;
         this.hasWatch = hasWatch;
-        this.manual = manual;
+        this.noServey = noServey;
         this.alarm = alarm;
         this.crescendo = crescendo;
-        this.isDelecated = isDelecated;
     }
 }

@@ -1,38 +1,36 @@
 package site.sleepmate.backend.domain;
 
-
 import jakarta.persistence.*;
-import lombok.*;
+import lombok.AccessLevel;
+import lombok.Builder;
+import lombok.Getter;
+import lombok.NoArgsConstructor;
 
 import java.time.LocalDateTime;
 
 @Entity
 @Getter
 @NoArgsConstructor(access = AccessLevel.PROTECTED)
-public class VideoRecordLog {
+public class HeartRateRecord {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
-    @Column(name = "video_log_seq", updatable = false)
-    private Long videoLogSeq;
+    @Column(name = "heart_rate_seq", updatable = false)
+    private Long heartRateSeq;
 
     @ManyToOne(fetch = FetchType.LAZY)
     @JoinColumn(name = "memberSeq")
     private Member memberSeq;
 
+    @Column(name = "heart_rate", nullable = false)
+    private Double heartRate;
+
     @Column(name = "time", nullable = false)
     private LocalDateTime time;
 
-    @Column(name = "posture", nullable = false)
-    private Integer posture;
-
-    @Column(name = "capture", nullable = false)
-    private String capture;
-
     @Builder
-    public VideoRecordLog(Member memberSeq, LocalDateTime time, Integer posture, String capture) {
+    public HeartRateRecord(Member memberSeq, Double heartRate, LocalDateTime time) {
         this.memberSeq = memberSeq;
+        this.heartRate = heartRate;
         this.time = time;
-        this.posture = posture;
-        this.capture = capture;
     }
 }
