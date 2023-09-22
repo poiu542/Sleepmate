@@ -24,31 +24,27 @@ public class RecordToOrderService {
         // 처음 들어온 자세
         Integer temp = videoRecords.get(0).getPosture();
         LocalDateTime startTime = videoRecords.get(0).getTime();
-        LocalDateTime endTime = null;
-        Integer posture = 0;
         String capture = videoRecords.get(0).getCapture();
 
         for (int i = 1; i < videoRecords.size(); i++) {
             // 첫 자세 시각, 자세, 자세캡쳐화면만 넣고 객체 생성
             VideoOrder videoOrder = VideoOrder.builder()
+                    .posture(temp)
                     .startTime(startTime)
-                    .endTime(endTime)
-                    .posture(posture)
+                    .endTime(null)
                     .capture(capture)
                     .build();
 
-            if (!Objects.equals(videoRecords.get(i).getPosture(), temp)) {
+            if (!videoRecords.get(i).getPosture().equals(temp)) {
                 videoOrderRepository.save(VideoOrder.builder()
-                        .posture(videoRecords.get(i).getPosture())
+                        .posture(videoOrder.getPosture())
                         .startTime(videoOrder.getStartTime())
                         .endTime(videoRecords.get(i-1).getTime())
-                        .capture(videoRecords.get(i).getCapture())
+                        .capture(videoOrder.getCapture())
                         .build());
 
                 temp = videoRecords.get(i).getPosture();
                 startTime = videoRecords.get(i).getTime();
-                endTime = videoRecords.get(i-1).getTime();
-                posture = videoRecords.get(i).getPosture();
                 capture = videoRecords.get(i).getCapture();
             }
         }
