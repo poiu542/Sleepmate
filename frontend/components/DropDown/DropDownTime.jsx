@@ -1,7 +1,6 @@
-import * as React from 'react';
-import { Text, View, Button, Dimensions, TouchableOpacity } from 'react-native';
+import React, {useState} from 'react';
+import { Text, View, Button, Dimensions, TouchableOpacity, ScrollView } from 'react-native';
 import tw from 'twrnc';
-import {SelectList, MultipleSelectList }from 'react-native-dropdown-select-list'
 
 // recoil
 import {useRecoilState} from "recoil";
@@ -17,28 +16,37 @@ const DropDownTime = ({display}) => {
 
     const [selected, setSelected] = React.useState("");
     const [categories, setCategories] = React.useState([]);
-    
-    const data = [
-        {key:12, value:'12시간'},
-        {key:11, value:'11시간'},
-        {key:10, value:'10시간'},
-        {key:9, value:'9시간'},
-        {key:8, value:'8시간'},
-        {key:7, value:'7시간'},
-        {key:6, value:'6시간'},
-        {key:5, value:'5시간'},
-        {key:4, value:'4시간'},
-        {key:3, value:'3시간'},
-        {key:2, value:'2시간'},
-        {key:1, value:'1시간'},
-    ]
+
+    const [pick, setPick] = useState(0);
+
+
+
 
     return (
         <>
-            {display===5? 
-            <View style={tw`w-75 mt-[${height}] bg-white opacity-80 rounded-xl ml-[${width}]`}>
-                <SelectList style={tw`flex-1`} setSelected={setSelected} data={data}  />
-            </View>:null}
+
+            {
+                display===5?
+                <View style={tw`w-[300px] h-[250px] ml-[${width}] mt-[${height}] rounded-xl`}>
+                    <View style={tw`absolute w-full h-full bg-black rounded-xl opacity-50`}></View>
+                    <ScrollView>
+                        <TouchableOpacity onPress={()=>setPick(12)} style={pick===12?tw`w-full h-20 items-center justify-center bg-green-500 rounded-xl`:tw`w-full h-20 items-center justify-center`}><Text style={tw`text-white`}>12시간</Text></TouchableOpacity>
+                        <TouchableOpacity onPress={()=>setPick(11)} style={pick===11?tw`w-full h-20 items-center justify-center bg-green-500 rounded-xl`:tw`w-full h-20 items-center justify-center`}><Text style={tw`text-white`}>11시간</Text></TouchableOpacity>
+                        <TouchableOpacity onPress={()=>setPick(10)} style={pick===10?tw`w-full h-20 items-center justify-center bg-green-500 rounded-xl`:tw`w-full h-20 items-center justify-center`}><Text style={tw`text-white`}>10시간</Text></TouchableOpacity>
+                        <TouchableOpacity onPress={()=>setPick(9)} style={pick===9?tw`w-full h-20 items-center justify-center bg-green-500 rounded-xl`:tw`w-full h-20 items-center justify-center`}><Text style={tw`text-white`}>9시간</Text></TouchableOpacity>
+                        <TouchableOpacity onPress={()=>setPick(8)} style={pick===8?tw`w-full h-20 items-center justify-center bg-green-500 rounded-xl`:tw`w-full h-20 items-center justify-center`}><Text style={tw`text-white`}>8시간</Text></TouchableOpacity>
+                        <TouchableOpacity onPress={()=>setPick(7)} style={pick===7?tw`w-full h-20 items-center justify-center bg-green-500 rounded-xl`:tw`w-full h-20 items-center justify-center`}><Text style={tw`text-white`}>7시간</Text></TouchableOpacity>
+                        <TouchableOpacity onPress={()=>setPick(6)} style={pick===6?tw`w-full h-20 items-center justify-center bg-green-500 rounded-xl`:tw`w-full h-20 items-center justify-center`}><Text style={tw`text-white`}>6시간</Text></TouchableOpacity>
+                        <TouchableOpacity onPress={()=>setPick(5)} style={pick===5?tw`w-full h-20 items-center justify-center bg-green-500 rounded-xl`:tw`w-full h-20 items-center justify-center`}><Text style={tw`text-white`}>5시간</Text></TouchableOpacity>
+                        <TouchableOpacity onPress={()=>setPick(4)} style={pick===4?tw`w-full h-20 items-center justify-center bg-green-500 rounded-xl`:tw`w-full h-20 items-center justify-center`}><Text style={tw`text-white`}>4시간</Text></TouchableOpacity>
+                        <TouchableOpacity onPress={()=>setPick(3)} style={pick===3?tw`w-full h-20 items-center justify-center bg-green-500 rounded-xl`:tw`w-full h-20 items-center justify-center`}><Text style={tw`text-white`}>3시간</Text></TouchableOpacity>
+                        <TouchableOpacity onPress={()=>setPick(2)} style={pick===2?tw`w-full h-20 items-center justify-center bg-green-500 rounded-xl`:tw`w-full h-20 items-center justify-center`}><Text style={tw`text-white`}>2시간</Text></TouchableOpacity>
+                        <TouchableOpacity onPress={()=>setPick(1)} style={pick===1?tw`w-full h-20 items-center justify-center bg-green-500 rounded-xl`:tw`w-full h-20 items-center justify-center`}><Text style={tw`text-white`}>1시간</Text></TouchableOpacity>
+                    </ScrollView>
+
+
+                </View>:null
+            }
         </>
     );
 }

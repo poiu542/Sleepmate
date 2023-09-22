@@ -42,7 +42,7 @@ const IntroExplain = () => {
                         return animation2Ref;
                     });
                 });
-            }, 2000); // 1초 후에 animation1을 사라지게 하고 animation2를 나타나게 함
+            }, 2000);
         }
 
         if (sceen===2 && animation1) {
@@ -56,48 +56,58 @@ const IntroExplain = () => {
                         return animation3Ref;
                     });
                 });
-            }, 3000); // 1초 후에 animation1을 사라지게 하고 animation2를 나타나게 함
+            }, 3000);
         }
 
         if (sceen===3 && animation1) {
             setTimeout(() => {
                 animation3.fadeOut(3000).then(() => {
                     setSceen(4);
-                    setAnimation4(animation4Ref => {
+                    setAnimation4(animation4Ref => { //평소 몇 시에 잠에 드시나요?
                         if (animation4Ref) {
                             animation4Ref.fadeIn(3000);
                         }
                         return animation4Ref;
                     });
                 });
-            }, 3000); // 1초 후에 animation1을 사라지게 하고 animation2를 나타나게 함
+            }, 3000);
         }
+
+        //sceen==4일땐 fade out 되면 안되니까 생략
+
 
         if (sceen===5 && animation1) {
+            //sceen==4 없애고, sceen==5 질문 띄우기
+
             setTimeout(() => {
                 animation4.fadeOut(3000).then(() => {
-                    setAnimation5(animation5Ref => {
+                    setSceen(5);
+                    setAnimation5(animation5Ref => {//평소 몇 시간 정도 잠에 드시나요?
                         if (animation5Ref) {
                             animation5Ref.fadeIn(3000);
                         }
                         return animation5Ref;
                     });
                 });
-            }, 3000); // 1초 후에 animation1을 사라지게 하고 animation2를 나타나게 함
+            }, 3000); 
         }
 
+        //sceen==5일땐 fade out 되면 안되니까 생략
+
         if (sceen===6 && animation1) {
+
             setTimeout(() => {
                 animation5.fadeOut(3000).then(() => {
-                    setSceen(7);
-                    setAnimation5(animation5Ref => {
-                        if (animation5Ref) {
-                            animation5Ref.fadeIn(3000);
+                    setSceen(6);
+                    setAnimation6(animation6Ref => {
+                        if (animation6Ref) {
+                            animation6Ref.fadeIn(3000);
+                            setSceen(7);
                         }
-                        return animation5Ref;
+                        return animation6Ref;
                     });
                 });
-            }, 3000); // 1초 후에 animation1을 사라지게 하고 animation2를 나타나게 함
+            }, 3000);
         }
 
         if (sceen===7 && animation1) {
@@ -111,8 +121,9 @@ const IntroExplain = () => {
                         return animation7Ref;
                     });
                 });
-            }, 3000); // 1초 후에 animation1을 사라지게 하고 animation2를 나타나게 함
+            }, 3000);
         }
+
 
     }, [sceen, animation1]);
     
