@@ -26,7 +26,7 @@ const DropDownTime = ({display}) => {
         <>
 
             {
-                display===5?
+                display===6?
                 <View style={tw`w-[300px] h-[250px] ml-[${width}] mt-[${height}] rounded-xl`}>
                     <View style={tw`absolute w-full h-full bg-black rounded-xl opacity-50`}></View>
                     <ScrollView>

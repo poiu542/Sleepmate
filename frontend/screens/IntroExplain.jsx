@@ -21,9 +21,9 @@ const IntroExplain = () => {
     const [animation2, setAnimation2] = useState(null);
     const [animation3, setAnimation3] = useState(null);
     const [animation4, setAnimation4] = useState(null);
-    const [animation5, setAnimation5] = useState(null);
     const [animation6, setAnimation6] = useState(null);
-    const [animation7, setAnimation7] = useState(null);
+    const [animation8, setAnimation8] = useState(null);
+    const [animation9, setAnimation9] = useState(null);
     const [sceen, setSceen] = useRecoilState(sceenNumberState);
 
 
@@ -81,12 +81,12 @@ const IntroExplain = () => {
 
             setTimeout(() => {
                 animation4.fadeOut(3000).then(() => {
-                    setSceen(5);
-                    setAnimation5(animation5Ref => {//평소 몇 시간 정도 잠에 드시나요?
-                        if (animation5Ref) {
-                            animation5Ref.fadeIn(3000);
+                    setSceen(6);
+                    setAnimation6(animation6Ref => {//평소 몇 시간 정도 잠에 드시나요?
+                        if (animation6Ref) {
+                            animation6Ref.fadeIn(3000);
                         }
-                        return animation5Ref;
+                        return animation6Ref;
                     });
                 });
             }, 3000); 
@@ -94,31 +94,30 @@ const IntroExplain = () => {
 
         //sceen==5일땐 fade out 되면 안되니까 생략
 
-        if (sceen===6 && animation1) {
+        if (sceen===7 && animation1) {
 
             setTimeout(() => {
-                animation5.fadeOut(3000).then(() => {
-                    setSceen(6);
-                    setAnimation6(animation6Ref => {
-                        if (animation6Ref) {
-                            animation6Ref.fadeIn(3000);
-                            setSceen(7);
+                animation6.fadeOut(3000).then(() => {
+                    setSceen(8);
+                    setAnimation8(animation8Ref => {
+                        if (animation8Ref) {
+                            animation8Ref.fadeIn(3000);
                         }
-                        return animation6Ref;
+                        return animation8Ref;
                     });
                 });
             }, 3000);
         }
 
-        if (sceen===7 && animation1) {
+        if (sceen===8 && animation1) {
             setTimeout(() => {
-                animation6.fadeOut(3000).then(() => {
-                    setSceen(7);
-                    setAnimation7(animation7Ref => {
-                        if (animation7Ref) {
-                            animation7Ref.fadeIn(3000);
+                animation8.fadeOut(3000).then(() => {
+                    setSceen(9);
+                    setAnimation9(animation9Ref => {
+                        if (animation9Ref) {
+                            animation9Ref.fadeIn(3000);
                         }
-                        return animation7Ref;
+                        return animation9Ref;
                     });
                 });
             }, 3000);
@@ -154,11 +153,11 @@ const IntroExplain = () => {
                 <Animatable.Text ref={(ref) => setAnimation4(ref)} style={sceen===4?tw`absolute top-0 left-0 right-0 bottom-0 text-white text-5 mt-[${height}] text-center`:tw`hidden`}>평소 몇 시에 잠에 드시나요?</Animatable.Text>
                 
                 <DropDownTime display={sceen}/>
-                <Animatable.Text ref={(ref) => setAnimation5(ref)} style={sceen===5?tw`absolute top-0 left-0 right-0 bottom-0 text-white text-5 mt-[${height}] text-center`:tw`hidden`}>평소 몇 시간 정도 잠을 자시나요?</Animatable.Text>
+                <Animatable.Text ref={(ref) => setAnimation6(ref)} style={sceen===6?tw`absolute top-0 left-0 right-0 bottom-0 text-white text-5 mt-[${height}] text-center`:tw`hidden`}>평소 몇 시간 정도 잠을 자시나요?</Animatable.Text>
             
-                <Animatable.Text ref={(ref) => setAnimation6(ref)} style={sceen===6?tw`absolute top-0 left-0 right-0 bottom-0 text-white text-5 mt-[${height}] text-center`:tw`hidden`}>대답 감사합니다.</Animatable.Text>
+                <Animatable.Text ref={(ref) => setAnimation8(ref)} style={sceen===8?tw`absolute top-0 left-0 right-0 bottom-0 text-white text-5 mt-[${height}] text-center`:tw`hidden`}>대답 감사합니다.</Animatable.Text>
 
-                <Animatable.Text ref={(ref) => setAnimation7(ref)} style={sceen===7?tw`absolute top-0 left-0 right-0 bottom-0 text-white text-5 mt-[${height}] text-center`:tw`hidden`}>{`sleep mate가\n행복한 수면 경험을 선사해드리겠습니다.`}</Animatable.Text>
+                <Animatable.Text ref={(ref) => setAnimation9(ref)} style={sceen===9?tw`absolute top-0 left-0 right-0 bottom-0 text-white text-5 mt-[${height}] text-center`:tw`hidden`}>{`sleep mate가\n행복한 수면 경험을 선사해드리겠습니다.`}</Animatable.Text>
             </View>
         </View>
     )
