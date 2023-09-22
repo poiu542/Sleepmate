@@ -19,7 +19,8 @@ public class OAuthController {
 
     @GetMapping("/kakao")
     public ResponseEntity<String> kakaoCallback(@RequestParam String code) {
-        oauthService.createKakaoUser(oauthService.getKakaoAccessToken(code));
-        return ResponseEntity.status(HttpStatus.OK).body("ok");
+        String token = oauthService.getKakaoAccessToken(code);
+        oauthService.createKakaoUser(token);
+        return ResponseEntity.status(HttpStatus.OK).body("OK");
     }
 }
