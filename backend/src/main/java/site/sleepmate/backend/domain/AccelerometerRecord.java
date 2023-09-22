@@ -19,7 +19,7 @@ public class AccelerometerRecord {
 
     @ManyToOne(fetch = FetchType.LAZY)
     @JoinColumn(name = "memberSeq")
-    private Member memberSeq;
+    private Member member;
 
     @Column(name = "m_value", nullable = false)
     private Double mValue;
@@ -27,8 +27,8 @@ public class AccelerometerRecord {
     @Column(name = "time", nullable = false)
     private LocalDateTime time;
 
-    public AccelerometerRecord(Member memberSeq, Double mValue, LocalDateTime time) {
-        this.memberSeq = memberSeq;
+    public AccelerometerRecord(Member member, Double mValue, LocalDateTime time) {
+        this.member = member;
         this.mValue = mValue;
         this.time = time;
     }

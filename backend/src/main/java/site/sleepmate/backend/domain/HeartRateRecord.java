@@ -19,7 +19,7 @@ public class HeartRateRecord {
 
     @ManyToOne(fetch = FetchType.LAZY)
     @JoinColumn(name = "memberSeq")
-    private Member memberSeq;
+    private Member member;
 
     @Column(name = "heart_rate", nullable = false)
     private Double heartRate;
@@ -28,8 +28,8 @@ public class HeartRateRecord {
     private LocalDateTime time;
 
     @Builder
-    public HeartRateRecord(Member memberSeq, Double heartRate, LocalDateTime time) {
-        this.memberSeq = memberSeq;
+    public HeartRateRecord(Member member, Double heartRate, LocalDateTime time) {
+        this.member = member;
         this.heartRate = heartRate;
         this.time = time;
     }
