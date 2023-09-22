@@ -2,6 +2,7 @@ package site.sleepmate.backend.service;
 
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
+import site.sleepmate.backend.domain.Member;
 import site.sleepmate.backend.domain.VideoOrder;
 import site.sleepmate.backend.domain.VideoRecord;
 import site.sleepmate.backend.repository.VideoOrderRepository;
@@ -18,8 +19,8 @@ public class RecordToOrderService {
     private final VideoRecordRepository videoRecordRepository;
     private final VideoOrderRepository videoOrderRepository;
 
-    public void getVideoOrder() {
-        List<VideoRecord> videoRecords = videoRecordRepository.findAll();
+    public void getVideoOrder(Integer member, LocalDateTime time) {
+        List<VideoRecord> videoRecords = videoRecordRepository.findByMemberSeqAndTimeOrderBy(member, time);
         // 처음 들어온 자세
         Integer temp = videoRecords.get(0).getPosture();
         LocalDateTime startTime = videoRecords.get(0).getTime();
