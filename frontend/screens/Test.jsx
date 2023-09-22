@@ -6,7 +6,7 @@ function Test() {
     //우리의 배포된 웹사이트
     return (
         <WebView 
-            source={{uri : "https://www.google.co.kr/" }}>
+            source={{uri : "https://daen12.github.io/rtsp-camera/test.html" }}>
         </WebView>
     );
 }
