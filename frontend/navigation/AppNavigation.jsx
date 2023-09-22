@@ -10,6 +10,7 @@ import tw from "twrnc";
 
 
 // 화면 import
+import IntroExplane from "../screens/IntroExplain";
 
 const Stack = createNativeStackNavigator();
 const Tab = createBottomTabNavigator();
@@ -97,9 +98,9 @@ const CancelInviteButton = ({navigation}) => {
 const AppNavigation = () => {
   return (
     <NavigationContainer>
-      {/* <Stack.Navigator 
-        initialRouteName='Intro'>
-        <Stack.Screen name='Intro' component={Intro} options={{headerShown:false}} /> */}
+      <Stack.Navigator 
+        initialRouteName='IntroExplane'>
+        <Stack.Screen name='IntroExplane' component={IntroExplane} options={{headerShown:false}} />
 
         {/* <Stack.Screen
             name="MainTabNavigator"
@@ -113,7 +114,7 @@ const AppNavigation = () => {
             }}
           /> */}
         
-      {/* </Stack.Navigator> */}
+      </Stack.Navigator>
     </NavigationContainer>
   )
 }
