@@ -5,6 +5,7 @@ import com.google.gson.JsonElement;
 import com.google.gson.JsonObject;
 import com.google.gson.JsonParser;
 import lombok.RequiredArgsConstructor;
+import lombok.Value;
 import org.springframework.stereotype.Service;
 import site.sleepmate.backend.domain.Member;
 import site.sleepmate.backend.repository.MemberRepository;
@@ -19,9 +20,7 @@ import java.sql.Time;
 @RequiredArgsConstructor
 public class OauthService {
     private final MemberRepository memberRepository;
-
     public String getKakaoAccessToken(String code) throws IOException {
-
         String access_Token = "";
         String refresh_Token = "";
         String reqURL = "https://kauth.kakao.com/oauth/token";
