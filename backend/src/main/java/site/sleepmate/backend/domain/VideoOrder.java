@@ -18,7 +18,7 @@ public class VideoOrder {
 
     @ManyToOne(fetch = FetchType.LAZY)
     @JoinColumn(name = "memberSeq")
-    private Member memberSeq;
+    private Member member;
 
     @Column(name = "posture", nullable = false)
     private Integer posture;
@@ -33,8 +33,8 @@ public class VideoOrder {
     private String capture;
 
     @Builder
-    public VideoOrder(Member memberSeq, Integer posture, LocalDateTime startTime, LocalDateTime endTime, String capture) {
-        this.memberSeq = memberSeq;
+    public VideoOrder(Member member, Integer posture, LocalDateTime startTime, LocalDateTime endTime, String capture) {
+        this.member = member;
         this.startTime = startTime;
         this.endTime = endTime;
         this.posture = posture;

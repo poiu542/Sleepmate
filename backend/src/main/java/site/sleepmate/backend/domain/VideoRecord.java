@@ -19,7 +19,7 @@ public class VideoRecord {
 
     @ManyToOne(fetch = FetchType.LAZY)
     @JoinColumn(name = "memberSeq")
-    private Member memberSeq;
+    private Member member;
 
     @Column(name = "time", nullable = false)
     private LocalDateTime time;
@@ -31,8 +31,8 @@ public class VideoRecord {
     private String capture;
 
     @Builder
-    public VideoRecord(Member memberSeq, LocalDateTime time, Integer posture, String capture) {
-        this.memberSeq = memberSeq;
+    public VideoRecord(Member member, LocalDateTime time, Integer posture, String capture) {
+        this.member = member;
         this.time = time;
         this.posture = posture;
         this.capture = capture;
