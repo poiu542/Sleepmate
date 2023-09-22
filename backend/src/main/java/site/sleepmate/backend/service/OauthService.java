@@ -114,7 +114,7 @@ public class OauthService {
 
             String email = "";
             String nickname = properties.getAsJsonObject().get("nickname").getAsString();
-            String AgeRange = "";
+            String ageRange = "";
             String gender = "";
 
             if(hasEmail){
@@ -122,7 +122,7 @@ public class OauthService {
             }
 
             if (hasAgeRange) {
-                AgeRange = element.getAsJsonObject().get("kakao_account").getAsJsonObject().get("age_range").getAsString();
+                ageRange = element.getAsJsonObject().get("kakao_account").getAsJsonObject().get("age_range").getAsString();
             }
 
             if (hasGender) {
@@ -131,7 +131,7 @@ public class OauthService {
 
             System.out.println("email : " + email);
             System.out.println("nickname : " + nickname);
-            System.out.println("AgeRange : " + AgeRange);
+            System.out.println("ageRange : " + ageRange);
             System.out.println("gender = " + gender);
 
 
@@ -139,7 +139,7 @@ public class OauthService {
                     .email(email)
                     .nickname(nickname)
                     .gender(gender)
-                    .ageRange(AgeRange)
+                    .ageRange(ageRange)
                     .hasWatch(false)
                     .alarm(Time.valueOf("07:00:00"))
                     .noServey(true)
