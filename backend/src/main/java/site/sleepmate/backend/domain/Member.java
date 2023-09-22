@@ -42,19 +42,19 @@ public class Member {
     @Column(name = "crescendo", nullable = false)
     private Boolean crescendo;
 
-    @OneToMany(mappedBy = "memberSeq")
+    @OneToMany(mappedBy = "member")
     private List<HeartRateRecord> heartRateRecords = new ArrayList<HeartRateRecord>();
 
-    @OneToMany(mappedBy = "memberSeq")
+    @OneToMany(mappedBy = "member")
     private List<VideoRecord> videoRecords = new ArrayList<VideoRecord>();
 
-    @OneToMany(mappedBy = "memberSeq")
+    @OneToMany(mappedBy = "member")
     private List<LuxRecord> luxRecords = new ArrayList<LuxRecord>();
 
-    @OneToMany(mappedBy = "memberSeq")
+    @OneToMany(mappedBy = "member")
     private List<VideoOrder> videoOrders = new ArrayList<VideoOrder>();
 
-    @OneToMany(mappedBy = "memberSeq")
+    @OneToMany(mappedBy = "member")
     private List<AccelerometerRecord> accelerometerRecords = new ArrayList<AccelerometerRecord>();
 
     @Builder
