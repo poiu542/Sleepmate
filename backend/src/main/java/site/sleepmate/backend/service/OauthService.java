@@ -35,12 +35,11 @@ public class OauthService {
 
         //POST 요청에 필요로 요구하는 파라미터 스트림을 통해 전송
         BufferedWriter bw = new BufferedWriter(new OutputStreamWriter(conn.getOutputStream()));
-        StringBuilder sb = new StringBuilder();
-        sb.append("grant_type=authorization_code");
-        sb.append("&client_id=1e4417060773b8517915b413b7a1942d"); // TODO REST_API_KEY 입력
-        sb.append("&redirect_uri=http://localhost:8080/oauth/kakao"); // TODO 인가코드 받은 redirect_uri 입력
-        sb.append("&code=").append(code);
-        bw.write(sb.toString());
+        String sb = "grant_type=authorization_code" +
+                "&client_id=1e4417060773b8517915b413b7a1942d" + // TODO REST_API_KEY 입력
+                "&redirect_uri=http://localhost:8080/oauth/kakao" + // TODO 인가코드 받은 redirect_uri 입력
+                "&code=" + code;
+        bw.write(sb);
         bw.flush();
 
         //결과 코드가 200이라면 성공
@@ -58,8 +57,7 @@ public class OauthService {
         System.out.println("response body : " + result);
 
         //Gson 라이브러리에 포함된 클래스로 JSON파싱 객체 생성
-        JsonParser parser = new JsonParser();
-        JsonElement element = parser.parse(result);
+        JsonElement element = JsonParser.parseString(result);
 
         access_Token = element.getAsJsonObject().get("access_token").getAsString();
         refresh_Token = element.getAsJsonObject().get("refresh_token").getAsString();
