@@ -16,7 +16,7 @@ const ConfirmBtn = ({display}) => {
 
     return (
         <>
-            {display===4 || display===6?<TouchableOpacity onPress={()=>setSceen(sceen+1)}>
+            {display===4 || display===6 || display===8?<TouchableOpacity onPress={()=>setSceen(sceen+1)}>
                 <View style={tw`absolute justify-center items-center w-75 h-15 bg-gray-400 rounded ml-[${width}] mt-[${height}] p-8`}>
                     <Text style={tw`text-xl h-6 text-white font-bold`}>응답 완료</Text>
                 </View>

@@ -1,5 +1,5 @@
 import { StatusBar } from "expo-status-bar";
-import {Text, View, Dimensions} from 'react-native';
+import {Text, View, Dimensions, TextInput, TouchableWithoutFeedback, Keyboard } from 'react-native';
 import React, {useState, useEffect} from "react";
 import { Video } from "expo-av";
 import tw from "twrnc";
@@ -23,11 +23,18 @@ const IntroExplain = () => {
     const [animation4, setAnimation4] = useState(null);
     const [animation6, setAnimation6] = useState(null);
     const [animation8, setAnimation8] = useState(null);
-    const [animation9, setAnimation9] = useState(null);
+    const [animation10, setAnimation10] = useState(null);
+    const [animation11, setAnimation11] = useState(null);
+
     const [sceen, setSceen] = useRecoilState(sceenNumberState);
 
 
+    const widthInput = Dimensions.get("window").width/2-150;
+    const heightInput = Dimensions.get("window").height-500;
     const height = Dimensions.get("window").height-150;
+
+    const [cm, setCm] = useState(0);
+    const [kg, setKg] = useState(0);
 
     // 애니메이션 효과
     useEffect(() => {
@@ -109,15 +116,29 @@ const IntroExplain = () => {
             }, 3000);
         }
 
-        if (sceen===8 && animation1) {
+        if (sceen===9 && animation1) {
             setTimeout(() => {
                 animation8.fadeOut(3000).then(() => {
-                    setSceen(9);
-                    setAnimation9(animation9Ref => {
-                        if (animation9Ref) {
-                            animation9Ref.fadeIn(3000);
+                    setSceen(10);
+                    setAnimation10(animation10Ref => {
+                        if (animation10Ref) {
+                            animation10Ref.fadeIn(3000);
                         }
-                        return animation9Ref;
+                        return animation10Ref;
+                    });
+                });
+            }, 3000);
+        }
+
+        if (sceen===10 && animation1) {
+            setTimeout(() => {
+                animation8.fadeOut(3000).then(() => {
+                    setSceen(11);
+                    setAnimation11(animation11Ref => {
+                        if (animation11Ref) {
+                            animation11Ref.fadeIn(3000);
+                        }
+                        return animation11Ref;
                     });
                 });
             }, 3000);
@@ -128,8 +149,10 @@ const IntroExplain = () => {
     
 
     return(
+        
+        <TouchableWithoutFeedback onPress={Keyboard.dismiss}>
         <View style={tw`flex-1`}>
-            
+
             <StatusBar hidden />
 
             <Video 
@@ -155,11 +178,31 @@ const IntroExplain = () => {
                 <DropDownTime display={sceen}/>
                 <Animatable.Text ref={(ref) => setAnimation6(ref)} style={sceen===6?tw`absolute top-0 left-0 right-0 bottom-0 text-white text-5 mt-[${height}] text-center`:tw`hidden`}>평소 몇 시간 정도 잠을 자시나요?</Animatable.Text>
             
-                <Animatable.Text ref={(ref) => setAnimation8(ref)} style={sceen===8?tw`absolute top-0 left-0 right-0 bottom-0 text-white text-5 mt-[${height}] text-center`:tw`hidden`}>대답 감사합니다.</Animatable.Text>
+                {sceen===8?<TextInput
+                    keyboardType='numeric'
+                    value={cm}
+                    onChangeText={(data) => setCm(data)}
+                    placeholder={'키(cm)'}
+                    placeholderTextColor={"white"}
+                    style={tw`bg-black opacity-50 text-white rounded-xl absolute top-0 left-0 right-0 bottom-0 w-75 h-15 ml-[${widthInput}] mt-[${heightInput}] p-8`}
+                />:null}
+                {sceen===8?<TextInput
+                    keyboardType='numeric'
+                    value={kg}
+                    onChangeText={(data) => setKg(data)}
+                    placeholder={'몸무게(kg)'}
+                    placeholderTextColor={"white"}
+                    style={tw`bg-black opacity-50 text-white rounded-xl absolute top-0 left-0 right-0 bottom-0 w-75 h-15 ml-[${widthInput}] mt-[${heightInput+80}] p-8`}
+                />:null}
+                <Animatable.Text ref={(ref) => setAnimation8(ref)} style={sceen===8?tw`absolute top-0 left-0 right-0 bottom-0 text-white text-5 mt-[${height}] text-center`:tw`hidden`}>{`키와 몸무게는 어떻게 되시나요?\nBMI검사에 활용됩니다.`}</Animatable.Text>
 
-                <Animatable.Text ref={(ref) => setAnimation9(ref)} style={sceen===9?tw`absolute top-0 left-0 right-0 bottom-0 text-white text-5 mt-[${height}] text-center`:tw`hidden`}>{`sleep mate가\n행복한 수면 경험을 선사해드리겠습니다.`}</Animatable.Text>
+
+                <Animatable.Text ref={(ref) => setAnimation10(ref)} style={sceen===10?tw`absolute top-0 left-0 right-0 bottom-0 text-white text-5 mt-[${height}] text-center`:tw`hidden`}>대답 감사합니다.</Animatable.Text>
+
+                <Animatable.Text ref={(ref) => setAnimation11(ref)} style={sceen===11?tw`absolute top-0 left-0 right-0 bottom-0 text-white text-5 mt-[${height}] text-center`:tw`hidden`}>{`sleep mate가\n행복한 수면 경험을 선사해드리겠습니다.`}</Animatable.Text>
             </View>
         </View>
+        </TouchableWithoutFeedback>
     )
 }
 
