@@ -3,7 +3,6 @@ package com.example.sleepmate.complication
 import android.content.ContentValues.TAG
 import android.content.Context
 import android.util.Log
-import java.lang.Exception
 import java.net.DatagramPacket
 import java.net.DatagramSocket
 import java.net.InetAddress

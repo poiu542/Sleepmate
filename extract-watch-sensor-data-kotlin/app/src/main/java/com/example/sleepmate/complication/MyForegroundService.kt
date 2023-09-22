@@ -7,7 +7,6 @@ import android.app.PendingIntent
 import android.app.PendingIntent.FLAG_IMMUTABLE
 import android.app.Service
 import android.content.ComponentName
-import android.content.ContentValues.TAG
 import android.content.Context
 import android.content.Intent
 import android.hardware.Sensor
@@ -21,7 +20,6 @@ import androidx.core.app.NotificationCompat
 import com.example.sleepmate.presentation.MainActivity
 import kotlinx.coroutines.GlobalScope
 import kotlinx.coroutines.launch
-import kotlin.math.roundToLong
 
 /**
  * Foreground 서비스 코드
