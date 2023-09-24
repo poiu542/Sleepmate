@@ -16,7 +16,7 @@ const Date = ({ date, onSelectDate, selected }) => {
   return (
     <TouchableOpacity
       onPress={() => onSelectDate(fullDate)}
-      style={[styles.card, selected === fullDate && { backgroundColor: "#6146c6" }]}
+      style={[styles.card, selected === fullDate && { backgroundColor: "#091B35" }]}
     >
       <Text
         style={[styles.big, selected === fullDate && { color: "#fff" }]}

@@ -7,6 +7,7 @@ import {LinearGradient} from 'expo-linear-gradient';
 
 // 컴포넌트
 import CalendarHorizontal from "../components/Calendar/CalendarHorizontal";
+import SleepDataArriveAlert from "../components/Alert/SleepDataArriveAlert";
 
 const Analysis = () => {
     const width = Dimensions.get("window").width;
@@ -25,9 +26,9 @@ const Analysis = () => {
                 isLooping={true}
             />
 
-            <ScrollView style={tw`pt-50 `}>
+            <ScrollView style={tw`pt-50`}>
                 <LinearGradient
-                    colors={['white' , 'white' ]} // Define your gradient colors
+                    colors={['white', 'white']} // Define your gradient colors
                     start={{ x: 0, y: 0.1 }} // Gradient start point
                     end={{ x: 0, y: 1 }} // Gradient end point
                     style={tw`rounded-2xl p-5 py-9 shadow-2xl w-full h-[${height}] self-center`} 
@@ -38,7 +39,17 @@ const Analysis = () => {
                         <StatusBar style="auto" />
                     </View>
     
+                    {/* 도착 데이터 */}
+                    <SleepDataArriveAlert/>
                 </LinearGradient>
+
+
+
+
+
+
+
+
             </ScrollView>
 
         </View>
