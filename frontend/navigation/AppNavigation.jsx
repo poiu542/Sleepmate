@@ -11,6 +11,7 @@ import tw from "twrnc";
 
 // 화면 import
 import IntroExplane from "../screens/IntroExplain";
+import Analysis from "../screens/Analysis";
 
 const Stack = createNativeStackNavigator();
 const Tab = createBottomTabNavigator();
@@ -100,7 +101,7 @@ const AppNavigation = () => {
     <NavigationContainer>
       <Stack.Navigator 
         initialRouteName='IntroExplane'>
-        <Stack.Screen name='IntroExplane' component={IntroExplane} options={{headerShown:false}} />
+        <Stack.Screen name='Analysis' component={Analysis} options={{headerShown:false}} />
 
         {/* <Stack.Screen
             name="MainTabNavigator"
