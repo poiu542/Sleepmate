@@ -8,6 +8,7 @@ import {LinearGradient} from 'expo-linear-gradient';
 // 컴포넌트
 import CalendarHorizontal from "../components/Calendar/CalendarHorizontal";
 import SleepDataArriveAlert from "../components/Alert/SleepDataArriveAlert";
+import SleepDataInfo from "../components/Alert/SleepDataInfo";
 
 const Analysis = () => {
     const width = Dimensions.get("window").width;
@@ -41,6 +42,9 @@ const Analysis = () => {
     
                     {/* 도착 데이터 */}
                     <SleepDataArriveAlert/>
+
+                    {/* 수면 시간 정리 */}
+                    <SleepDataInfo/>
                 </LinearGradient>
 
 
