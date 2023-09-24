@@ -16,6 +16,8 @@ import SleepDataInfo from "../components/Alert/SleepDataInfo";
 import SleepMotion from "../components/Motion/SleepMotion";
 import SleepVideoAlert from "../components/Alert/SleepVideoAlert";
 import HR from "../components/Html/HR";
+import SleepMotionPercent from "../components/Alert/SleepMotionPercent";
+import MotionChart from "../components/Chart/MotionChart";
 
 const Analysis = () => {
     const width = Dimensions.get("window").width;
@@ -53,7 +55,11 @@ const Analysis = () => {
 
                     <HR/>
 
-                    
+                    {/* 수면 그래프 */}
+                    <SleepMotionPercent/>
+                    <MotionChart/>
+
+
                  </LinearGradient>
             </ScrollView>
 
