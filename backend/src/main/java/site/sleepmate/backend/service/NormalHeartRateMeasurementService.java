@@ -22,8 +22,10 @@ public class NormalHeartRateMeasurementService {
         double maxBPM = 0.0;
         double bpm = 0.0;
 
+        // 1분간격으로 BPM을 계산하기 위해 크기 6으로 지정
         List<Double> calBPM = new ArrayList<Double>(6);
 
+        // 6번째가 될때마다 bpm값 구해서 최소값 or 최대값 구하는 로직
         for (int i = 0; i < heartRateRecords.size(); i++) {
             if (i % 6 == 0) {
                 double sumBPM = 0;
