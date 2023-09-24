@@ -13,7 +13,7 @@ import java.util.List;
 public class NormalHeartRateMeasurementService {
     private final HeartRateRecordRepository heartRateRecordRepository;
 
-    public Double[] getAveBPM() {
+    public Double[] getMinAndMaxBPM() {
         // 심박수 시간순으로 정렬해서 리스트에 담기
         List<HeartRateRecord> heartRateRecords = heartRateRecordRepository.findAllByHeartRateOrderByTime();
         // 분당 BPM 최소값, 최대값을 담을 배열

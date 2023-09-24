@@ -25,7 +25,7 @@ public class HeartRateController {
 
     @GetMapping("/normal")
     public ResponseEntity<String> normalMeasurement() {
-        normalHeartRateMeasurementService.getAveBPM();
+        normalHeartRateMeasurementService.getMinAndMaxBPM();
         return ResponseEntity.status(HttpStatus.OK).body("OK");
     }
 

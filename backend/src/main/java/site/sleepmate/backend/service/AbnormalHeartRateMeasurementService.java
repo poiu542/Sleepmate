@@ -7,7 +7,6 @@ import site.sleepmate.backend.domain.VideoOrder;
 import site.sleepmate.backend.repository.HeartRateRecordRepository;
 import site.sleepmate.backend.repository.VideoOrderRepository;
 
-import java.sql.Time;
 import java.time.LocalDateTime;
 import java.util.*;
 
@@ -16,6 +15,7 @@ import java.util.*;
 public class AbnormalHeartRateMeasurementService {
     private final HeartRateRecordRepository heartRateRecordRepository;
     private final VideoOrderRepository videoOrderRepository;
+    // 수면 날짜의 데이터 가져오기(수정해야함)
     private final List<HeartRateRecord> heartRateRecords = heartRateRecordRepository.findAll();
     private final List<VideoOrder> videoOrders = videoOrderRepository.findAll();
 
