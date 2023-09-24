@@ -14,6 +14,8 @@ import CalendarHorizontal from "../components/Calendar/CalendarHorizontal";
 import SleepDataArriveAlert from "../components/Alert/SleepDataArriveAlert";
 import SleepDataInfo from "../components/Alert/SleepDataInfo";
 import SleepMotion from "../components/Motion/SleepMotion";
+import SleepVideoAlert from "../components/Alert/SleepVideoAlert";
+import HR from "../components/Html/HR";
 
 const Analysis = () => {
     const width = Dimensions.get("window").width;
@@ -43,8 +45,15 @@ const Analysis = () => {
                     {/* 수면 시간 정리 */}
                     <SleepDataInfo/>
 
+                    <HR/>
+
                     {/* 수면 자세 */}
+                    <SleepVideoAlert/>
                     <SleepMotion/>
+
+                    <HR/>
+
+                    
                  </LinearGradient>
             </ScrollView>
 
