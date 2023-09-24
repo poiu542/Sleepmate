@@ -9,7 +9,7 @@ const SleepDataInfo = () => {
     const score = [1,2,3];
 
     return (
-        <View style={tw`w-full h-[210px] bg-[#091B35] rounded-lg mt-5`}>
+        <View style={tw`w-full h-[250px] bg-[#091B35] rounded-lg mt-5`}>
             
             {/* 별 점수 */}
             <View style={tw`flex-row mt-5 items-center justify-center`}>
@@ -34,8 +34,15 @@ const SleepDataInfo = () => {
             {/* 실제 잔 시간 */}
             <View style={tw`flex-row mt-3 items-center justify-between pl-7 pr-7`}>
                 <Text style={tw`text-white text-lg text-center font-bold`}>실제 수면 시간</Text>
-                <Text style={tw`text-white text-lg text-center font-bold`}>8시간 30분</Text>
+                <Text style={tw`text-white text-lg text-center font-bold`}>4시간 30분</Text>
             </View>
+
+            {/* 한줄평 */}
+            <Text style={tw`text-white text-sm text-center mt-5 font-bold`}>수면시간이 부족해요 점심시간에 쪽잠 어떠신가요?</Text>
+            {/* <View style={tw`mt-3 items-left pl-7 pr-7`}>
+                <Text style={tw`text-white text-lg text-left font-bold`}>한줄평</Text>
+                <Text style={tw`text-white text-[15px] text-left font-bold`}>수면시간이 부족해요 점심시간에 쪽잠 어떠신가요?</Text>
+            </View> */}
         </View>
     )
 }

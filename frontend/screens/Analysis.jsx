@@ -1,59 +1,51 @@
-import {View, ScrollView, Dimensions, StyleSheet} from "react-native";
+import {View, ScrollView, Dimensions, StyleSheet, ImageBackground, Image} from "react-native";
 import { useState } from "react";
 import { Video } from "expo-av";
 import { StatusBar } from 'expo-status-bar';
 import tw from "twrnc";
 import {LinearGradient} from 'expo-linear-gradient';
 
+// 이미지
+import turnOnTheLight from '../assets/background/turnOnTheLight.jpg';
+import sunrise from '../assets/videos/sunrise.mp4';
+
 // 컴포넌트
 import CalendarHorizontal from "../components/Calendar/CalendarHorizontal";
 import SleepDataArriveAlert from "../components/Alert/SleepDataArriveAlert";
 import SleepDataInfo from "../components/Alert/SleepDataInfo";
+import SleepMotion from "../components/Motion/SleepMotion";
 
 const Analysis = () => {
     const width = Dimensions.get("window").width;
     const height = Dimensions.get("window").height-500;
 
     const [selectedDate, setSelectedDate] = useState(null);
-
     return(
-        <View style={tw`flex-1`}>
-            <Video 
-                style={tw`absolute top-0 left-0 right-0 bottom-0 w-full h-50`}
-                source={require("../assets/videos/sunrise.mp4")}
-                resizeMode="cover"
-                repeat={true}
-                shouldPlay={true}
-                isLooping={true}
-            />
+        <View style={tw`flex-1 bg-white`}>
+            {/* <Image style={tw`absolute top-0 left-0 right-0 bottom-0 w-full h-100`} source={turnOnTheLight}/> */}
+            <Video style={tw`absolute top-0 left-0 right-0 bottom-0 w-100 h-70`} source={sunrise} resizeMode={"cover"}></Video>
 
-            <ScrollView style={tw`pt-50`}>
+            <ScrollView>
                 <LinearGradient
-                    colors={['white', 'white']} // Define your gradient colors
-                    start={{ x: 0, y: 0.1 }} // Gradient start point
+                    colors={['transparent', 'white', 'white', 'white', 'white', 'white', 'white']} // Define your gradient colors
+                    start={{ x: 0, y: 1 }} // Gradient start point
                     end={{ x: 0, y: 1 }} // Gradient end point
-                    style={tw`rounded-2xl p-5 py-9 shadow-2xl w-full h-[${height}] self-center`} 
+                    style={tw`rounded-2xl shadow-2xl w-full self-center mt-70 pl-5 pr-5`} 
                 >
-
+            
                     <View style={styles.container}>
                         <CalendarHorizontal onSelectDate={setSelectedDate} selected={selectedDate} />
                         <StatusBar style="auto" />
                     </View>
-    
                     {/* 도착 데이터 */}
                     <SleepDataArriveAlert/>
 
                     {/* 수면 시간 정리 */}
                     <SleepDataInfo/>
-                </LinearGradient>
 
-
-
-
-
-
-
-
+                    {/* 수면 자세 */}
+                    <SleepMotion/>
+                 </LinearGradient>
             </ScrollView>
 
         </View>
@@ -65,9 +57,8 @@ export default Analysis
 
 const styles = StyleSheet.create({
     container: {
-    //   flex: 1,
-    //   backgroundColor: '#fff',
       alignItems: 'center',
       justifyContent: 'center',
+      paddingTop:50,
     },
   });

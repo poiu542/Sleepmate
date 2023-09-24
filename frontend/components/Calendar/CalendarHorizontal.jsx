@@ -2,6 +2,7 @@ import { useState, useEffect } from 'react'
 import { StyleSheet, Text, View, ScrollView } from 'react-native'
 import moment from 'moment'
 import Date from './util/Date'
+import tw from 'twrnc';
 
 const CalendarHorizontal = ({ onSelectDate, selected }) => {
     const [dates, setDates] = useState([])
@@ -38,8 +39,8 @@ const CalendarHorizontal = ({ onSelectDate, selected }) => {
 
   return (
     <>
-      <View style={styles.centered}>
-        <Text style={styles.title}>{currentMonth}</Text>
+      <View style={tw`w-full pl-5`}>
+        <Text style={tw`text-[25px] text-black text-left font-bold`}>{currentMonth}</Text>
       </View>
       <View style={styles.dateSection}>
         <View style={styles.scroll}>
@@ -70,17 +71,15 @@ const CalendarHorizontal = ({ onSelectDate, selected }) => {
 export default CalendarHorizontal
 
 const styles = StyleSheet.create({
-  centered: {
-    justifyContent: 'center',
-    alignItems: 'center',
-  },
   title: {
-    fontSize: 20,
+    fontSize: 30,
     fontWeight: 'bold',
+    color:"white",
+    textAlign:"left",
   },
   dateSection: {
     width: '100%',
-    padding: 20,
+    padding: 5,
   },
   scroll: {
     height: 150,
