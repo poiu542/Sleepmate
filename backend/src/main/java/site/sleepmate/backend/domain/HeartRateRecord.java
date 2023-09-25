@@ -18,7 +18,7 @@ public class HeartRateRecord {
     private Long heartRateSeq;
 
     @ManyToOne(fetch = FetchType.LAZY)
-    @JoinColumn(name = "memberSeq")
+    @JoinColumn(name = "member_seq")
     private Member member;
 
     @Column(name = "heart_rate", nullable = false)
