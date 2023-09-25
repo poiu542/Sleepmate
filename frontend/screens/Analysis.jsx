@@ -4,6 +4,8 @@ import { Video } from "expo-av";
 import { StatusBar } from 'expo-status-bar';
 import tw from "twrnc";
 import {LinearGradient} from 'expo-linear-gradient';
+import { useRecoilState} from 'recoil';
+import {motionModalState} from '../recoil/modal/motionModalAtom';
 
 // 이미지
 import turnOnTheLight from '../assets/background/turnOnTheLight.jpg';
@@ -18,12 +20,14 @@ import SleepVideoAlert from "../components/Alert/SleepVideoAlert";
 import HR from "../components/Html/HR";
 import SleepMotionPercent from "../components/Alert/SleepMotionPercent";
 import MotionChart from "../components/Chart/MotionChart";
+import BackDrop from "../components/Modal/BackDrop";
 
 const Analysis = () => {
     const width = Dimensions.get("window").width;
     const height = Dimensions.get("window").height-500;
 
     const [selectedDate, setSelectedDate] = useState(null);
+    const [modalVisible, setModalVisible] = useRecoilState(motionModalState);
     return(
         <View style={tw`flex-1 bg-white`}>
             {/* <Image style={tw`absolute top-0 left-0 right-0 bottom-0 w-full h-100`} source={turnOnTheLight}/> */}
@@ -59,6 +63,8 @@ const Analysis = () => {
                     {/* 수면 그래프 */}
                     <SleepMotionPercent/>
                     <MotionChart/>
+
+                    {modalVisible&&<BackDrop/>}
 
 
                  </LinearGradient>

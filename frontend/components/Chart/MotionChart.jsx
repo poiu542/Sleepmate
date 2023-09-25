@@ -1,6 +1,8 @@
 import React from 'react';
 import { View, Text, Image } from 'react-native';
 import { BarChart } from 'react-native-gifted-charts';
+import tw from 'twrnc';
+import Svg, { Image as SvgImage } from 'react-native-svg';
 
 // 이미지 가져오기
 import G_motion_forward from '../../assets/motion/G_motion_forward.png';
@@ -112,31 +114,33 @@ const MotionChart = () => {
         yAxisColor={'lightgray'}
         yAxisTextStyle={{ color: 'lightgray' }}
         yAxisLabelTexts={['0%', '25%', '50%', '75%', '100%']}
+        // 막대 그래프 커스텀 렌더링
         renderBar={(bar, index) => {
-          const imageSrc = barData[index].src;
-          console.log(`rr`);
-          console.log(imageSrc);
-
+          const imageSrc = images[index].src;
           return (
-            <View key={index} style={tw`w-[100px] h-[100px]`}>
+            <Svg key={index}>
               {bar}
               {imageSrc && (
-                <Image key={index}
-                  source={imageSrc}
-                  style={{
-                    width: 100,
-                    height: 30,
-                    position: 'absolute',
-                    top: -35,
-                    left: bar.width / 2 - 15,
-                    backgroundColor:'red'
-                  }}
+                <SvgImage
+                  x={0}
+                  y={0}
+                  width={`50px`}
+                  height={`50px`}
+                  href={imageSrc}
                 />
               )}
-            </View>
+            </Svg>
           );
         }}
       />
+
+      {/* {
+        barData.map((data, index)=>{
+          return(
+            <Image style={tw`mr-5 w-full h-50`} resizeMode="contain" source={data.src}></Image>
+          )
+        })
+      } */}
     </View>
   );
 };
