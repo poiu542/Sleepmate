@@ -36,7 +36,7 @@ public class VideoRecord {
     private LocalDate sleepDate;
 
     @Builder
-    public VideoRecord(Member memberSeq, LocalDateTime time, Integer posture, String capture, LocalDate sleepDate) {
+    public VideoRecord(Member member, LocalDateTime time, Integer posture, String capture, LocalDate sleepDate) {
         this.member = member;
         this.time = time;
         this.posture = posture;
