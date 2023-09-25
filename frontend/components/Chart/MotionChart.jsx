@@ -1,67 +1,144 @@
-import { BarChart } from "react-native-gifted-charts";
-import {View, Text} from 'react-native';
-import tw from 'twrnc';
+import React from 'react';
+import { View, Text, Image } from 'react-native';
+import { BarChart } from 'react-native-gifted-charts';
+
+// 이미지 가져오기
+import G_motion_forward from '../../assets/motion/G_motion_forward.png';
+import G_motion_hands_up from '../../assets/motion/G_motion_hands_up.png';
+import G_motion_origin_left from '../../assets/motion/G_motion_origin_left.png';
+import G_motion_origin_right from '../../assets/motion/G_motion_origin_right.png';
+import G_motion_reverse from '../../assets/motion/G_motion_reverse.png';
+import G_motion_shirimp_left from '../../assets/motion/G_motion_shirimp_left.png';
+import G_motion_shirimp_right from '../../assets/motion/G_motion_shirimp_right.png';
 
 const MotionChart = () => {
-    const data = [
-        {value: 2500, frontColor: '#006DFF', gradientColor: '#009FFF', spacing: 6, label:'군인형'},
-        {value: 2400, frontColor: '#3BE9DE', gradientColor: '#93FCF8'},
-    
-        {value: 3500, frontColor: '#006DFF', gradientColor: '#009FFF', spacing: 6, label:'태아형'},
-        {value: 3000, frontColor: '#3BE9DE', gradientColor: '#93FCF8'},
-    
-        {value: 4500, frontColor: '#006DFF', gradientColor: '#009FFF', spacing: 6, label:'자유낙하형'},
-        {value: 4000, frontColor: '#3BE9DE', gradientColor: '#93FCF8'},
-    
-        {value: 5200, frontColor: '#006DFF', gradientColor: '#009FFF', spacing: 6, label:'불가사리형 '},
-        {value: 4900, frontColor: '#3BE9DE', gradientColor: '#93FCF8'},
-    
-        {value: 3000, frontColor: '#006DFF', gradientColor: '#009FFF', spacing: 6, label:'통나무형'},
-        {value: 2800, frontColor: '#3BE9DE', gradientColor: '#93FCF8'},
-      ];
-    
-      return(
-        <View
-          style={{
-            margin: 10,
-            padding: 10,
-            borderRadius: 20,
-            backgroundColor: '#091B35',
-          }}>
-          <Text style={{color: 'white', fontSize: 15, fontWeight: 'bold'}}>
-            별 5점과 나를 비교합니다
-          </Text>
-          <View style={{padding: 0, alignItems: 'center'}}>
-            <BarChart
-              data={data}
-              barWidth={50}
-              initialSpacing={10}
-              spacing={15}
-              barBorderRadius={4}
-              yAxisThickness={0}
-              xAxisType={'dashed'}
-              xAxisColor={'lightgray'}
-              yAxisTextStyle={{color: 'lightgray'}}
-              stepValue={20}
-              maxValue={6000}
-              noOfSections={6}
-              yAxisLabelTexts={['0%', '10%', '20%', '40%', '60%', '80%', '100%']}
-              labelWidth={40}
-              xAxisLabelTextStyle={{color: 'lightgray', textAlign: 'center'}}
-              showLine
-              lineConfig={{
-                color: '#F29C6E',
-                thickness: 3,
-                curved: true,
-                hideDataPoints: true,
-                shiftY: 20,
-                initialSpacing: -30,
-              }}
-            />
-          </View>
-        </View>
-    );
-}
+  const barData = [
+    {
+      value: 40,
+      label: '1유형',
+      frontColor: '#4ABFF4',
+      sideColor: '#23A7F3',
+      topColor: '#92e6f6',
+      src: G_motion_forward,
+    },
+    {
+      value: 40,
+      label: '2유형',
+      frontColor: '#79C3DB',
+      sideColor: '#68BCD7',
+      topColor: '#9FD4E5',
+      src: G_motion_hands_up,
+    },
+    {
+      value: 25,
+      label: '3유형',
+      frontColor: '#28B2B3',
+      sideColor: '#0FAAAB',
+      topColor: '#66C9C9',
+      src: G_motion_origin_left,
+    },
+    {
+      value: 1,
+      label: '4유형',
+      frontColor: '#4ADDBA',
+      sideColor: '#36D9B2',
+      topColor: '#7DE7CE',
+      src: G_motion_origin_right,
+    },
+    {
+      value: 1,
+      label: '5유형',
+      frontColor: '#91E3E3',
+      sideColor: '#85E0E0',
+      topColor: '#B0EAEB',
+      src: G_motion_reverse,
+    },
+    {
+      value: 1,
+      label: '6유형',
+      frontColor: '#91E3E3',
+      sideColor: '#85E0E0',
+      topColor: '#B0EAEB',
+      src: G_motion_shirimp_left,
+    },
+    {
+      value: 1,
+      label: '7유형',
+      frontColor: '#91E3E3',
+      sideColor: '#85E0E0',
+      topColor: '#B0EAEB',
+      src: G_motion_shirimp_right,
+    },
+    {
+      value: 1,
+      label: '기타유형',
+      frontColor: '#91E3E3',
+      sideColor: '#85E0E0',
+      topColor: '#B0EAEB',
+      src: G_motion_forward,
+    },
+    {
+      value: 1,
+      label: '미수면',
+      frontColor: '#91E3E3',
+      sideColor: '#85E0E0',
+      topColor: '#B0EAEB',
+      src: G_motion_forward,
+    },
+  ];
 
+  return (
+    <View
+      style={{
+        margin: 10,
+        padding: 10,
+        borderRadius: 20,
+        backgroundColor: '#091B35',
+      }}>
+      <BarChart
+        showFractionalValue
+        showYAxisIndices
+        hideRules
+        noOfSections={4}
+        maxValue={100}
+        data={barData}
+        barWidth={40}
+        sideWidth={15}
+        isThreeD
+        side="right"
+        xAxisColor={'lightgray'}
+        xAxisLabelTextStyle={{ color: 'lightgray', textAlign: 'center' }}
+        xAxisLength={250}
+        yAxisColor={'lightgray'}
+        yAxisTextStyle={{ color: 'lightgray' }}
+        yAxisLabelTexts={['0%', '25%', '50%', '75%', '100%']}
+        renderBar={(bar, index) => {
+          const imageSrc = barData[index].src;
+          console.log(`rr`);
+          console.log(imageSrc);
+
+          return (
+            <View key={index} style={tw`w-[100px] h-[100px]`}>
+              {bar}
+              {imageSrc && (
+                <Image key={index}
+                  source={imageSrc}
+                  style={{
+                    width: 100,
+                    height: 30,
+                    position: 'absolute',
+                    top: -35,
+                    left: bar.width / 2 - 15,
+                    backgroundColor:'red'
+                  }}
+                />
+              )}
+            </View>
+          );
+        }}
+      />
+    </View>
+  );
+};
 
 export default MotionChart;

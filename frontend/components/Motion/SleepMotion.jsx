@@ -5,10 +5,6 @@ import { StatusBar } from 'expo-status-bar';
 import tw from "twrnc";
 
 // 이미지
-import motion1 from '../../assets/motion/motion1.png';
-import motion2 from '../../assets/motion/motion2.png';
-import motion3 from '../../assets/motion/motion3.png';
-
 import G_motion_forward from '../../assets/motion/G_motion_forward.png';
 import G_motion_hands_up from '../../assets/motion/G_motion_hands_up.png';
 import G_motion_origin_left from '../../assets/motion/G_motion_origin_left.png';

@@ -1,4 +1,4 @@
-import {View, ScrollView, Dimensions, StyleSheet, ImageBackground, Image} from "react-native";
+import {View, ScrollView, Dimensions, StyleSheet, Text, Image} from "react-native";
 import { useState } from "react";
 import { Video } from "expo-av";
 import { StatusBar } from 'expo-status-bar';
@@ -27,7 +27,7 @@ const Analysis = () => {
     return(
         <View style={tw`flex-1 bg-white`}>
             {/* <Image style={tw`absolute top-0 left-0 right-0 bottom-0 w-full h-100`} source={turnOnTheLight}/> */}
-            <Video style={tw`absolute top-0 left-0 right-0 bottom-0 w-100 h-70`} onLoad={e => console.log(e)} source={sunrise} resizeMode={"cover"} repeat={true} paused={false} onAnimatedValueUpdate={() => {}}></Video>
+            <Video style={tw`absolute top-0 left-0 right-0 bottom-0 w-100 h-70`} source={sunrise} resizeMode={"cover"} repeat={true} paused={false} onAnimatedValueUpdate={() => {}}></Video>
 
             <ScrollView>
                 <LinearGradient
@@ -52,6 +52,7 @@ const Analysis = () => {
                     {/* 수면 자세 */}
                     <SleepVideoAlert/>
                     <SleepMotion/>
+                    <Text style={tw`text-center font-bold mt-5`}>각 이미지를  Click하면 자세한 나의 모습을 볼 수 있어요!</Text>
 
                     <HR/>
 
