@@ -13,6 +13,7 @@ import site.sleepmate.backend.repository.VideoRecordRepository;
 import java.time.LocalDate;
 import java.time.LocalDateTime;
 import java.util.List;
+import java.util.NoSuchElementException;
 import java.util.Optional;
 
 @Service
@@ -35,16 +36,16 @@ public class WatchService {
 
         //자러간 시간, 일어난 시간 조회
         LocalDate date = getLastRecord().getSleepDate(); //가장 최근 취침 날짜 가져옴
-        Optional<VideoRecord> startSleep = videoRecordRepository.findTop1BySleepDateOrderByVideoSeqAsc(date);
-        Optional<VideoRecord> endSleep = videoRecordRepository.findTop1BySleepDateOrderByVideoSeqDesc(date);
+        VideoRecord startSleep = videoRecordRepository.findTop1BySleepDateOrderByVideoSeqAsc(date).orElseThrow(() ->
+                new NoSuchElementException());
+        VideoRecord endSleep = videoRecordRepository.findTop1BySleepDateOrderByVideoSeqDesc(date).orElseThrow(() ->
+                new NoSuchElementException());
 
-        WakeUpResponseDto wakeUpResponseDto = WakeUpResponseDto.fromEntities(lux, startSleep.get(), endSleep.get());
+        WakeUpResponseDto wakeUpResponseDto = WakeUpResponseDto.fromEntities(lux, startSleep, endSleep);
         return wakeUpResponseDto;
     }
 
     public VideoRecord getLastRecord(){
-        return videoRecordRepository.findTop1ByOrderByVideoSeqDesc().get();
+        return videoRecordRepository.findTop1ByOrderByVideoSeqDesc().orElseThrow(() -> new NoSuchElementException());
     }
-
-
 }
