@@ -27,7 +27,7 @@ const Analysis = () => {
     return(
         <View style={tw`flex-1 bg-white`}>
             {/* <Image style={tw`absolute top-0 left-0 right-0 bottom-0 w-full h-100`} source={turnOnTheLight}/> */}
-            <Video style={tw`absolute top-0 left-0 right-0 bottom-0 w-100 h-70`} source={sunrise} resizeMode={"cover"}></Video>
+            <Video style={tw`absolute top-0 left-0 right-0 bottom-0 w-100 h-70`} onLoad={e => console.log(e)} source={sunrise} resizeMode={"cover"} repeat={true} paused={false} onAnimatedValueUpdate={() => {}}></Video>
 
             <ScrollView>
                 <LinearGradient
