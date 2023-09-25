@@ -12,18 +12,15 @@ import site.sleepmate.backend.service.WatchService;
 import java.time.LocalDateTime;
 
 @RequiredArgsConstructor
-@RequestMapping("/watch")
+@RequestMapping("/api/watch")
 @RestController
 public class WatchController {
     private final WatchService watchService;
 
     @GetMapping("/luxAndTime")
     public ResponseEntity<WakeUpResponseDto> getLuxAndSleepTime(){
-//        LocalDateTime nowTime = LocalDateTime.now();
         LocalDateTime nowTime = watchService.getLastRecord().getTime();
         WakeUpResponseDto wakeUpResponseDto = watchService.getLuxAndSleepTime(nowTime);
         return new ResponseEntity<>(wakeUpResponseDto, HttpStatus.OK);
     }
-
-
 }
