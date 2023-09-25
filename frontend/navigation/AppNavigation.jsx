@@ -17,6 +17,10 @@ const Tab = createBottomTabNavigator();
 import Home from "../screens/Home"
 import Camera from '../screens/Camera';
 import Test from '../screens/Test';
+import Diagnosis from '../screens/Diagnosis';
+import Report from '../screens/Report';
+import Sleep from '../screens/Sleep';
+import MainTabNavigator from './MainTabNavigator';
 
 
 // 상단 네비게이션 버튼 컴포넌트 모음
@@ -106,7 +110,10 @@ const AppNavigation = () => {
         <Stack.Screen name='Camera' component={Camera} options={{headerShown:false}} />
         <Stack.Screen name='Test' component={Test} options={{headerShown:false}} />
         <Stack.Screen name='IntroExplane' component={IntroExplane} options={{headerShown:false}} />
-
+        <Stack.Screen name='Diagnosis' component={Diagnosis} options={{headerShown:false}} />
+        <Stack.Screen name='Report' component={Report} options={{headerShown:false}} />
+        <Stack.Screen name='Sleep' component={Sleep} options={{headerShown:false}} />
+        <Stack.Screen name='MainTabNavigator' component={MainTabNavigator}/>
         {/* <Stack.Screen
             name="MainTabNavigator"
             component={MainTabNavigator} // Use MainTabNavigator as the component
