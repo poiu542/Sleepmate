@@ -10,6 +10,7 @@ import tw from "twrnc";
 
 
 // 화면 import
+import IntroExplane from "../screens/IntroExplain";
 
 const Stack = createNativeStackNavigator();
 const Tab = createBottomTabNavigator();
@@ -104,6 +105,7 @@ const AppNavigation = () => {
         <Stack.Screen name='Home' component={Home} options={{headerShown:false}} />
         <Stack.Screen name='Camera' component={Camera} options={{headerShown:false}} />
         <Stack.Screen name='Test' component={Test} options={{headerShown:false}} />
+        <Stack.Screen name='IntroExplane' component={IntroExplane} options={{headerShown:false}} />
 
         {/* <Stack.Screen
             name="MainTabNavigator"
