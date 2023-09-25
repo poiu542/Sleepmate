@@ -38,7 +38,7 @@ const Analysis = () => {
                     colors={['transparent', 'white', 'white', 'white', 'white', 'white', 'white']} // Define your gradient colors
                     start={{ x: 0, y: 1 }} // Gradient start point
                     end={{ x: 0, y: 1 }} // Gradient end point
-                    style={tw`rounded-2xl shadow-2xl w-full self-center mt-70 pl-5 pr-5`} 
+                    style={tw`rounded-2xl shadow-2xl w-full self-center mt-70 mb-30 pl-5 pr-5`} 
                 >
             
                     <View style={styles.container}>
@@ -63,6 +63,7 @@ const Analysis = () => {
                     {/* 수면 그래프 */}
                     <SleepMotionPercent/>
                     <MotionChart/>
+                    <Text style={tw`text-center font-bold mt-5`}>각 데이터를 Click하면 유형별 이미지를 볼 수 있어요!</Text>
 
                     {modalVisible&&<BackDrop/>}
 

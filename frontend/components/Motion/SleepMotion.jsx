@@ -67,7 +67,6 @@ const SleepMotion = () => {
             horizontal 
             showsHorizontalScrollIndicator={false}
             style={tw`w-full h-[300px] bg-[#091B35] mt-5 rounded-lg p-5`}>
-                {/* {modalVisible&&<BackDrop/>} */}
             {
                 motions.map((data, index)=>{
                     return(

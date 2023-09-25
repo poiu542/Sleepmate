@@ -13,6 +13,14 @@ import G_motion_reverse from '../../assets/motion/G_motion_reverse.png';
 import G_motion_shirimp_left from '../../assets/motion/G_motion_shirimp_left.png';
 import G_motion_shirimp_right from '../../assets/motion/G_motion_shirimp_right.png';
 
+import M_motion_forward from '../../assets/motion/M_motion_forward.png';
+import M_motion_hands_up from '../../assets/motion/M_motion_hands_up.png';
+import M_motion_origin_left from '../../assets/motion/M_motion_origin_left.png';
+import M_motion_origin_right from '../../assets/motion/M_motion_origin_right.png';
+import M_motion_reverse from '../../assets/motion/M_motion_reverse.png';
+import M_motion_shirimp_left from '../../assets/motion/M_motion_shirimp_left.png';
+import M_motion_shirimp_right from '../../assets/motion/M_motion_shirimp_right.png';
+
 const MotionChart = () => {
   const barData = [
     {
@@ -21,7 +29,7 @@ const MotionChart = () => {
       frontColor: '#4ABFF4',
       sideColor: '#23A7F3',
       topColor: '#92e6f6',
-      src: G_motion_forward,
+      src: M_motion_forward,
     },
     {
       value: 40,
@@ -29,7 +37,7 @@ const MotionChart = () => {
       frontColor: '#79C3DB',
       sideColor: '#68BCD7',
       topColor: '#9FD4E5',
-      src: G_motion_hands_up,
+      src: M_motion_hands_up,
     },
     {
       value: 25,
@@ -37,7 +45,7 @@ const MotionChart = () => {
       frontColor: '#28B2B3',
       sideColor: '#0FAAAB',
       topColor: '#66C9C9',
-      src: G_motion_origin_left,
+      src: M_motion_origin_left,
     },
     {
       value: 1,
@@ -45,7 +53,7 @@ const MotionChart = () => {
       frontColor: '#4ADDBA',
       sideColor: '#36D9B2',
       topColor: '#7DE7CE',
-      src: G_motion_origin_right,
+      src: M_motion_origin_right,
     },
     {
       value: 1,
@@ -53,7 +61,7 @@ const MotionChart = () => {
       frontColor: '#91E3E3',
       sideColor: '#85E0E0',
       topColor: '#B0EAEB',
-      src: G_motion_reverse,
+      src: M_motion_reverse,
     },
     {
       value: 1,
@@ -61,7 +69,7 @@ const MotionChart = () => {
       frontColor: '#91E3E3',
       sideColor: '#85E0E0',
       topColor: '#B0EAEB',
-      src: G_motion_shirimp_left,
+      src: M_motion_shirimp_left,
     },
     {
       value: 1,
@@ -69,7 +77,7 @@ const MotionChart = () => {
       frontColor: '#91E3E3',
       sideColor: '#85E0E0',
       topColor: '#B0EAEB',
-      src: G_motion_shirimp_right,
+      src: M_motion_shirimp_right,
     },
     {
       value: 1,
@@ -77,7 +85,7 @@ const MotionChart = () => {
       frontColor: '#91E3E3',
       sideColor: '#85E0E0',
       topColor: '#B0EAEB',
-      src: G_motion_forward,
+      src: M_motion_forward,
     },
     {
       value: 1,
@@ -85,7 +93,7 @@ const MotionChart = () => {
       frontColor: '#91E3E3',
       sideColor: '#85E0E0',
       topColor: '#B0EAEB',
-      src: G_motion_forward,
+      src: M_motion_forward,
     },
   ];
 
@@ -98,13 +106,19 @@ const MotionChart = () => {
         backgroundColor: '#091B35',
       }}>
       <BarChart
+        renderTooltip={(select)=>{
+          console.log(select)
+          return(
+            <Image style={tw`mr-5 w-15 h-30`} resizeMode="contain" source={select.src}></Image>
+          )
+        }}
         showFractionalValue
         showYAxisIndices
         hideRules
         noOfSections={4}
         maxValue={100}
         data={barData}
-        barWidth={40}
+        barWidth={50}
         sideWidth={15}
         isThreeD
         side="right"
@@ -133,14 +147,6 @@ const MotionChart = () => {
           );
         }}
       />
-
-      {/* {
-        barData.map((data, index)=>{
-          return(
-            <Image style={tw`mr-5 w-full h-50`} resizeMode="contain" source={data.src}></Image>
-          )
-        })
-      } */}
     </View>
   );
 };
