@@ -107,7 +107,6 @@ const MotionChart = () => {
       }}>
       <BarChart
         renderTooltip={(select)=>{
-          console.log(select)
           return(
             <Image style={tw`mr-5 w-15 h-30`} resizeMode="contain" source={select.src}></Image>
           )
