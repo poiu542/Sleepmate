@@ -5,14 +5,12 @@ import com.google.gson.JsonElement;
 import com.google.gson.JsonObject;
 import com.google.gson.JsonParser;
 import lombok.RequiredArgsConstructor;
-import lombok.Value;
 import org.springframework.stereotype.Service;
 import site.sleepmate.backend.domain.Member;
 import site.sleepmate.backend.repository.MemberRepository;
 
 import java.io.*;
 import java.net.HttpURLConnection;
-import java.net.MalformedURLException;
 import java.net.URL;
 import java.sql.Time;
 
@@ -135,10 +133,9 @@ public class OauthService {
                 .alarm(Time.valueOf("07:00:00"))
                 .noServey(true)
                 .crescendo(false)
+                .weight(0)
+                .height(0)
                 .build());
-
         br.close();
-
-
     }
 }
