@@ -27,8 +27,8 @@ public class HeartRateController {
 
     @GetMapping("/{member}/{sleepDate}")
     public  ResponseEntity<?> getHeartRate(@PathVariable Member member, @PathVariable LocalDate sleepDate) {
-        boolean measurment = heartRateJudgementService.getJudgement(member, sleepDate);
-        if (measurment) {
+        Integer measurment = heartRateJudgementService.getJudgement(member, sleepDate);
+        if (measurment == 0) {
             NormalResponseDto normalResponseDto = normalHeartRateMeasurementService.getMinAndMaxBPM(member, sleepDate);
             return new ResponseEntity<>(normalResponseDto, HttpStatus.OK);
         } else {

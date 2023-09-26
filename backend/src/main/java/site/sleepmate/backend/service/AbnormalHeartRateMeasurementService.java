@@ -1,5 +1,6 @@
 package site.sleepmate.backend.service;
 
+import jakarta.persistence.criteria.CriteriaBuilder;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
 import site.sleepmate.backend.domain.HeartRateRecord;

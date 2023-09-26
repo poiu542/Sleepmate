@@ -14,14 +14,14 @@ import java.util.List;
 public class HeartRateJudgementService {
     private final HeartRateRecordRepository heartRateRecordRepository;
 
-    public Boolean getJudgement(Member member, LocalDate sleepDate) {
+    public Integer getJudgement(Member member, LocalDate sleepDate) {
         List<HeartRateRecord> heartRateRecords = heartRateRecordRepository.findAllByMemberAndSleepDateOrderByTime(member, sleepDate);
-        // 정상 심박수 true, 비정상 false
-        boolean judgement = true;
+        // 정상 심박수 0, 비정상 1
+        int judgement = 0;
 
         for (HeartRateRecord heartRateRecord : heartRateRecords) {
             if (heartRateRecord.getHeartRate() > 85 || heartRateRecord.getHeartRate() < 40) {
-                judgement = false;
+                judgement = 1;
                 break;
             }
         }
