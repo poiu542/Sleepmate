@@ -33,8 +33,8 @@ const IntroExplain = () => {
     const heightInput = Dimensions.get("window").height-500;
     const height = Dimensions.get("window").height-150;
 
-    const [cm, setCm] = useState(0);
-    const [kg, setKg] = useState(0);
+    const [cm, setCm] = useState(null);
+    const [kg, setKg] = useState(null);
 
     // 애니메이션 효과
     useEffect(() => {
@@ -146,6 +146,7 @@ const IntroExplain = () => {
 
 
     }, [sceen, animation1]);
+
     
 
     return(
@@ -179,20 +180,35 @@ const IntroExplain = () => {
                 <Animatable.Text ref={(ref) => setAnimation6(ref)} style={sceen===6?tw`absolute top-0 left-0 right-0 bottom-0 text-white text-5 mt-[${height}] text-center`:tw`hidden`}>평소 몇 시간 정도 잠을 자시나요?</Animatable.Text>
             
                 {sceen===8?<TextInput
-                    keyboardType='numeric'
+                    editable
+                    multiline={false}
+                    keyboardType='decimal-pad'
+                    returnKeyType="done"
                     value={cm}
                     onChangeText={(data) => setCm(data)}
+                    onKeyPress={({ nativeEvent }) => {
+                        // nativeEvent.key 에 눌린 키의 값을 가져옴
+                        const keyPressed = nativeEvent.key;
+                        // 입력된 키를 현재 값에 추가하여 화면에 표시
+                        setCm((prevCm) => prevCm + keyPressed);
+                    }}
                     placeholder={'키(cm)'}
                     placeholderTextColor={"white"}
-                    style={tw`bg-black opacity-50 text-white rounded-xl absolute top-0 left-0 right-0 bottom-0 w-75 h-15 ml-[${widthInput}] mt-[${heightInput}] p-8`}
+                    // defaultValue={cm}
+                    style={tw`bg-black opacity-70 text-white rounded-xl absolute top-0 left-0 right-0 bottom-0 w-75 h-15 ml-[${widthInput}] mt-[${heightInput}] p-5`}
                 />:null}
                 {sceen===8?<TextInput
-                    keyboardType='numeric'
+                    editable
+                    multiline={false}
+                    keyboardType='number-pad'
+                    returnKeyType="done"
                     value={kg}
                     onChangeText={(data) => setKg(data)}
+                    onPress={console.log(kg)}
                     placeholder={'몸무게(kg)'}
                     placeholderTextColor={"white"}
-                    style={tw`bg-black opacity-50 text-white rounded-xl absolute top-0 left-0 right-0 bottom-0 w-75 h-15 ml-[${widthInput}] mt-[${heightInput+80}] p-8`}
+                    defaultValue={kg}
+                    style={tw`bg-black opacity-70 text-white rounded-xl absolute top-0 left-0 right-0 bottom-0 w-75 h-15 ml-[${widthInput}] mt-[${heightInput+80}] p-5`}
                 />:null}
                 <Animatable.Text ref={(ref) => setAnimation8(ref)} style={sceen===8?tw`absolute top-0 left-0 right-0 bottom-0 text-white text-5 mt-[${height}] text-center`:tw`hidden`}>{`키와 몸무게는 어떻게 되시나요?\nBMI검사에 활용됩니다.`}</Animatable.Text>
 
