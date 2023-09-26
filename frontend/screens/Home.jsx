@@ -45,13 +45,13 @@ const Home = () => {
                 ></Image>
                 </View>
                 
-                <View style={tw `flex-1 px-10 z-10 `}>
-                <TouchableOpacity onPress={()=>{navigate.navigate("Test")}} style={tw `bg-[#FFDC00]/70 rounded-2 h-13 items-center justify-center`}>
+                <View style={tw `flex-1 px-10 z-10`}>
+                <TouchableOpacity onPress={()=>{navigate.navigate("IntroExplain")}} style={tw `bg-[#FFDC00]/70 rounded-2 h-13 items-center justify-center`}>
                     <Text style={tw `text-base`}><Ionicons style={tw `mt-3`} name="enter-outline" size={18} color="black" /> &nbsp; 카카오 로그인</Text>
                 </TouchableOpacity>
-                <TouchableOpacity onPress={()=>{navigate.navigate("MainTabNavigator")}} style={tw `bg-[#FFDC00]/70 rounded-2 h-13 items-center justify-center`}>
+                {/* <TouchableOpacity onPress={()=>{navigate.navigate("MainTabNavigator")}} style={tw `bg-[#FFDC00]/70 rounded-2 h-13 items-center justify-center`}>
                     <Text style={tw `text-base`}><Ionicons style={tw `mt-3`} name="enter-outline" size={18} color="black" /> &nbsp; 홈으로</Text>
-                </TouchableOpacity>
+                </TouchableOpacity> */}
                 </View>
 
                 </>
