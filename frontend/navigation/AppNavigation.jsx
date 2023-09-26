@@ -113,7 +113,7 @@ const AppNavigation = () => {
         <Stack.Screen name='Diagnosis' component={Diagnosis} options={{headerShown:false}} />
         <Stack.Screen name='Report' component={Report} options={{headerShown:false}} />
         <Stack.Screen name='Sleep' component={Sleep} options={{headerShown:false}} />
-        <Stack.Screen name='MainTabNavigator' component={MainTabNavigator}/>
+        <Stack.Screen name='MainTabNavigator' component={MainTabNavigator} options={{headerShown:false}}/>
         {/* <Stack.Screen
             name="MainTabNavigator"
             component={MainTabNavigator} // Use MainTabNavigator as the component
