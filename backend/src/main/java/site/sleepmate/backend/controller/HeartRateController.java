@@ -26,9 +26,9 @@ public class HeartRateController {
         return ResponseEntity.status(HttpStatus.OK).body("OK");
     }
 
-    @GetMapping("/normal")
-    public ResponseEntity<String> normalMeasurement() {
-        normalHeartRateMeasurementService.getMinAndMaxBPM();
+    @GetMapping("/normal/{sleepDate}")
+    public ResponseEntity<String> normalMeasurement(@PathVariable LocalDate sleepDate) {
+        normalHeartRateMeasurementService.getMinAndMaxBPM(sleepDate);
         return ResponseEntity.status(HttpStatus.OK).body("OK");
     }
 
