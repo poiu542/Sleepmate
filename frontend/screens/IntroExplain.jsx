@@ -1,7 +1,7 @@
 import { StatusBar } from "expo-status-bar";
-import {Text, View, Dimensions, TextInput, TouchableWithoutFeedback, Keyboard } from 'react-native';
+import {Text, View, Dimensions, TextInput, TouchableWithoutFeedback, Keyboard, Button, TouchableOpacity } from 'react-native';
 import React, {useState, useEffect} from "react";
-import { Video } from "expo-av";
+import { Video, Audio } from "expo-av";
 import tw from "twrnc";
 import * as Animatable from 'react-native-animatable';
 
@@ -14,6 +14,8 @@ import DropDownTime from "../components/DropDown/DropDownTime";
 import {useRecoilState} from "recoil";
 import {sceenNumberState} from '../recoil/intro/sceenNumberAtom';
 
+// 음악
+
 
 const IntroExplain = () => {
 
@@ -25,8 +27,10 @@ const IntroExplain = () => {
     const [animation8, setAnimation8] = useState(null);
     const [animation10, setAnimation10] = useState(null);
     const [animation11, setAnimation11] = useState(null);
+    const [animation12, setAnimation12] = useState(null);
 
     const [sceen, setSceen] = useRecoilState(sceenNumberState);
+    const [sound, setSound] = useState();
 
 
     const widthInput = Dimensions.get("window").width/2-150;
@@ -35,6 +39,31 @@ const IntroExplain = () => {
 
     const [cm, setCm] = useState(null);
     const [kg, setKg] = useState(null);
+
+    //음악 재생
+    async function playSound() {
+        const { status } = await Audio.requestPermissionsAsync();
+        if (status === 'granted') {
+          const { sound } = await Audio.Sound.createAsync(
+            require('../assets/sounds/introMusic30.mp3')
+          );
+          await sound.playAsync();
+          console.log(sound);
+        } else {
+          console.error('오디오 권한이 거부되었습니다.');
+        }
+    }
+
+    // useEffect(() => {
+    //     return sound
+    //       ? () => {
+    //           console.log('Unloading Sound');
+    //           sound.unloadAsync();
+    //         }
+    //       : undefined;
+    //   }, [sound]);
+
+    
 
     // 애니메이션 효과
     useEffect(() => {
@@ -132,7 +161,7 @@ const IntroExplain = () => {
 
         if (sceen===10 && animation1) {
             setTimeout(() => {
-                animation8.fadeOut(3000).then(() => {
+                animation10.fadeOut(3000).then(() => {
                     setSceen(11);
                     setAnimation11(animation11Ref => {
                         if (animation11Ref) {
@@ -144,15 +173,52 @@ const IntroExplain = () => {
             }, 3000);
         }
 
+        if (sceen===11 && animation1) {
+            setTimeout(() => {
+                animation11.fadeOut(3000).then(() => {
+                    setSceen(12);
+                    // setAnimation12(animation12Ref => {
+                    //     if (animation12Ref) {
+                    //         animation12Ref.fadeOut(3000);
+                    //     }
+                    //     return animation12Ref;
+                    // });
+                });
+            }, 3000);
+        }
+
 
     }, [sceen, animation1]);
+
+    // const [isScreenFading, setIsScreenFading] = useState(false);
+
+    // const fadeScreen = () => {
+    //     setIsScreenFading(true);
+    //     setTimeout(() => {
+    //         setSceen(12);
+    //     }, 3000);
+    // };
+
+    // useEffect(() => {
+    //     if (sceen === 12 && !isScreenFading) {
+    //         fadeScreen();
+    //     }
+    // }, [sceen, isScreenFading]);
 
     
 
     return(
         
         <TouchableWithoutFeedback onPress={Keyboard.dismiss}>
-        <View style={tw`flex-1`}>
+        <Animatable.View style={tw`flex-1`}>
+
+            {sceen===12 ? (
+                <Animatable.View
+                    style={tw`absolute top-0 left-0 right-0 bottom-0 bg-black z-10`}
+                    animation="fadeOut" // You can adjust the animation type and duration
+                    duration={100000000000} // Adjust the duration as needed
+                />
+            ) : null}
 
             <StatusBar hidden />
 
@@ -179,6 +245,9 @@ const IntroExplain = () => {
                 <DropDownTime display={sceen}/>
                 <Animatable.Text ref={(ref) => setAnimation6(ref)} style={sceen===6?tw`absolute top-0 left-0 right-0 bottom-0 text-white text-5 mt-[${height}] text-center`:tw`hidden`}>평소 몇 시간 정도 잠을 자시나요?</Animatable.Text>
             
+                {/* <TouchableOpacity style={tw`bg-red-500 w-100 h-100`} onPress={() => playSound()}></TouchableOpacity> */}
+
+
                 {sceen===8?<TextInput
                     editable
                     multiline={false}
@@ -217,7 +286,7 @@ const IntroExplain = () => {
 
                 <Animatable.Text ref={(ref) => setAnimation11(ref)} style={sceen===11?tw`absolute top-0 left-0 right-0 bottom-0 text-white text-5 mt-[${height}] text-center`:tw`hidden`}>{`sleep mate가\n행복한 수면 경험을 선사해드리겠습니다.`}</Animatable.Text>
             </View>
-        </View>
+        </Animatable.View>
         </TouchableWithoutFeedback>
     )
 }
