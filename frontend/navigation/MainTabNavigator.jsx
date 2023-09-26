@@ -55,8 +55,8 @@ const MainTabNavigator = () => {
         })}
       >
         <MainTab.Screen name="Sleep" component={Sleep} />
-        <MainTab.Screen name="Diagnosis" component={Diagnosis} />
         <MainTab.Screen name="Analysis" component={Analysis}/>
+        <MainTab.Screen name="Diagnosis" component={Diagnosis} />
       </MainTab.Navigator>
     );
   };
