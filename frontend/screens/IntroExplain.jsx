@@ -177,12 +177,12 @@ const IntroExplain = () => {
             setTimeout(() => {
                 animation11.fadeOut(3000).then(() => {
                     setSceen(12);
-                    // setAnimation12(animation12Ref => {
-                    //     if (animation12Ref) {
-                    //         animation12Ref.fadeOut(3000);
-                    //     }
-                    //     return animation12Ref;
-                    // });
+                    setAnimation12(animation12Ref => {
+                        if (animation12Ref) {
+                            animation12Ref.fadeOut(3000);
+                        }
+                        return animation12Ref;
+                    });
                 });
             }, 3000);
         }
@@ -190,35 +190,21 @@ const IntroExplain = () => {
 
     }, [sceen, animation1]);
 
-    // const [isScreenFading, setIsScreenFading] = useState(false);
-
-    // const fadeScreen = () => {
-    //     setIsScreenFading(true);
-    //     setTimeout(() => {
-    //         setSceen(12);
-    //     }, 3000);
-    // };
-
-    // useEffect(() => {
-    //     if (sceen === 12 && !isScreenFading) {
-    //         fadeScreen();
-    //     }
-    // }, [sceen, isScreenFading]);
 
     
 
     return(
         
         <TouchableWithoutFeedback onPress={Keyboard.dismiss}>
-        <Animatable.View style={tw`flex-1`}>
+        <Animatable.View ref={(ref) => setAnimation12(ref)} style={tw`flex-1 bg-black`}>
 
-            {sceen===12 ? (
+            {/* {sceen===12 ? (
                 <Animatable.View
-                    style={tw`absolute top-0 left-0 right-0 bottom-0 bg-black z-10`}
+                    style={tw`absolute top-0 left-0 right-0 bottom-0 z-10 bg-black`}
                     animation="fadeOut" // You can adjust the animation type and duration
-                    duration={100000000000} // Adjust the duration as needed
+                    duration={100000} // Adjust the duration as needed
                 />
-            ) : null}
+            ) : null} */}
 
             <StatusBar hidden />
 
@@ -229,7 +215,9 @@ const IntroExplain = () => {
                 repeat={true}
                 shouldPlay={true}
                 isLooping={true}
+                ref={(ref) => setAnimation12(ref)}
             />
+       
             <View style={tw`absolute top-0 left-0 right-0 bottom-0 bg-black opacity-50`}></View>
             <View style={tw`flex-1`}>
                 <Animatable.Text ref={(ref) => setAnimation1(ref)} style={ sceen===1?tw`absolute top-0 left-0 right-0 bottom-0 text-white text-5 mt-[${height}] text-center`:tw`hidden`}>환영합니다.</Animatable.Text>
