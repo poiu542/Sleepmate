@@ -114,7 +114,7 @@ const AppNavigation = () => {
         <Stack.Screen name='Diagnosis' component={Diagnosis} options={{headerShown:false}} />
         <Stack.Screen name='Report' component={Report} options={{headerShown:false}} />
         <Stack.Screen name='Sleep' component={Sleep} options={{headerShown:false}} />
-        <Stack.Screen name='MainTabNavigator' component={MainTabNavigator}/>
+        {/* <Stack.Screen name='MainTabNavigator' component={MainTabNavigator}/> */}
         <Stack.Screen
             name="MainTabNavigator"
             component={MainTabNavigator} // Use MainTabNavigator as the component
@@ -123,7 +123,7 @@ const AppNavigation = () => {
               headerTransparent: true,
               headerBackTitleVisible: false,
               headerLeft: () => <MainButton navigation={useNavigation()} />,
-              headerRight: () => <MainRightButtons navigation={useNavigation()} />,
+              // headerRight: () => <MainRightButtons navigation={useNavigation()} />,
             }}
           />
           <Stack.Screen name='Analysis' component={Analysis} options={{headerShown:false}} />
