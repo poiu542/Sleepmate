@@ -11,11 +11,17 @@ import tw from "twrnc";
 
 // 화면 import
 import IntroExplane from "../screens/IntroExplain";
-import Analysis from "../screens/Analysis";
 
 const Stack = createNativeStackNavigator();
 const Tab = createBottomTabNavigator();
-
+import Home from "../screens/Home"
+import Camera from '../screens/Camera';
+import Test from '../screens/Test';
+import Diagnosis from '../screens/Diagnosis';
+import Report from '../screens/Report';
+import Sleep from '../screens/Sleep';
+import MainTabNavigator from './MainTabNavigator';
+import Analysis from '../screens/Analysis';
 
 
 // 상단 네비게이션 버튼 컴포넌트 모음
@@ -99,11 +105,17 @@ const CancelInviteButton = ({navigation}) => {
 const AppNavigation = () => {
   return (
     <NavigationContainer>
-      <Stack.Navigator 
-        initialRouteName='IntroExplane'>
-        <Stack.Screen name='Analysis' component={Analysis} options={{headerShown:false}} />
-
-        {/* <Stack.Screen
+      <Stack.Navigator
+        initialRouteName='Home'>
+        <Stack.Screen name='Home' component={Home} options={{headerShown:false}} />
+        <Stack.Screen name='Camera' component={Camera} options={{headerShown:false}} />
+        <Stack.Screen name='Test' component={Test} options={{headerShown:false}} />
+        <Stack.Screen name='IntroExplane' component={IntroExplane} options={{headerShown:false}} />
+        <Stack.Screen name='Diagnosis' component={Diagnosis} options={{headerShown:false}} />
+        <Stack.Screen name='Report' component={Report} options={{headerShown:false}} />
+        <Stack.Screen name='Sleep' component={Sleep} options={{headerShown:false}} />
+        <Stack.Screen name='MainTabNavigator' component={MainTabNavigator}/> */}
+        <Stack.Screen
             name="MainTabNavigator"
             component={MainTabNavigator} // Use MainTabNavigator as the component
             options={{
@@ -113,7 +125,8 @@ const AppNavigation = () => {
               headerLeft: () => <MainButton navigation={useNavigation()} />,
               headerRight: () => <MainRightButtons navigation={useNavigation()} />,
             }}
-          /> */}
+          />
+          <Stack.Screen name='Analysis' component={Analysis} options={{headerShown:false}} />
         
       </Stack.Navigator>
     </NavigationContainer>
