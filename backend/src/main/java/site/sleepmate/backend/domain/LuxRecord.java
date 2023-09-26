@@ -19,8 +19,8 @@ public class LuxRecord {
     private Long luxSeq;
 
     @ManyToOne(fetch = FetchType.LAZY)
-    @JoinColumn(name = "memberSeq")
-    private Member memberSeq;
+    @JoinColumn(name = "member_seq")
+    private Member member;
 
     @Column(name = "lux", nullable = false)
     private Integer lux;
@@ -29,8 +29,8 @@ public class LuxRecord {
     private LocalDateTime time;
 
     @Builder
-    public LuxRecord(Member memberSeq, Integer lux, LocalDateTime time) {
-        this.memberSeq = memberSeq;
+    public LuxRecord(Member member, Integer lux, LocalDateTime time) {
+        this.member = member;
         this.lux = lux;
         this.time = time;
     }
