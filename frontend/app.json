@@ -31,6 +31,12 @@
       "eas": {
         "projectId": "5e739149-9b5c-49fe-ac7d-8b32815d9110"
       }
-    }
+    },
+    "permissions": [
+      "CAMERA",
+      "AUDIO_RECORDING",
+      "RECORD_AUDIO",
+      "ACCESS_FINE_LOCATION"
+    ]
   }
 }
