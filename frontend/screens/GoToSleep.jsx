@@ -29,7 +29,7 @@ const GoToSleep = () => {
     ]);
 
     //음악 재생
-    async function playSound() {
+    async function playSound1() {
         try {
             const { status } = await Audio.requestPermissionsAsync();
             if (status === 'granted') {
@@ -38,33 +38,61 @@ const GoToSleep = () => {
                 );
                 setSound(sound);
                 await sound.playAsync();
-                console.log('Audio played successfully');
+                console.log('Audio1 played successfully');
             } else {
-                console.error('Audio permission not granted');
+                console.error('Audio1 permission not granted');
             }
         } catch (error) {
-            console.error('Error playing audio:', error);
+            console.error('Error playing audio1:', error);
         }
     }
 
-    async function stopSound() {
+    async function playSound2() {
+        try {
+            const { status } = await Audio.requestPermissionsAsync();
+            if (status === 'granted') {
+                const { sound } = await Audio.Sound.createAsync(
+                    require('../assets/sounds/rainMusic.mp3')
+                );
+                setSound(sound);
+                await sound.playAsync();
+                console.log('Audio2 played successfully');
+            } else {
+                console.error('Audio2 permission not granted');
+            }
+        } catch (error) {
+            console.error('Error playing audio2:', error);
+        }
+    }
+
+    async function stopSound1() {
         if (sound) {
           await sound.stopAsync();
           await sound.unloadAsync();
           setSound(null);
-          console.log('Audio stopped successfully');
+          console.log('Audio1 stopped successfully');
+        }
+    }
+
+    async function stopSound2() {
+        if (sound) {
+          await sound.stopAsync();
+          await sound.unloadAsync();
+          setSound(null);
+          console.log('Audio2 stopped successfully');
         }
     }
 
     const EndSleep = () => {
-        stopSound();
+        stopSound1();
         navigate.navigate("Analysis");
     }
 
     useEffect(()=>{
         //음악 처음 자동 시작
-        playSound();
-    },[])
+        if(back===1){stopSound2(); playSound1();}
+        else if(back===2){stopSound1(); playSound2();}
+    },[back])
 
     
 
@@ -94,9 +122,17 @@ const GoToSleep = () => {
 
             {/*  음악 관리 */}
             {   sound!=null?
-                    <TouchableOpacity style={tw`absolute top-0 left-80 right-0 bottom-0 mt-20 w-10 h-10 justify-center items-center z-10`} onPress={() => stopSound()}><Image source={volumeUp} resizeMode="contain" style={tw`w-7 h-10`}></Image></TouchableOpacity>
-                    :
-                    <TouchableOpacity style={tw`absolute top-0 left-80 right-0 bottom-0 mt-20 w-10 h-10 justify-center items-center z-10`} onPress={() => playSound()}><Image source={mute} resizeMode="contain" style={tw`w-7 h-10`}></Image></TouchableOpacity>
+                (back===1 && sound!=null?
+                    <TouchableOpacity style={tw`absolute top-0 left-80 right-0 bottom-0 mt-20 w-10 h-10 justify-center items-center z-10`} onPress={() => stopSound1()}><Image source={volumeUp} resizeMode="contain" style={tw`w-7 h-10`}></Image></TouchableOpacity>
+                    : <TouchableOpacity style={tw`absolute top-0 left-80 right-0 bottom-0 mt-20 w-10 h-10 justify-center items-center z-10`} onPress={() => playSound1()}><Image source={mute} resizeMode="contain" style={tw`w-7 h-10`}></Image></TouchableOpacity>
+                ):(
+                    back===2&&sound!=null?
+                    <TouchableOpacity style={tw`absolute top-0 left-80 right-0 bottom-0 mt-20 w-10 h-10 justify-center items-center z-10`} onPress={() => stopSound2()}><Image source={volumeUp} resizeMode="contain" style={tw`w-7 h-10`}></Image></TouchableOpacity>
+                    : <TouchableOpacity style={tw`absolute top-0 left-80 right-0 bottom-0 mt-20 w-10 h-10 justify-center items-center z-10`} onPress={() => playSound2()}><Image source={mute} resizeMode="contain" style={tw`w-7 h-10`}></Image></TouchableOpacity>
+                )
+                    // <TouchableOpacity style={tw`absolute top-0 left-80 right-0 bottom-0 mt-20 w-10 h-10 justify-center items-center z-10`} onPress={() => stopSound1()}><Image source={volumeUp} resizeMode="contain" style={tw`w-7 h-10`}></Image></TouchableOpacity>
+                    // :
+                    // <TouchableOpacity style={tw`absolute top-0 left-80 right-0 bottom-0 mt-20 w-10 h-10 justify-center items-center z-10`} onPress={() => playSound1()}><Image source={mute} resizeMode="contain" style={tw`w-7 h-10`}></Image></TouchableOpacity>
             }
                 <View style={tw`absolute mt-145 ml-[37%] w-full h-5 z-10`}> 
                     <View style={tw`bg-red-700 w-5 h-5 rounded-xl`}></View>
