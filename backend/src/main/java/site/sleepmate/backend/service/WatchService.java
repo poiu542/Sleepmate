@@ -43,7 +43,7 @@ public class WatchService {
         return videoRecordRepository.findTop1ByOrderByVideoSeqDesc().orElseThrow(() -> new NoSuchElementException());
     }
 
-    public LuxRecord getLuxBefore30Min(LocalDateTime time){
+    private LuxRecord getLuxBefore30Min(LocalDateTime time){
         //lux값 조회
         LocalDateTime before30MinTime = time.minusMinutes(30); //30분 전 시각
         LocalDateTime startTime = LocalDateTime.of(before30MinTime.getYear(), before30MinTime.getMonthValue(),
