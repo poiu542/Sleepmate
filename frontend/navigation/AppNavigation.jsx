@@ -23,6 +23,7 @@ import Sleep from '../screens/Sleep';
 import MainTabNavigator from './MainTabNavigator';
 import Analysis from '../screens/Analysis';
 import IntroExplain from '../screens/IntroExplain';
+import Watch from '../screens/Watch';
 
 
 // 상단 네비게이션 버튼 컴포넌트 모음
@@ -30,9 +31,9 @@ import IntroExplain from '../screens/IntroExplain';
 //홈 버튼 컴포넌트
 const MainButton = ({navigation}) => {
   return (
-  <Pressable onPress={()=>{navigation.navigate("MyAccounts")}}>
-    <AntDesign name="home" size={26} color="black" />
-  </Pressable>
+    <Pressable onPress={()=>{navigation.navigate("MyAccounts")}}>
+      <AntDesign name="home" size={26} color="white" />
+    </Pressable>
   )
 };
 
@@ -64,6 +65,17 @@ const CancelCreateAccountButton = ({navigation}) => {
   </Pressable>
   )
 };
+
+// 설정버튼 컴포넌트
+const ConfigButton = ({navigation}) => {
+  return (
+  <Pressable onPress={()=>{navigation.navigate("MyAccounts")}}>
+    <AntDesign name="setting" size={26} color="white" />
+  </Pressable>
+  )
+};
+
+
 const CancelInviteButton = ({navigation}) => {
   return (
   <Pressable onPress={()=>{navigation.navigate("MainTabNavigator")}}>
@@ -124,11 +136,12 @@ const AppNavigation = () => {
               headerTransparent: true,
               headerBackTitleVisible: false,
               headerLeft: () => <MainButton navigation={useNavigation()} />,
-              // headerRight: () => <MainRightButtons navigation={useNavigation()} />,
+              headerRight: () => <ConfigButton navigation={useNavigation()} />,
             }}
           />
           <Stack.Screen name='Analysis' component={Analysis} options={{headerShown:false}} />
           <Stack.Screen name='IntroExplain' component={IntroExplain} options={{headerShown:false}} />
+          <Stack.Screen name='Watch' component={Watch} options={{headerShown:false}} />
         
       </Stack.Navigator>
     </NavigationContainer>
