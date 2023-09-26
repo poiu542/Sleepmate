@@ -1,17 +1,18 @@
 spring:
-  h2:
-    console:
-      enabled: true
-
   datasource:
-    driver-class-name: org.h2.Driver
-    url: jdbc:h2:mem:sleepmate;MODE=MYSQL
-    username: sa
-    password:
+#    driver-class-name: org.h2.Driver
+#    url: jdbc:h2:mem:sleepmate;MODE=MYSQL
+#    username: sa
+#    password:
+      url: jdbc:mysql://localhost:3306/sleepmate
+      useSSL: false
+      username: root
+      password: 1234
+      driver-class-name: com.mysql.cj.jdbc.Driver
 
   jpa:
     hibernate:
-      ddl-auto: update
+      ddl-auto: validate
 
     show-sql: true
 
