@@ -10,6 +10,7 @@ import site.sleepmate.backend.dto.WakeUpResponseDto;
 import site.sleepmate.backend.service.WatchService;
 
 import java.time.LocalDateTime;
+import java.util.Map;
 
 @RequiredArgsConstructor
 @RequestMapping("/api/watch")
@@ -22,5 +23,11 @@ public class WatchController {
         LocalDateTime nowTime = watchService.getLastRecord().getTime();
         WakeUpResponseDto wakeUpResponseDto = watchService.getLuxAndSleepTime(nowTime);
         return new ResponseEntity<>(wakeUpResponseDto, HttpStatus.OK);
+    }
+
+    @GetMapping("/rhythm")
+    public ResponseEntity<Map<String, Integer>> getCircadianRhythm(){
+        Map<String, Integer> rhythmResult = watchService.getCircadianRhythm();
+        return new ResponseEntity<>(rhythmResult, HttpStatus.OK);
     }
 }
