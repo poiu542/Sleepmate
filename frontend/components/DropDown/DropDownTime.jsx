@@ -28,7 +28,7 @@ const DropDownTime = ({display}) => {
             {
                 display===6?
                 <View style={tw`w-[300px] h-[250px] ml-[${width}] mt-[${height}] rounded-xl`}>
-                    <View style={tw`absolute w-full h-full bg-black rounded-xl opacity-50`}></View>
+                    <View style={tw`absolute w-full h-full bg-black rounded-xl opacity-70`}></View>
                     <ScrollView>
                         <TouchableOpacity onPress={()=>setPick(12)} style={pick===12?tw`w-full h-20 items-center justify-center bg-green-500 rounded-xl`:tw`w-full h-20 items-center justify-center`}><Text style={tw`text-white`}>12시간</Text></TouchableOpacity>
                         <TouchableOpacity onPress={()=>setPick(11)} style={pick===11?tw`w-full h-20 items-center justify-center bg-green-500 rounded-xl`:tw`w-full h-20 items-center justify-center`}><Text style={tw`text-white`}>11시간</Text></TouchableOpacity>
