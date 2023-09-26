@@ -3,6 +3,7 @@ package site.sleepmate.backend.service;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
 import site.sleepmate.backend.domain.HeartRateRecord;
+import site.sleepmate.backend.domain.Member;
 import site.sleepmate.backend.dto.NormalResponseDto;
 import site.sleepmate.backend.repository.HeartRateRecordRepository;
 
@@ -15,9 +16,9 @@ import java.util.List;
 public class NormalHeartRateMeasurementService {
     private final HeartRateRecordRepository heartRateRecordRepository;
 
-    public NormalResponseDto getMinAndMaxBPM(LocalDate sleepDate) {
+    public NormalResponseDto getMinAndMaxBPM(Member member, LocalDate sleepDate) {
         // 심박수 시간순으로 정렬해서 리스트에 담기
-        List<HeartRateRecord> heartRateRecords = heartRateRecordRepository.findAllBySleepDateOrderByTime(sleepDate);
+        List<HeartRateRecord> heartRateRecords = heartRateRecordRepository.findAllByMemberAndSleepDateOrderByTime(member, sleepDate);
         // 분당 BPM 최소값, 최대값을 NormalDto 에 담기
         NormalResponseDto normalResponseDto = new NormalResponseDto();
         int minBPM = 0;

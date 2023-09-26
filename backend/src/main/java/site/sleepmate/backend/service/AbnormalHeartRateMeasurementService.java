@@ -3,6 +3,7 @@ package site.sleepmate.backend.service;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
 import site.sleepmate.backend.domain.HeartRateRecord;
+import site.sleepmate.backend.domain.Member;
 import site.sleepmate.backend.domain.VideoOrder;
 import site.sleepmate.backend.dto.AbnormalPartDto;
 import site.sleepmate.backend.dto.AbnormalResponseDto;
@@ -21,9 +22,9 @@ public class AbnormalHeartRateMeasurementService {
     private final VideoOrderRepository videoOrderRepository;
 
     // 감지된 시간 & 이상 심박수 & 해당 자세 반환 메서드
-    public List<AbnormalResponseDto> getAbnormalSituation(LocalDate sleepDate) {
+    public List<AbnormalResponseDto> getAbnormalSituation(Member member, LocalDate sleepDate) {
         // 수면 날짜의 데이터 가져오기(수정해야함)
-        List<HeartRateRecord> heartRateRecords = heartRateRecordRepository.findAllBySleepDateOrderByTime(sleepDate);
+        List<HeartRateRecord> heartRateRecords = heartRateRecordRepository.findAllByMemberAndSleepDateOrderByTime(member, sleepDate);
         List<VideoOrder> videoOrders = videoOrderRepository.findAllBySleepDateOrderByStartTime(sleepDate);
 
         List<AbnormalResponseDto> abnormalResponseDtos = new ArrayList<>();
