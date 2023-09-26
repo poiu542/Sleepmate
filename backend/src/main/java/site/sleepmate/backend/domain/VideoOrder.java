@@ -5,6 +5,7 @@ import jakarta.persistence.*;
 import lombok.*;
 
 import java.sql.Time;
+import java.time.LocalDate;
 import java.time.LocalDateTime;
 
 @Entity
@@ -17,8 +18,8 @@ public class VideoOrder {
     private Long videoOrderSeq;
 
     @ManyToOne(fetch = FetchType.LAZY)
-    @JoinColumn(name = "memberSeq")
-    private Member memberSeq;
+    @JoinColumn(name = "member_seq")
+    private Member member;
 
     @Column(name = "posture", nullable = false)
     private Integer posture;
@@ -32,12 +33,16 @@ public class VideoOrder {
     @Column(name = "capture", nullable = false)
     private String capture;
 
+    @Column(name = "sleep_date", nullable = false)
+    private LocalDate sleepDate;
+
     @Builder
-    public VideoOrder(Member memberSeq, Integer posture, LocalDateTime startTime, LocalDateTime endTime, String capture) {
-        this.memberSeq = memberSeq;
+    public VideoOrder(Member member, Integer posture, LocalDateTime startTime, LocalDateTime endTime, String capture, LocalDate sleepDate) {
+        this.member = member;
         this.startTime = startTime;
         this.endTime = endTime;
         this.posture = posture;
         this.capture = capture;
+        this.sleepDate = sleepDate;
     }
 }

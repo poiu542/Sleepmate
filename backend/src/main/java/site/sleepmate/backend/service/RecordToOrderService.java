@@ -5,9 +5,11 @@ import org.springframework.stereotype.Service;
 import site.sleepmate.backend.domain.Member;
 import site.sleepmate.backend.domain.VideoOrder;
 import site.sleepmate.backend.domain.VideoRecord;
+import site.sleepmate.backend.repository.MemberRepository;
 import site.sleepmate.backend.repository.VideoOrderRepository;
 import site.sleepmate.backend.repository.VideoRecordRepository;
 
+import java.time.LocalDate;
 import java.time.LocalDateTime;
 import java.util.ArrayList;
 import java.util.List;
@@ -19,8 +21,8 @@ public class RecordToOrderService {
     private final VideoRecordRepository videoRecordRepository;
     private final VideoOrderRepository videoOrderRepository;
 
-    public void getVideoOrder(Integer member, LocalDateTime time) {
-        List<VideoRecord> videoRecords = videoRecordRepository.findByMemberSeqAndTimeOrderBy(member, time);
+    public void getVideoOrder(LocalDate sleepDate) {
+        List<VideoRecord> videoRecords = videoRecordRepository.findAllBySleepDateOrderByTime(sleepDate);
         // 처음 들어온 자세
         Integer temp = videoRecords.get(0).getPosture();
         LocalDateTime startTime = videoRecords.get(0).getTime();

@@ -5,6 +5,7 @@ import org.springframework.web.bind.annotation.*;
 import site.sleepmate.backend.domain.Member;
 import site.sleepmate.backend.service.RecordToOrderService;
 
+import java.time.LocalDate;
 import java.time.LocalDateTime;
 
 
@@ -15,8 +16,8 @@ public class RecordToOrderController {
     private final RecordToOrderService recordToOrderService;
 
     @ResponseBody
-    @GetMapping("/order/{member}/{time}")
-    public void orderRecords(@PathVariable Integer member, @PathVariable LocalDateTime time) {
-        recordToOrderService.getVideoOrder(member, time);
+    @GetMapping("/order/{sleepDate}")
+    public void orderRecords(@PathVariable LocalDate sleepDate) {
+        recordToOrderService.getVideoOrder(sleepDate);
     }
 }

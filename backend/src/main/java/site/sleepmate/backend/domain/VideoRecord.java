@@ -6,6 +6,7 @@ import lombok.Builder;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
 
+import java.time.LocalDate;
 import java.time.LocalDateTime;
 
 @Entity
@@ -18,8 +19,8 @@ public class VideoRecord {
     private Long videoSeq;
 
     @ManyToOne(fetch = FetchType.LAZY)
-    @JoinColumn(name = "memberSeq")
-    private Member memberSeq;
+    @JoinColumn(name = "member_seq")
+    private Member member;
 
     @Column(name = "time", nullable = false)
     private LocalDateTime time;
@@ -30,11 +31,15 @@ public class VideoRecord {
     @Column(name = "capture", nullable = false)
     private String capture;
 
+    @Column(name = "sleep_date", nullable = false)
+    private LocalDate sleepDate;
+
     @Builder
-    public VideoRecord(Member memberSeq, LocalDateTime time, Integer posture, String capture) {
-        this.memberSeq = memberSeq;
+    public VideoRecord(Member member, LocalDateTime time, Integer posture, String capture, LocalDate sleepDate) {
+        this.member = member;
         this.time = time;
         this.posture = posture;
         this.capture = capture;
+        this.sleepDate = sleepDate;
     }
 }

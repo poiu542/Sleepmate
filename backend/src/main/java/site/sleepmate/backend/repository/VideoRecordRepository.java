@@ -1,12 +1,18 @@
 package site.sleepmate.backend.repository;
 
 import org.springframework.data.jpa.repository.JpaRepository;
-import site.sleepmate.backend.domain.Member;
 import site.sleepmate.backend.domain.VideoRecord;
 
-import java.time.LocalDateTime;
-import java.util.List;
 
-public interface VideoRecordRepository extends JpaRepository<VideoRecord, Integer> {
-    List<VideoRecord> findByMemberSeqAndTimeOrderBy(Integer memberSeq, LocalDateTime time);
+import java.time.LocalDate;
+import java.util.List;
+import java.util.Optional;
+
+public interface VideoRecordRepository extends JpaRepository<VideoRecord, Long> {
+    List<VideoRecord> findAllBySleepDateOrderByTime(LocalDate sleepDate);
+    //취침 시작 시간의 로그 가져오는 쿼리
+    Optional<VideoRecord> findTop1BySleepDateOrderByVideoSeqAsc(LocalDate date);
+    //취침 종료 시간의 로그 가져오는 쿼리
+    Optional<VideoRecord> findTop1BySleepDateOrderByVideoSeqDesc(LocalDate date);
+    Optional<VideoRecord> findTop1ByOrderByVideoSeqDesc();
 }
