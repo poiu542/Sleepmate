@@ -42,6 +42,12 @@ public class Member {
     @Column(name = "crescendo", nullable = false)
     private Boolean crescendo;
 
+    @Column(name = "height", nullable = false)
+    private Integer height;
+
+    @Column(name = "weight", nullable = false)
+    private Integer weight;
+
     @OneToMany(mappedBy = "member")
     private List<HeartRateRecord> heartRateRecords = new ArrayList<HeartRateRecord>();
 
@@ -58,7 +64,7 @@ public class Member {
     private List<AccelerometerRecord> accelerometerRecords = new ArrayList<AccelerometerRecord>();
 
     @Builder
-    public Member(String email, String nickname, String gender, String ageRange, Boolean hasWatch, Boolean noServey, Time alarm, Boolean crescendo) {
+    public Member(String email, String nickname, String gender, String ageRange, Boolean hasWatch, Boolean noServey, Time alarm, Boolean crescendo, Integer height, Integer weight) {
         this.email = email;
         this.nickname = nickname;
         this.gender = gender;
@@ -67,5 +73,7 @@ public class Member {
         this.noServey = noServey;
         this.alarm = alarm;
         this.crescendo = crescendo;
+        this.height = height;
+        this.weight = weight;
     }
 }
