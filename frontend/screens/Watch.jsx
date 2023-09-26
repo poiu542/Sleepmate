@@ -5,6 +5,7 @@ import * as Permissions from 'expo-permissions';
 import axios from 'axios';
 import tw from 'twrnc';
 import { StatusBar } from "expo-status-bar";
+import { useNavigation } from '@react-navigation/native';
 
 // 이미지
 import watchImg from '../assets/images/watchImg.png';
@@ -13,6 +14,8 @@ import watchImg from '../assets/images/watchImg.png';
 import CheckAnimation from '../components/Animation/CheckAnimation';
 
 const Watch = () => {
+
+    const navigate = useNavigation();
   
 
   return (

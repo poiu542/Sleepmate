@@ -24,6 +24,7 @@ import MainTabNavigator from './MainTabNavigator';
 import Analysis from '../screens/Analysis';
 import IntroExplain from '../screens/IntroExplain';
 import Watch from '../screens/Watch';
+import GoToSleep from '../screens/GoToSleep';
 
 
 // 상단 네비게이션 버튼 컴포넌트 모음
@@ -142,6 +143,7 @@ const AppNavigation = () => {
           <Stack.Screen name='Analysis' component={Analysis} options={{headerShown:false}} />
           <Stack.Screen name='IntroExplain' component={IntroExplain} options={{headerShown:false}} />
           <Stack.Screen name='Watch' component={Watch} options={{headerShown:false}} />
+          <Stack.Screen name='GoToSleep' component={GoToSleep} options={{headerShown:false}} />
         
       </Stack.Navigator>
     </NavigationContainer>
