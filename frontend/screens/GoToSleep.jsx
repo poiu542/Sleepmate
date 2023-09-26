@@ -56,6 +56,11 @@ const GoToSleep = () => {
         }
     }
 
+    const EndSleep = () => {
+        stopSound();
+        navigate.navigate("Analysis");
+    }
+
     useEffect(()=>{
         //음악 처음 자동 시작
         playSound();
@@ -99,7 +104,7 @@ const GoToSleep = () => {
                 </View>
                 
                 <View style={tw `absolute px-10 w-full mt-160 z-10`}>
-                        <TouchableOpacity onPress={()=>{navigate.navigate("Watch")}} style={tw `border-[#fff] border-[0.3] rounded-2 h-13 items-center justify-center`}>
+                        <TouchableOpacity onPress={()=>{EndSleep()}} style={tw `border-[#fff] border-[0.3] rounded-2 h-13 items-center justify-center`}>
                             <Text style={tw `text-white text-lg`}>wake up</Text>
                         </TouchableOpacity>
                 </View>

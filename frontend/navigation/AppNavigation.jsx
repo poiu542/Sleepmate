@@ -32,7 +32,7 @@ import GoToSleep from '../screens/GoToSleep';
 //홈 버튼 컴포넌트
 const MainButton = ({navigation}) => {
   return (
-    <Pressable onPress={()=>{navigation.navigate("MyAccounts")}}>
+    <Pressable onPress={()=>{navigation.navigate("MainTabNavigator")}}>
       <AntDesign name="home" size={26} color="white" />
     </Pressable>
   )
@@ -140,7 +140,15 @@ const AppNavigation = () => {
               headerRight: () => <ConfigButton navigation={useNavigation()} />,
             }}
           />
-          <Stack.Screen name='Analysis' component={Analysis} options={{headerShown:false}} />
+          <Stack.Screen name='Analysis' component={Analysis}
+            options={{
+              headerTitle: '',
+              headerTransparent: true,
+              headerBackTitleVisible: false,
+              headerLeft: () => <MainButton navigation={useNavigation()} />,
+              // headerRight: () => <ConfigButton navigation={useNavigation()} />,
+            }} 
+          />
           <Stack.Screen name='IntroExplain' component={IntroExplain} options={{headerShown:false}} />
           <Stack.Screen name='Watch' component={Watch} options={{headerShown:false}} />
           <Stack.Screen name='GoToSleep' component={GoToSleep} options={{headerShown:false}} />
