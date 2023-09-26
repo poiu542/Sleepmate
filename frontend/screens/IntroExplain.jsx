@@ -4,6 +4,7 @@ import React, {useState, useEffect} from "react";
 import { Video, Audio } from "expo-av";
 import tw from "twrnc";
 import * as Animatable from 'react-native-animatable';
+import { useNavigation } from '@react-navigation/native';
 
 // 컴포넌트
 import ClockPicker from "../components/Clock/ClockPicker";
@@ -53,6 +54,8 @@ const IntroExplain = () => {
           console.error('오디오 권한이 거부되었습니다.');
         }
     }
+
+    const navigate = useNavigation()
 
     // useEffect(() => {
     //     return sound
@@ -184,6 +187,13 @@ const IntroExplain = () => {
                         return animation12Ref;
                     });
                 });
+            }, 3000);
+        }
+
+        if (sceen===12 && animation1) {
+            setTimeout(() => {
+                // 메인 페이지로 이동
+                navigate.navigate("MainTabNavigator");
             }, 3000);
         }
 
