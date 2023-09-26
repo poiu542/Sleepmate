@@ -22,7 +22,6 @@ public class VideoRecord {
     @JoinColumn(name = "member_seq")
     private Member member;
 
-
     @Column(name = "time", nullable = false)
     private LocalDateTime time;
 
