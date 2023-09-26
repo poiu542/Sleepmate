@@ -22,6 +22,7 @@ import Report from '../screens/Report';
 import Sleep from '../screens/Sleep';
 import MainTabNavigator from './MainTabNavigator';
 import Analysis from '../screens/Analysis';
+import IntroExplain from '../screens/IntroExplain';
 
 
 // 상단 네비게이션 버튼 컴포넌트 모음
@@ -114,8 +115,20 @@ const AppNavigation = () => {
         <Stack.Screen name='Diagnosis' component={Diagnosis} options={{headerShown:false}} />
         <Stack.Screen name='Report' component={Report} options={{headerShown:false}} />
         <Stack.Screen name='Sleep' component={Sleep} options={{headerShown:false}} />
-        <Stack.Screen name='MainTabNavigator' component={MainTabNavigator} options={{headerShown:false}}/>
-        <Stack.Screen name='Analysis' component={Analysis} options={{headerShown:false}} />
+        {/* <Stack.Screen name='MainTabNavigator' component={MainTabNavigator}/> */}
+        <Stack.Screen
+            name="MainTabNavigator"
+            component={MainTabNavigator} // Use MainTabNavigator as the component
+            options={{
+              headerTitle: '',
+              headerTransparent: true,
+              headerBackTitleVisible: false,
+              headerLeft: () => <MainButton navigation={useNavigation()} />,
+              // headerRight: () => <MainRightButtons navigation={useNavigation()} />,
+            }}
+          />
+          <Stack.Screen name='Analysis' component={Analysis} options={{headerShown:false}} />
+          <Stack.Screen name='IntroExplain' component={IntroExplain} options={{headerShown:false}} />
         
       </Stack.Navigator>
     </NavigationContainer>

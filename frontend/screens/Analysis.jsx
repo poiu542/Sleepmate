@@ -1,4 +1,4 @@
-import {View, ScrollView, Dimensions, StyleSheet, Text, Image} from "react-native";
+import {View, ScrollView, Dimensions, StyleSheet, Text} from "react-native";
 import { useState } from "react";
 import { Video } from "expo-av";
 import { StatusBar } from 'expo-status-bar';
@@ -25,6 +25,8 @@ import BackDrop from "../components/Modal/BackDrop";
 const Analysis = () => {
     const width = Dimensions.get("window").width;
     const height = Dimensions.get("window").height-500;
+
+    const [kg, setKg] = useState("");
 
     const [selectedDate, setSelectedDate] = useState(null);
     const [modalVisible, setModalVisible] = useRecoilState(motionModalState);
@@ -67,9 +69,9 @@ const Analysis = () => {
 
                     {modalVisible&&<BackDrop/>}
 
-
                  </LinearGradient>
             </ScrollView>
+
 
         </View>
 

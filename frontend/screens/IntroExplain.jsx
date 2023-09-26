@@ -1,9 +1,10 @@
 import { StatusBar } from "expo-status-bar";
-import {Text, View, Dimensions, TextInput, TouchableWithoutFeedback, Keyboard } from 'react-native';
+import {Text, View, Dimensions, TextInput, TouchableWithoutFeedback, Keyboard, Button, TouchableOpacity } from 'react-native';
 import React, {useState, useEffect} from "react";
-import { Video } from "expo-av";
+import { Video, Audio } from "expo-av";
 import tw from "twrnc";
 import * as Animatable from 'react-native-animatable';
+import { useNavigation } from '@react-navigation/native';
 
 // 컴포넌트
 import ClockPicker from "../components/Clock/ClockPicker";
@@ -13,6 +14,8 @@ import DropDownTime from "../components/DropDown/DropDownTime";
 // recoil
 import {useRecoilState} from "recoil";
 import {sceenNumberState} from '../recoil/intro/sceenNumberAtom';
+
+// 음악
 
 
 const IntroExplain = () => {
@@ -25,16 +28,45 @@ const IntroExplain = () => {
     const [animation8, setAnimation8] = useState(null);
     const [animation10, setAnimation10] = useState(null);
     const [animation11, setAnimation11] = useState(null);
+    const [animation12, setAnimation12] = useState(null);
 
     const [sceen, setSceen] = useRecoilState(sceenNumberState);
+    const [sound, setSound] = useState();
 
 
     const widthInput = Dimensions.get("window").width/2-150;
     const heightInput = Dimensions.get("window").height-500;
     const height = Dimensions.get("window").height-150;
 
-    const [cm, setCm] = useState(0);
-    const [kg, setKg] = useState(0);
+    const [cm, setCm] = useState(null);
+    const [kg, setKg] = useState(null);
+
+    //음악 재생
+    async function playSound() {
+        const { status } = await Audio.requestPermissionsAsync();
+        if (status === 'granted') {
+          const { sound } = await Audio.Sound.createAsync(
+            require('../assets/sounds/introMusic30.mp3')
+          );
+          await sound.playAsync();
+          console.log(sound);
+        } else {
+          console.error('오디오 권한이 거부되었습니다.');
+        }
+    }
+
+    const navigate = useNavigation()
+
+    // useEffect(() => {
+    //     return sound
+    //       ? () => {
+    //           console.log('Unloading Sound');
+    //           sound.unloadAsync();
+    //         }
+    //       : undefined;
+    //   }, [sound]);
+
+    
 
     // 애니메이션 효과
     useEffect(() => {
@@ -132,7 +164,7 @@ const IntroExplain = () => {
 
         if (sceen===10 && animation1) {
             setTimeout(() => {
-                animation8.fadeOut(3000).then(() => {
+                animation10.fadeOut(3000).then(() => {
                     setSceen(11);
                     setAnimation11(animation11Ref => {
                         if (animation11Ref) {
@@ -144,14 +176,45 @@ const IntroExplain = () => {
             }, 3000);
         }
 
+        if (sceen===11 && animation1) {
+            setTimeout(() => {
+                animation11.fadeOut(3000).then(() => {
+                    setSceen(12);
+                    setAnimation12(animation12Ref => {
+                        if (animation12Ref) {
+                            animation12Ref.fadeOut(3000);
+                        }
+                        return animation12Ref;
+                    });
+                });
+            }, 3000);
+        }
+
+        if (sceen===12 && animation1) {
+            setTimeout(() => {
+                // 메인 페이지로 이동
+                navigate.navigate("MainTabNavigator");
+            }, 3000);
+        }
+
 
     }, [sceen, animation1]);
+
+
     
 
     return(
         
         <TouchableWithoutFeedback onPress={Keyboard.dismiss}>
-        <View style={tw`flex-1`}>
+        <Animatable.View ref={(ref) => setAnimation12(ref)} style={tw`flex-1 bg-black`}>
+
+            {/* {sceen===12 ? (
+                <Animatable.View
+                    style={tw`absolute top-0 left-0 right-0 bottom-0 z-10 bg-black`}
+                    animation="fadeOut" // You can adjust the animation type and duration
+                    duration={100000} // Adjust the duration as needed
+                />
+            ) : null} */}
 
             <StatusBar hidden />
 
@@ -162,7 +225,9 @@ const IntroExplain = () => {
                 repeat={true}
                 shouldPlay={true}
                 isLooping={true}
+                ref={(ref) => setAnimation12(ref)}
             />
+       
             <View style={tw`absolute top-0 left-0 right-0 bottom-0 bg-black opacity-50`}></View>
             <View style={tw`flex-1`}>
                 <Animatable.Text ref={(ref) => setAnimation1(ref)} style={ sceen===1?tw`absolute top-0 left-0 right-0 bottom-0 text-white text-5 mt-[${height}] text-center`:tw`hidden`}>환영합니다.</Animatable.Text>
@@ -178,21 +243,39 @@ const IntroExplain = () => {
                 <DropDownTime display={sceen}/>
                 <Animatable.Text ref={(ref) => setAnimation6(ref)} style={sceen===6?tw`absolute top-0 left-0 right-0 bottom-0 text-white text-5 mt-[${height}] text-center`:tw`hidden`}>평소 몇 시간 정도 잠을 자시나요?</Animatable.Text>
             
+                {/* <TouchableOpacity style={tw`bg-red-500 w-100 h-100`} onPress={() => playSound()}></TouchableOpacity> */}
+
+
                 {sceen===8?<TextInput
-                    keyboardType='numeric'
+                    editable
+                    multiline={false}
+                    keyboardType='decimal-pad'
+                    returnKeyType="done"
                     value={cm}
                     onChangeText={(data) => setCm(data)}
+                    onKeyPress={({ nativeEvent }) => {
+                        // nativeEvent.key 에 눌린 키의 값을 가져옴
+                        const keyPressed = nativeEvent.key;
+                        // 입력된 키를 현재 값에 추가하여 화면에 표시
+                        setCm((prevCm) => prevCm + keyPressed);
+                    }}
                     placeholder={'키(cm)'}
                     placeholderTextColor={"white"}
-                    style={tw`bg-black opacity-50 text-white rounded-xl absolute top-0 left-0 right-0 bottom-0 w-75 h-15 ml-[${widthInput}] mt-[${heightInput}] p-8`}
+                    // defaultValue={cm}
+                    style={tw`bg-black opacity-70 text-white rounded-xl absolute top-0 left-0 right-0 bottom-0 w-75 h-15 ml-[${widthInput}] mt-[${heightInput}] p-5`}
                 />:null}
                 {sceen===8?<TextInput
-                    keyboardType='numeric'
+                    editable
+                    multiline={false}
+                    keyboardType='number-pad'
+                    returnKeyType="done"
                     value={kg}
                     onChangeText={(data) => setKg(data)}
+                    onPress={console.log(kg)}
                     placeholder={'몸무게(kg)'}
                     placeholderTextColor={"white"}
-                    style={tw`bg-black opacity-50 text-white rounded-xl absolute top-0 left-0 right-0 bottom-0 w-75 h-15 ml-[${widthInput}] mt-[${heightInput+80}] p-8`}
+                    defaultValue={kg}
+                    style={tw`bg-black opacity-70 text-white rounded-xl absolute top-0 left-0 right-0 bottom-0 w-75 h-15 ml-[${widthInput}] mt-[${heightInput+80}] p-5`}
                 />:null}
                 <Animatable.Text ref={(ref) => setAnimation8(ref)} style={sceen===8?tw`absolute top-0 left-0 right-0 bottom-0 text-white text-5 mt-[${height}] text-center`:tw`hidden`}>{`키와 몸무게는 어떻게 되시나요?\nBMI검사에 활용됩니다.`}</Animatable.Text>
 
@@ -201,7 +284,7 @@ const IntroExplain = () => {
 
                 <Animatable.Text ref={(ref) => setAnimation11(ref)} style={sceen===11?tw`absolute top-0 left-0 right-0 bottom-0 text-white text-5 mt-[${height}] text-center`:tw`hidden`}>{`sleep mate가\n행복한 수면 경험을 선사해드리겠습니다.`}</Animatable.Text>
             </View>
-        </View>
+        </Animatable.View>
         </TouchableWithoutFeedback>
     )
 }
