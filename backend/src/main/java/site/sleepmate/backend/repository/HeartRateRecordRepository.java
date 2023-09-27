@@ -7,6 +7,7 @@ import site.sleepmate.backend.domain.Member;
 import java.time.LocalDate;
 import java.util.List;
 
-public interface HeartRateRecordRepository extends JpaRepository<HeartRateRecord, Integer> {
+public interface HeartRateRecordRepository extends JpaRepository<HeartRateRecord, Long> {
     List<HeartRateRecord> findAllByMemberAndSleepDateOrderByTime(Member member, LocalDate sleepDate);
+
 }

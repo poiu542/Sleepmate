@@ -19,7 +19,7 @@ public class LuxRecord {
     private Long luxSeq;
 
     @ManyToOne(fetch = FetchType.LAZY)
-    @JoinColumn(name = "memberSeq")
+    @JoinColumn(name = "member_seq")
     private Member member;
 
     @Column(name = "lux", nullable = false)
