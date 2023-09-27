@@ -9,7 +9,7 @@ import site.sleepmate.backend.service.BMIMeasurmentService;
 
 @RestController
 @AllArgsConstructor
-@RequestMapping("/bmi")
+@RequestMapping("api/bmi")
 public class BMIController {
     private final BMIMeasurmentService bmiMeasurmentService;
 

@@ -133,8 +133,8 @@ public class OauthService {
                 .alarm(Time.valueOf("07:00:00"))
                 .noServey(true)
                 .crescendo(false)
-                .weight(0)
-                .height(0)
+                .weight(160)
+                .height(60)
                 .build());
         br.close();
     }
