@@ -13,13 +13,14 @@ public class BMIMeasurmentService {
     public Double getBMI(Member member) {
         Member memberInfo = memberRepository.findByMemberSeq(member.getMemberSeq());
         int weight = memberInfo.getWeight();
+        // 단위를 m로 변환
         double height = memberInfo.getHeight() * 0.01;
+        // 몸무게 제곱
         double bmi = weight / Math.pow(height, 2);
-
+        // 소수점 두자리까지만 표시
         String bmiStr = String.format("%.2f", bmi);
-
-        bmi = Integer.parseInt(bmiStr);
-
+        // 다시 Double 형으로
+        bmi = Double.parseDouble(bmiStr);
         return bmi;
     }
 }
