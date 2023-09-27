@@ -6,6 +6,7 @@ import lombok.AccessLevel;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
 
+import java.time.LocalDate;
 import java.time.LocalDateTime;
 
 @Entity
@@ -26,6 +27,7 @@ public class AccelerometerRecord {
 
     @Column(name = "time", nullable = false)
     private LocalDateTime time;
+
 
     public AccelerometerRecord(Member member, Double mValue, LocalDateTime time) {
         this.member = member;
