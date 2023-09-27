@@ -13,11 +13,13 @@ import lombok.NoArgsConstructor;
 public class NormalResponseDto {
     private Integer minHeartRate;
     private Integer maxHeartRate;
+    private Integer measurement;
 
-    public NormalResponseDto getNormalResponseDto(Integer minHeartRate, Integer maxHeartRate) {
+    public NormalResponseDto getNormalResponseDto(Integer minHeartRate, Integer maxHeartRate, Integer measurement) {
         return NormalResponseDto.builder()
                 .minHeartRate(minHeartRate)
                 .maxHeartRate(maxHeartRate)
+                .measurement(measurement)
                 .build();
     }
 }

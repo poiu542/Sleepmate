@@ -66,7 +66,7 @@ public class AbnormalHeartRateMeasurementService {
             for (int i = detectedTimes.size(); i > 0; i--){
                 // 감지된 시간이 시작시간보다 나중이고, 종료 시간보다 이전일때 데이터 입력
                 if (videoOrder.getStartTime().isBefore(detectedTimes.get(i)) && videoOrder.getEndTime().isAfter(detectedTimes.get(i))) {
-                    abnormalResponseDtos.add(AbnormalResponseDto.getAbnormalData(abnormalPartDto.getDetectedTime(), abnormalPartDto.getAbnormalHeartRate(), videoOrder.getPosture()));
+                    abnormalResponseDtos.add(AbnormalResponseDto.getAbnormalData(abnormalPartDto.getDetectedTime(), abnormalPartDto.getAbnormalHeartRate(), videoOrder.getPosture(), 1));
                 }
             }
         }

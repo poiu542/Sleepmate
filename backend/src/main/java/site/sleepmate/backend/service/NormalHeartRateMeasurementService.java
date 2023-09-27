@@ -44,6 +44,6 @@ public class NormalHeartRateMeasurementService {
                 calBPM.add(heartRateRecords.get(i).getHeartRate());
             }
         }
-        return normalResponseDto.getNormalResponseDto(minBPM, maxBPM);
+        return normalResponseDto.getNormalResponseDto(minBPM, maxBPM, 0);
     }
 }
