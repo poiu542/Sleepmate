@@ -23,7 +23,7 @@ const MainTabNavigator = () => {
             if (route.name === 'Sleep') {
               label = '잠';
             } else if (route.name === 'Analysis') {
-              label = '리포트';
+              label = '오늘의 자세';
             } else if (route.name === 'Diagnosis') {
               label = '수면진단';
             } 
@@ -42,11 +42,11 @@ const MainTabNavigator = () => {
           tabBarIcon: ({ focused, color, size }) => {
             let iconName;
             if (route.name === 'Sleep') {
-              iconName = focused ? 'card' : 'card-outline';
+              iconName = focused ? 'bed' : 'bed-outline';
             } else if (route.name === 'Analysis') {
-              iconName = focused ? 'document' : 'document-outline';
+              iconName = focused ? 'body' : 'body-outline';
             } else if (route.name === 'Diagnosis') {
-              iconName = focused ? 'gift' : 'gift-outline';
+              iconName = focused ? 'bulb' : 'bulb-outline';
             } 
             return <Ionicons name={iconName} size={size} color={color} />;
           },

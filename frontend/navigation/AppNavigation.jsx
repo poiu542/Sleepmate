@@ -23,6 +23,9 @@ import Sleep from '../screens/Sleep';
 import MainTabNavigator from './MainTabNavigator';
 import Analysis from '../screens/Analysis';
 import IntroExplain from '../screens/IntroExplain';
+import Watch from '../screens/Watch';
+import GoToSleep from '../screens/GoToSleep';
+import SleepSetting from '../screens/SleepSetting';
 
 
 // 상단 네비게이션 버튼 컴포넌트 모음
@@ -30,9 +33,9 @@ import IntroExplain from '../screens/IntroExplain';
 //홈 버튼 컴포넌트
 const MainButton = ({navigation}) => {
   return (
-  <Pressable onPress={()=>{navigation.navigate("MyAccounts")}}>
-    <AntDesign name="home" size={26} color="black" />
-  </Pressable>
+    <Pressable onPress={()=>{navigation.navigate("MainTabNavigator")}}>
+      <AntDesign name="home" size={26} color="white" />
+    </Pressable>
   )
 };
 
@@ -41,7 +44,7 @@ const BackButton = () => {
   const navigation = useNavigation();
   return (
   <Pressable onPress={()=>{navigation.goBack()}}>
-  <Entypo name="chevron-thin-left" size={24} color="black" />
+  <Entypo name="chevron-thin-left" size={24} color="white" />
   </Pressable>
   )
 };
@@ -51,7 +54,7 @@ const CancelButton = () => {
   const navigation = useNavigation();
   return (
   <Pressable onPress={()=>{navigation.goBack()}}>
-    <AntDesign name="close" size={26} color="black" />
+    <AntDesign name="close" size={26} color="white" />
   </Pressable>
   )
 };
@@ -64,6 +67,27 @@ const CancelCreateAccountButton = ({navigation}) => {
   </Pressable>
   )
 };
+
+// 설정버튼 컴포넌트
+const ConfigButton = ({navigation}) => {
+  return (
+  <Pressable onPress={()=>{navigation.navigate("SleepSetting")}}>
+    <AntDesign name="setting" size={26} color="white" />
+  </Pressable>
+  )
+};
+
+
+// 저장버튼 컴포넌트
+const StoreButton = ({navigation}) => {
+  return (
+  <Pressable onPress={()=>{navigation.navigate("MainTabNavigator")}}>
+    <AntDesign name="check" size={26} color="white" />
+  </Pressable>
+  )
+};
+
+
 const CancelInviteButton = ({navigation}) => {
   return (
   <Pressable onPress={()=>{navigation.navigate("MainTabNavigator")}}>
@@ -123,12 +147,36 @@ const AppNavigation = () => {
               headerTitle: '',
               headerTransparent: true,
               headerBackTitleVisible: false,
-              headerLeft: () => <MainButton navigation={useNavigation()} />,
-              // headerRight: () => <MainRightButtons navigation={useNavigation()} />,
+              headerLeft: () => <BackButton navigation={useNavigation()} />,
+              headerRight: () => <ConfigButton navigation={useNavigation()} />,
             }}
           />
-          <Stack.Screen name='Analysis' component={Analysis} options={{headerShown:false}} />
+          <Stack.Screen name='Analysis' component={Analysis}
+            options={{
+              headerTitle: '',
+              headerTransparent: true,
+              headerBackTitleVisible: false,
+              headerLeft: () => <MainButton navigation={useNavigation()} />,
+              // headerRight: () => <ConfigButton navigation={useNavigation()} />,
+            }} 
+          />
           <Stack.Screen name='IntroExplain' component={IntroExplain} options={{headerShown:false}} />
+          <Stack.Screen name='Watch' component={Watch} options={{headerShown:false}} />
+          <Stack.Screen name='GoToSleep' component={GoToSleep} options={{headerShown:false}} />
+          <Stack.Screen
+            name="SleepSetting"
+            component={SleepSetting} // Use MainTabNavigator as the component
+            options={{
+              headerTitle: '알람 설정',
+              headerTransparent: true,
+              headerBackTitleVisible: false,
+              headerLeft: () => <BackButton navigation={useNavigation()} />,
+              headerRight: () => <StoreButton navigation={useNavigation()} />,
+              headerTitleStyle: {
+                color: 'white', // 흰색으로 텍스트 색상 설정
+              },
+            }}
+          />
         
       </Stack.Navigator>
     </NavigationContainer>
