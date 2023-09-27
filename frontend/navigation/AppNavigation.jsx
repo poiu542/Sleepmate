@@ -147,7 +147,8 @@ const AppNavigation = () => {
               headerTitle: '',
               headerTransparent: true,
               headerBackTitleVisible: false,
-              headerLeft: () => <BackButton navigation={useNavigation()} />,
+              headerBackVisible : false,
+              // headerLeft: () => <BackButton navigation={useNavigation()} />,
               headerRight: () => <ConfigButton navigation={useNavigation()} />,
             }}
           />
