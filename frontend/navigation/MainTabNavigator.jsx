@@ -2,7 +2,6 @@ import React, {useState, useEffect} from 'react';
 import { createBottomTabNavigator } from '@react-navigation/bottom-tabs';
 import { StackNavigationProp } from '@react-navigation/stack';
 import Sleep from '../screens/Sleep';
-import Report from '../screens/Report';
 import Diagnosis from '../screens/Diagnosis';
 import {Ionicons} from '@expo/vector-icons';
 import { Feather, MaterialCommunityIcons, AntDesign } from '@expo/vector-icons';
@@ -41,7 +40,7 @@ const MainTabNavigator = () => {
               <Text
                 style={[
                   tw `text-[2.6]`,
-                  { color: focused ? '#9FA4AB' : '#999' }, 
+                  { color: focused ? '#777' : '#eee' }, 
                 ]}
               >
                 {label}
@@ -59,10 +58,10 @@ const MainTabNavigator = () => {
             } 
             return <Ionicons name={iconName} size={size} color={color} />;
           },
-          tabBarActiveTintColor : "#9FA4AB",
-          tabBarInactiveTintColor : "#999",
+          tabBarActiveTintColor : "#777",
+          tabBarInactiveTintColor : "#eee",
           tabBarStyle : {
-            backgroundColor : "#eee",
+            backgroundColor : "#bbb",
           },
         })}
       >

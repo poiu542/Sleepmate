@@ -40,7 +40,7 @@ const Home = () => {
                     source = {require('../assets/images/SleepMate.png')}
                 ></Image>
                 <Image
-                    style = {tw `mt-3 self-center`}
+                    style = {tw `mt-3 w-65 h-5 self-center`}
                     source = {require('../assets/images/subtitle.png')}
                 ></Image>
                 </View>
@@ -64,7 +64,7 @@ const Home = () => {
                     source = {require('../assets/images/SleepMate.png')}
                 ></Image>
                 <Image
-                    style = {tw `mt-3 ml-10`}
+                    style = {tw `mt-3 w-65 h-5 ml-10`}
                     source = {require('../assets/images/subtitle.png')}
                 ></Image>
                 </View>
