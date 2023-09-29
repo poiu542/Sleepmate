@@ -16,18 +16,18 @@ const Date = ({ date, onSelectDate, selected }) => {
   return (
     <TouchableOpacity
       onPress={() => onSelectDate(fullDate)}
-      style={[styles.card, selected === fullDate && { backgroundColor: "#091B35" }]}
+      style={[styles.card, selected === fullDate && { backgroundColor: "#888" }]}
     >
       <Text
         style={[styles.big, selected === fullDate && { color: "#fff" }]}
       >
         {day}
       </Text>
-      <View style={{ height: 10 }} />
+      <View style={{ height: 5 }} />
       <Text
         style={[
           styles.medium,
-          selected === fullDate && { color: "#fff", fontWeight: 'bold', fontSize: 24 },
+          selected === fullDate && { color: "#fff", fontWeight: 'bold', fontSize: 15 },
         ]}
       >
         {dayNumber}
@@ -37,24 +37,24 @@ const Date = ({ date, onSelectDate, selected }) => {
 }
 
 export default Date
-
 const styles = StyleSheet.create({
   card: {
-    backgroundColor: '#eee',
-    borderRadius: 10,
-    borderColor: '#ddd',
-    padding: 10,
-    marginVertical: 10,
+    borderRadius: 8,
+    padding: 3,
+    marginVertical: 20,
     alignItems: 'center',
-    height: 90,
-    width: 80,
-    marginHorizontal: 5,
+    height: 50,
+    width: 55,
+    margin: 1,
   },
   big: {
-    fontWeight: 'bold',
-    fontSize: 20,
+    fontSize: 13,
+    color : "#eee"
   },
   medium: {
-    fontSize: 20,
+    fontSize: 15,
+    fontWeight : 'bold',
+    color : "#eee"
+
   },
 })

@@ -1,8 +1,7 @@
-import React from 'react';
+import React, {useState, useEffect} from 'react';
 import { createBottomTabNavigator } from '@react-navigation/bottom-tabs';
 import { StackNavigationProp } from '@react-navigation/stack';
 import Sleep from '../screens/Sleep';
-import Report from '../screens/Report';
 import Diagnosis from '../screens/Diagnosis';
 import {Ionicons} from '@expo/vector-icons';
 import { Feather, MaterialCommunityIcons, AntDesign } from '@expo/vector-icons';
@@ -13,8 +12,17 @@ import Analysis from '../screens/Analysis';
 const MainTab = createBottomTabNavigator();
 
 const MainTabNavigator = () => {
+  const [initialRoute, setInitialRoute] = useState('Sleep');
+    useEffect(()=>{
+      const sleepEnded = true;
+      if(sleepEnded){
+        setInitialRoute('Analysis')
+      }
+    }, [])
+
     return (
       <MainTab.Navigator
+        initialRouteName={initialRoute}
         screenOptions={({ route }) => ({
           headerShown : false,
           tabBarLabel: ({ focused, color }) => {
@@ -32,7 +40,7 @@ const MainTabNavigator = () => {
               <Text
                 style={[
                   tw `text-[2.6]`,
-                  { color: focused ? '#2695B1' : '#999' }, // Change text color based on focus
+                  { color: focused ? '#777' : '#eee' }, 
                 ]}
               >
                 {label}
@@ -50,8 +58,11 @@ const MainTabNavigator = () => {
             } 
             return <Ionicons name={iconName} size={size} color={color} />;
           },
-          tabBarActiveTintColor : "#2695B1",
-          tabBarInactiveTintColor : "#999",
+          tabBarActiveTintColor : "#777",
+          tabBarInactiveTintColor : "#eee",
+          tabBarStyle : {
+            backgroundColor : "#bbb",
+          },
         })}
       >
         <MainTab.Screen name="Sleep" component={Sleep} />

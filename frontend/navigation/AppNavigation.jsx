@@ -18,7 +18,6 @@ import Home from "../screens/Home"
 import Camera from '../screens/Camera';
 import Test from '../screens/Test';
 import Diagnosis from '../screens/Diagnosis';
-import Report from '../screens/Report';
 import Sleep from '../screens/Sleep';
 import MainTabNavigator from './MainTabNavigator';
 import Analysis from '../screens/Analysis';
@@ -137,7 +136,6 @@ const AppNavigation = () => {
         <Stack.Screen name='Test' component={Test} options={{headerShown:false}} />
         <Stack.Screen name='IntroExplane' component={IntroExplane} options={{headerShown:false}} />
         <Stack.Screen name='Diagnosis' component={Diagnosis} options={{headerShown:false}} />
-        <Stack.Screen name='Report' component={Report} options={{headerShown:false}} />
         <Stack.Screen name='Sleep' component={Sleep} options={{headerShown:false}} />
         {/* <Stack.Screen name='MainTabNavigator' component={MainTabNavigator}/> */}
         <Stack.Screen
@@ -147,7 +145,8 @@ const AppNavigation = () => {
               headerTitle: '',
               headerTransparent: true,
               headerBackTitleVisible: false,
-              headerLeft: () => <BackButton navigation={useNavigation()} />,
+              headerBackVisible : false,
+              // headerLeft: () => <BackButton navigation={useNavigation()} />,
               headerRight: () => <ConfigButton navigation={useNavigation()} />,
             }}
           />
