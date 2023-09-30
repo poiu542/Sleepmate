@@ -1,4 +1,4 @@
-import {View, ScrollView, Dimensions, StyleSheet, Text} from "react-native";
+import {View, ScrollView, Dimensions, StyleSheet, Text, Image, ImageBackground} from "react-native";
 import { useState } from "react";
 import { Video } from "expo-av";
 import { StatusBar } from 'expo-status-bar';
@@ -21,7 +21,9 @@ import HR from "../components/Html/HR";
 import SleepMotionPercent from "../components/Alert/SleepMotionPercent";
 import MotionChart from "../components/Chart/MotionChart";
 import BackDrop from "../components/Modal/BackDrop";
-
+import bg from "../assets/images/report-bg.jpg";
+import moonflower from "../assets/videos/moonflowerpink.mp4";
+import homevideo2 from "../assets/videos/home_video2.mp4"
 const Analysis = () => {
     const width = Dimensions.get("window").width;
     const height = Dimensions.get("window").height-500;
@@ -31,18 +33,18 @@ const Analysis = () => {
     const [selectedDate, setSelectedDate] = useState(null);
     const [modalVisible, setModalVisible] = useRecoilState(motionModalState);
     return(
-        <View style={tw`flex-1 bg-white`}>
+        <View style={tw`flex-1 bg-white w-full h-full`}>
             {/* <Image style={tw`absolute top-0 left-0 right-0 bottom-0 w-full h-100`} source={turnOnTheLight}/> */}
-            <Video style={tw`absolute top-0 left-0 right-0 bottom-0 w-100 h-70`} source={sunrise} resizeMode={"cover"} repeat={true} paused={false} onAnimatedValueUpdate={() => {}}></Video>
-
+            <Video style={tw`absolute top-0 left-0 right-0 bottom-0 w-full h-full`} source={homevideo2} resizeMode={"cover"} repeat={true} paused={false} onAnimatedValueUpdate={() => {}}></Video>
+            {/* <Image style={tw `flex-1 absolute top-0 left-0 right-0 bottom-0 w-100 h-70`} source={turnOnTheLight} resizeMode="cover" ></Image> */}
             <ScrollView>
-                <LinearGradient
-                    colors={['transparent', 'white', 'white', 'white', 'white', 'white', 'white']} // Define your gradient colors
+                {/* <LinearGradient
+                    colors={['transparent', 'transparent', 'white', 'white', 'white', 'white', 'white']} // Define your gradient colors
                     start={{ x: 0, y: 1 }} // Gradient start point
                     end={{ x: 0, y: 1 }} // Gradient end point
-                    style={tw`rounded-2xl shadow-2xl w-full self-center mt-70 mb-30 pl-5 pr-5`} 
-                >
-            
+                     
+                > */}
+                <View style={tw`rounded-5 shadow-2xl w-full self-center mt-25 px-3 bg-[#000]/60`}>
                     <View style={styles.container}>
                         <CalendarHorizontal onSelectDate={setSelectedDate} selected={selectedDate} />
                         <StatusBar style="auto" />
@@ -56,9 +58,9 @@ const Analysis = () => {
                     <HR/>
 
                     {/* 수면 자세 */}
-                    <SleepVideoAlert/>
+                    {/* <SleepVideoAlert/> */}
                     <SleepMotion/>
-                    <Text style={tw`text-center font-bold mt-5`}>각 이미지를  Click하면 자세한 나의 모습을 볼 수 있어요!</Text>
+                    {/* <Text style={tw`text-center font-bold mt-6`}>각 이미지를  Click하면 자세한 나의 모습을 볼 수 있어요!</Text> */}
 
                     <HR/>
 
@@ -68,8 +70,9 @@ const Analysis = () => {
                     <Text style={tw`text-center font-bold mt-5`}>각 데이터를 Click하면 유형별 이미지를 볼 수 있어요!</Text>
 
                     {modalVisible&&<BackDrop/>}
+                    </View>
 
-                 </LinearGradient>
+                 {/* </LinearGradient> */}
             </ScrollView>
 
 
@@ -84,6 +87,6 @@ const styles = StyleSheet.create({
     container: {
       alignItems: 'center',
       justifyContent: 'center',
-      paddingTop:50,
+      paddingTop:30,
     },
   });

@@ -11,7 +11,7 @@ function Test() {
     return (
         <>
             <WebView 
-                source={{uri : "https://daen12.github.io/rtsp-camera/test.html" }}>
+                source={{uri : "https://j9b103.p.ssafy.io/cjsdnjswnsqkdahtmq" }}>
             </WebView>
 
             <View style={tw `absolute w-full px-10 py-170 z-10`}>
