@@ -139,6 +139,8 @@ public class OauthService {
                     .kakaoId(Long.valueOf(id))
                     .visit(true)
                     .build());
+        } else {
+            System.out.println("이미 존재하는 회원입니다.");
         }
         br.close();
     }
