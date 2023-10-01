@@ -38,12 +38,6 @@ const Analysis = () => {
             <Video style={tw`absolute top-0 left-0 right-0 bottom-0 w-full h-full`} source={homevideo2} resizeMode={"cover"} repeat={true} paused={false} onAnimatedValueUpdate={() => {}}></Video>
             {/* <Image style={tw `flex-1 absolute top-0 left-0 right-0 bottom-0 w-100 h-70`} source={turnOnTheLight} resizeMode="cover" ></Image> */}
             <ScrollView>
-                {/* <LinearGradient
-                    colors={['transparent', 'transparent', 'white', 'white', 'white', 'white', 'white']} // Define your gradient colors
-                    start={{ x: 0, y: 1 }} // Gradient start point
-                    end={{ x: 0, y: 1 }} // Gradient end point
-                     
-                > */}
                 <View style={tw`rounded-5 shadow-2xl w-full self-center mt-25 px-3 bg-[#000]/60`}>
                     <View style={styles.container}>
                         <CalendarHorizontal onSelectDate={setSelectedDate} selected={selectedDate} />
@@ -71,8 +65,6 @@ const Analysis = () => {
 
                     {modalVisible&&<BackDrop/>}
                     </View>
-
-                 {/* </LinearGradient> */}
             </ScrollView>
 
 

@@ -1,55 +1,50 @@
-import React, { useEffect } from 'react';
-import Switch from 'react-native-switch-toggles';
-import { StyleSheet, Text, View, Image, SafeAreaView } from 'react-native';
+//This is an example code to understand Switch//
 
-const Toggle = () => {
-  const [isEnabled, setIsEnabled] = useState(false);
+import React from 'react';
+import tw from 'twrnc';
+//import react in our code.
 
-  return (
-    <SafeAreaView style={styles.container}>
-      <Item
-        renderContent={() => (
-          <>
-            <Switch
-              value={isEnabled}
-              onChange={(value) => setIsEnabled(value)}
-              activeTrackColor={'#45D058'}
-              renderOffIndicator={() => (
-                <Text style={{ fontSize: 8, color: 'white' }}>OFF</Text>
-              )}
-              renderOnIndicator={() => (
-                <Text style={{ fontSize: 8, color: 'white' }}>ON</Text>
-              )}
-            />
-          </>
-        )}
-      />
-    </SafeAreaView>
-  );
+import { Switch, Text, View, StyleSheet } from 'react-native';
+//import all the components we are going to use.
+
+export default class App extends React.Component {
+  //Initial state false for the switch. You can change it to true just to see.
+  state = { switchValue: true };
+
+  toggleSwitch = value => {
+    //onValueChange of the switch this function will be called
+    this.setState({ switchValue: value });
+    //state changes according to switch
+    //which will result in re-render the text
+  };
+
+  render() {
+    return (
+      <View style={styles.container}>
+        {/*Text to show the text according to switch condition*/}
+        <View style={tw`flex-row`}>
+          <Text style={tw`text-white text-5`}>알람 </Text>
+          <View style={tw`bg-green-50 rounded`}><Text style={tw`text-white text-5 text-[#008000]`}>{this.state.switchValue ? 'ON' : null}</Text></View>
+          <View style={tw`bg-red-50 rounded`}><Text style={tw`text-white text-5 text-[#ff0000]`}>{!this.state.switchValue ? 'OFF' : null}</Text></View>
+        </View>
+
+        {/*Switch with value set in constructor*/}
+        {/*onValueChange will be triggered after switch condition changes*/}
+        <Switch
+          onValueChange={this.toggleSwitch}
+          value={this.state.switchValue}
+        />
+      </View>
+    );
+  }
 }
-
-export default Toggle
-
-const Item = ({ renderContent }) => {
-  return <View style={styles.item}>{renderContent()}</View>;
-};
-
 const styles = StyleSheet.create({
   container: {
     flex: 1,
-    backgroundColor: '#17191A',
-  },
-  item: {
-    width: '100%',
-    height: 60,
-    flexDirection: 'row',
-    alignItems: 'center',
     justifyContent: 'space-between',
-    paddingHorizontal: 15,
-    backgroundColor: '#242627',
-    marginVertical: 2,
-  },
-  label: {
-    color: '#ffffff',
+    alignItems: 'center',
+    flexDirection: 'row',
+    marginLeft:20,
+    marginRight:20,
   },
 });
