@@ -2,7 +2,6 @@ package site.sleepmate.backend.domain;
 
 import jakarta.persistence.*;
 import lombok.*;
-import org.hibernate.annotations.ColumnDefault;
 
 import java.sql.Time;
 import java.util.ArrayList;
@@ -39,8 +38,17 @@ public class Member {
     @Column(name = "alarm", nullable = false)
     private Time alarm;
 
-    @Column(name = "crescendo", nullable = false)
-    private Boolean crescendo;
+    @Column(name = "height", nullable = false)
+    private Integer height;
+
+    @Column(name = "weight", nullable = false)
+    private Integer weight;
+
+    @Column(name = "kakao-id", nullable = false)
+    private Long kakaoId;
+
+    @Column(name = "visit", nullable = false)
+    private Boolean visit;
 
     @OneToMany(mappedBy = "member")
     private List<HeartRateRecord> heartRateRecords = new ArrayList<HeartRateRecord>();
@@ -58,7 +66,7 @@ public class Member {
     private List<AccelerometerRecord> accelerometerRecords = new ArrayList<AccelerometerRecord>();
 
     @Builder
-    public Member(String email, String nickname, String gender, String ageRange, Boolean hasWatch, Boolean noServey, Time alarm, Boolean crescendo) {
+    public Member(String email, String nickname, String gender, String ageRange, Boolean hasWatch, Boolean noServey, Time alarm, Integer height, Integer weight, Long kakaoId, Boolean visit) {
         this.email = email;
         this.nickname = nickname;
         this.gender = gender;
@@ -66,6 +74,9 @@ public class Member {
         this.hasWatch = hasWatch;
         this.noServey = noServey;
         this.alarm = alarm;
-        this.crescendo = crescendo;
+        this.height = height;
+        this.weight = weight;
+        this.kakaoId = kakaoId;
+        this.visit = visit;
     }
 }

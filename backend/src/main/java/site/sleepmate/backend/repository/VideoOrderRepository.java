@@ -7,6 +7,6 @@ import site.sleepmate.backend.domain.VideoOrder;
 import java.time.LocalDate;
 import java.util.List;
 
-public interface VideoOrderRepository extends JpaRepository<VideoOrder, Integer> {
+public interface VideoOrderRepository extends JpaRepository<VideoOrder, Long> {
     List<VideoOrder> findAllByMemberAndSleepDateOrderByStartTime(Member member, LocalDate sleepDate);
 }

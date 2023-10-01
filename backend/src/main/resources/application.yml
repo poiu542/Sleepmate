@@ -4,15 +4,16 @@ spring:
 #    url: jdbc:h2:mem:sleepmate;MODE=MYSQL
 #    username: sa
 #    password:
-      url: jdbc:mysql://localhost:3306/sleepmate
+      driver-class-name: com.mysql.cj.jdbc.Driver
+#      url: jdbc:mysql://localhost:3306/sleepmate
+      url: jdbc:mysql://j9b103.p.ssafy.io:3306/sleepmate?useUnicode=true&serverTimezone=Asia/Seoul
       useSSL: false
       username: root
-      password: 1234
-      driver-class-name: com.mysql.cj.jdbc.Driver
+      password: samjijiksong-parutparut
 
   jpa:
     hibernate:
-      ddl-auto: validate
+      ddl-auto: create
 
     show-sql: true
 
