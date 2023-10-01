@@ -22,11 +22,13 @@ const AlarmSetting = () => {
   return (
     <View style={tw`flex-1 bg-[#11161A]`}>
         <StatusBar style="light" />
+
+        <Text>잠 좀 자자님, 언제 일어나고 싶으세요? </Text>
         
         <View style={tw`flex-4 z-10`}>
             <ClockPicker display={4}/>
-            <Text style={tw `absolute mt-100 ml-25 text-white text-center text-white text-lg z-10`}>수면 예상 시간 8시간 30분</Text>
         </View>
+        <Text style={tw `absolute mt-120 ml-25 text-white text-center text-white text-lg z-10`}>수면 예상 시간 8시간 30분</Text>
 
         {/* <View style={tw`flex-2 z-10`}>
             <Toggle/>
