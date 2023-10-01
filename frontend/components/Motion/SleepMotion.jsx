@@ -62,18 +62,22 @@ const SleepMotion = () => {
 
 
     return(
+        <View style={tw`w-full h-90 bg-[#000]/50 mt-7 rounded-4 p-5`}>
+        <Text style={tw`text-white text-4 text-center font-bold mt-2`}>AI가 분석한 수면 자세</Text>
+        <Text style={tw`text-[#FFF1D4] text-3.3 text-center mt-2`}>어젯밤 총 5번의 자세변화가 있었어요.</Text>
         <ScrollView
             pagingEnabled
             horizontal 
             showsHorizontalScrollIndicator={false}
-            style={tw`w-full h-[300px] bg-[#091B35] mt-5 rounded-lg p-5`}>
+            >
+                
             {
                 motions.map((data, index)=>{
                     return(
                         
-                        data.no===1?<TouchableOpacity onPress={()=>showModal("1유형","1유형")} style={tw`w-20 h-full items-center justify-between mr-5`}><Image style={tw`mr-5 w-full h-50`} source={M_motion_forward} resizeMode="contain"/><Text style={tw`text-white font-bold`}>{data.time}</Text></TouchableOpacity>:(
-                            data.no===2?<TouchableOpacity style={tw`w-20 h-full items-center justify-between mr-5`}><Image  style={tw`mr-5 w-full h-50`} source={M_motion_shirimp_right} resizeMode="contain"/><Text style={tw`text-white font-bold`}>{data.time}</Text></TouchableOpacity>:(
-                                data.no===3?<TouchableOpacity style={tw`w-20 h-full items-center justify-between mr-5`}><Image style={tw`mr-5 w-full h-50`} source={M_motion_reverse} resizeMode="contain"/><Text style={tw`text-white font-bold`}>{data.time}</Text></TouchableOpacity>:null
+                        data.no===1?<TouchableOpacity onPress={()=>showModal("1유형","1유형")} style={tw`w-20 h-20 items-center justify-between mr-5`}><Image style={tw`mr-5 w-full h-45`} source={M_motion_forward} resizeMode="contain"/><Text style={tw`text-white`}>{data.time}</Text></TouchableOpacity>:(
+                            data.no===2?<TouchableOpacity style={tw`w-20 h-20 items-center justify-between mr-5`}><Image  style={tw`mr-5 w-full h-45`} source={M_motion_shirimp_right} resizeMode="contain"/><Text style={tw`text-white`}>{data.time}</Text></TouchableOpacity>:(
+                                data.no===3?<TouchableOpacity style={tw`w-20 h-20 items-center justify-between mr-5`}><Image style={tw`mr-5 w-full h-45`} source={M_motion_reverse} resizeMode="contain"/><Text style={tw`text-white`}>{data.time}</Text></TouchableOpacity>:null
                             )
                         )
                         
@@ -82,6 +86,9 @@ const SleepMotion = () => {
             }
 
         </ScrollView>
+        <Text style={tw`text-white text-3 text-center mt-2`}>* 각 이미지 클릭 시 자세한 나의 모습을 볼 수 있어요</Text>
+
+        </View>
     )
 }
 

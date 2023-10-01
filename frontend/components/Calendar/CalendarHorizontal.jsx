@@ -39,8 +39,8 @@ const CalendarHorizontal = ({ onSelectDate, selected }) => {
 
   return (
     <>
-      <View style={tw`w-full pl-5`}>
-        <Text style={tw`text-[25px] text-black text-left font-bold`}>{currentMonth}</Text>
+      <View style={tw`w-full pl-2`}>
+        <Text style={tw`text-[5] text-[#ddd] text-left font-bold`}>{currentMonth}</Text>
       </View>
       <View style={styles.dateSection}>
         <View style={styles.scroll}>
@@ -82,6 +82,6 @@ const styles = StyleSheet.create({
     padding: 5,
   },
   scroll: {
-    height: 150,
+    height: 100,
   },
 })

@@ -86,7 +86,7 @@ const GoToSleep = () => {
     const EndSleep = () => {
         stopSound1();
         stopSound2();
-        navigate.navigate("Analysis");
+        navigate.navigate("MainTabNavigator");
     }
 
     useEffect(()=>{
