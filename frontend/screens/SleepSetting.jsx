@@ -33,7 +33,7 @@ const SleepSetting = () => {
               <Text style={tw `text-[#11161A] text-lg p-1`}>알람 설정</Text>
           </TouchableOpacity>
 
-          <TouchableOpacity onPress={()=>{navigate.navigate("")}} style={tw `flex-row border-white border-[0.3] rounded-2 h-17 items-center mt-5 bg-white`}>
+          <TouchableOpacity onPress={()=>{navigate.navigate("UserSetting")}} style={tw `flex-row border-white border-[0.3] rounded-2 h-17 items-center mt-5 bg-white`}>
               <Ionicons name="person" size={30} color="#11161A" style={tw`p-5 mt--1`}/>
               <Text style={tw `text-[#11161A] text-lg p-1`}>회원 정보</Text>
           </TouchableOpacity>
@@ -43,7 +43,7 @@ const SleepSetting = () => {
 
 
       <View style={tw `flex-1 px-10 z-10`}>
-            <TouchableOpacity onPress={()=>{navigate.navigate("Test")}} style={tw `border-white border-[0.3] rounded-2 h-13 items-center justify-center`}>
+            <TouchableOpacity onPress={()=>{navigate.navigate("Home")}} style={tw `border-white border-[0.3] rounded-2 h-13 items-center justify-center`}>
                 <Text style={tw `text-white text-lg`}>로그아웃</Text>
             </TouchableOpacity>
         </View>
