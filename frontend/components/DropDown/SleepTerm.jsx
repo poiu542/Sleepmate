@@ -62,7 +62,7 @@ const SleepTerm = () => {
               setOpen={setGenderOpen}
               setValue={setTime}
               setItems={setGender}
-              placeholder="숙면 시간"
+              placeholder="시간 선택"
               placeholderStyle={tw`bg-[#00ff0000] text-[#B7B7B7]`}
               onOpen={onGenderOpen}
               onChangeValue={setTime}
