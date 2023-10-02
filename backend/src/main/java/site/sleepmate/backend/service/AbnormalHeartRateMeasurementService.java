@@ -60,7 +60,7 @@ public class AbnormalHeartRateMeasurementService {
                 // 감지된 시간, 그때 저장된 심박수 저장
                 abnormalPartDtos.add(AbnormalPartDto.getAbnormalPartData(detectedTime, dectedHeartrate));
             }
-        }        
+        }
 
         double bmi = bmiMeasurmentService.getBMI(memberSeq);
 
