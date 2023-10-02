@@ -15,4 +15,7 @@ public interface VideoRecordRepository extends JpaRepository<VideoRecord, Long> 
     //취침 종료 시간의 로그 가져오는 쿼리
     Optional<VideoRecord> findTop1BySleepDateOrderByVideoSeqDesc(LocalDate date);
     Optional<VideoRecord> findTop1ByOrderByVideoSeqDesc();
+
+    int countBySleepDateAndMember_MemberSeq(LocalDate sleepDate, Long memberSeq);
+    int countBySleepDateAndPostureAndMember_MemberSeq(LocalDate sleepDate, int posture, Long memberSeq);
 }
