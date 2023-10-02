@@ -8,8 +8,8 @@ import site.sleepmate.backend.domain.Member;
 import site.sleepmate.backend.repository.HeartRateRecordRepository;
 import site.sleepmate.backend.repository.MemberRepository;
 
-import java.time.LocalDate;
 import java.time.LocalDateTime;
+import java.time.LocalDate;
 import java.time.LocalTime;
 import java.util.NoSuchElementException;
 
@@ -21,6 +21,7 @@ public class DataService {
     private final MemberRepository memberRepository;
     public void saveHeartRateRecord(double heartRate){
         Member member = memberRepository.findByMemberSeq(1l).orElseThrow(() -> new NoSuchElementException());
+
         LocalDateTime currentTime = LocalDateTime.now();
         LocalDate sleepDate = currentTime.toLocalDate();
         if(currentTime.isBefore(LocalDateTime.of(sleepDate, LocalTime.of(12, 0, 0)))){

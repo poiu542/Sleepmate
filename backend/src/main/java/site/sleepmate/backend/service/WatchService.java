@@ -27,20 +27,16 @@ public class WatchService {
     public WakeUpResponseDto getLuxAndSleepTime(LocalDateTime time){
         //lux값 조회
         LuxRecord lux = getLuxBefore30Min(time);
-
         //자러간 시간, 일어난 시간 조회
         LocalDate date = getLastRecord().getSleepDate(); //가장 최근 취침 날짜 가져옴
-        VideoRecord startSleep = videoRecordRepository.findTop1BySleepDateOrderByVideoSeqAsc(date).orElseThrow(() ->
-                new NoSuchElementException());
-        VideoRecord endSleep = videoRecordRepository.findTop1BySleepDateOrderByVideoSeqDesc(date).orElseThrow(() ->
-                new NoSuchElementException());
+        VideoRecord startSleep = videoRecordRepository.findTop1BySleepDateOrderByVideoSeqAsc(date).orElseThrow(NoSuchElementException::new);
+        VideoRecord endSleep = videoRecordRepository.findTop1BySleepDateOrderByVideoSeqDesc(date).orElseThrow(NoSuchElementException::new);
 
-        WakeUpResponseDto wakeUpResponseDto = WakeUpResponseDto.fromEntities(lux, startSleep, endSleep);
-        return wakeUpResponseDto;
+        return WakeUpResponseDto.fromEntities(lux, startSleep, endSleep);
     }
 
     public VideoRecord getLastRecord(){
-        return videoRecordRepository.findTop1ByOrderByVideoSeqDesc().orElseThrow(() -> new NoSuchElementException());
+        return videoRecordRepository.findTop1ByOrderByVideoSeqDesc().orElseThrow(NoSuchElementException::new);
     }
 
     private LuxRecord getLuxBefore30Min(LocalDateTime time){
@@ -50,17 +46,14 @@ public class WatchService {
                 before30MinTime.getDayOfMonth(), before30MinTime.getHour(), before30MinTime.getMinute(), 0);
         LocalDateTime endTime = startTime.plusMinutes(1);
         List<LuxRecord> luxs = luxRecordRepository.findByTime(startTime, endTime);
-        LuxRecord lux = luxs.get(0);
-        return lux;
+        return luxs.get(0);
     }
 
     //일주기 리듬
     public Map<String, Integer> getCircadianRhythm(){
         LocalDate date = getLastRecord().getSleepDate();
-        VideoRecord startSleep = videoRecordRepository.findTop1BySleepDateOrderByVideoSeqAsc(date).orElseThrow(() ->
-                new NoSuchElementException());
-        VideoRecord endSleep = videoRecordRepository.findTop1BySleepDateOrderByVideoSeqDesc(date).orElseThrow(() ->
-                new NoSuchElementException());
+        VideoRecord startSleep = videoRecordRepository.findTop1BySleepDateOrderByVideoSeqAsc(date).orElseThrow(NoSuchElementException::new);
+        VideoRecord endSleep = videoRecordRepository.findTop1BySleepDateOrderByVideoSeqDesc(date).orElseThrow(NoSuchElementException::new);
         //당일 새벽 3시(이후에 잠들기 시작하면 일주기 리듬 안좋음)
         LocalDateTime startMarginalTime = LocalDateTime.of(date.plusDays(1), LocalTime.of(3, 0));
         //당일 아침 10시(이후에 기상하면 일주기 리듬 안좋음)

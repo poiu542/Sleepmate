@@ -14,12 +14,14 @@ public class NormalResponseDto {
     private Integer minHeartRate;
     private Integer maxHeartRate;
     private Integer measurement;
+    private Double bmi;
 
-    public NormalResponseDto getNormalResponseDto(Integer minHeartRate, Integer maxHeartRate, Integer measurement) {
+    public NormalResponseDto getNormalResponseDto(Integer minHeartRate, Integer maxHeartRate, Integer measurement, Double bmi) {
         return NormalResponseDto.builder()
                 .minHeartRate(minHeartRate)
                 .maxHeartRate(maxHeartRate)
                 .measurement(measurement)
+                .bmi(bmi)
                 .build();
     }
 }
