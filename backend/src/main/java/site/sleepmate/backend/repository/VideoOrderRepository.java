@@ -17,4 +17,6 @@ public interface VideoOrderRepository extends JpaRepository<VideoOrder, Long> {
             "from VideoOrder v join v.member m where m.memberSeq=:memberSeq and v.sleepDate=:sleepDate")
     List<PostureResponseDto> findBySleepDateAndMember_MemberSeq(LocalDate sleepDate, Long memberSeq,
                                                                 Sort sort);
+
+    int countBySleepDateAndMember_MemberSeq(LocalDate sleepDate, Long memberSeq);
 }
