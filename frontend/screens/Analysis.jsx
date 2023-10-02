@@ -47,6 +47,7 @@ const Analysis = () => {
     useEffect(()=>{
         setSelectedDate(`${year}-${month}-${day}`);
     },[])
+    
     return(
         <View style={tw`flex-1 bg-white w-full h-full`}>
             {/* <Image style={tw`absolute top-0 left-0 right-0 bottom-0 w-full h-100`} source={turnOnTheLight}/> */}

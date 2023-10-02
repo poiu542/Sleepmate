@@ -18,7 +18,7 @@ const BackGroundPick = () => {
   const [back, setBack] = useRecoilState(sleepBackState);
 
   const [genderOpen, setGenderOpen] = useState(false);
-  const [genderValue, setGenderValue] = useState(null);
+  const [genderValue, setGenderValue] = useState("Starry Night");
   const [gender, setGender] = useState([
     { label: "Starry Night", value:1 },
     { label: "Rain", value: 2 },
@@ -62,12 +62,14 @@ const BackGroundPick = () => {
               onChangeValue={changeValue}
               zIndex={3000}
               zIndexInverse={1000}
+              showArrowIcon={false}
+              dropDownContainerStyle={{backgroundColor: 'transparent', borderColor:"white",zIndex:100}}
+              listItemLabelStyle={{ color: 'white', zIndex:"100" }}
+              labelStyle={{ color: 'white' }}
             />
           </View>
         )}
       />
-
-    
     </View>
   );
 };
