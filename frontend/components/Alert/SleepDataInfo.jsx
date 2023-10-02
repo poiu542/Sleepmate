@@ -12,7 +12,7 @@ const SleepDataInfo = () => {
     const score = [1,2,3];
 
     return (
-        <View style={tw`w-full bg-[#000]/50 rounded-3 mt-5 p-2`}>
+        <View style={tw`w-full bg-[#000]/50 rounded-3 mt-5 p-5`}>
 
             {/* 시간 */}
             <Text style={tw`text-white text-4 text-center font-bold mt-2`}>나의 수면 시간</Text>

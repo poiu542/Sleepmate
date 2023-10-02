@@ -65,9 +65,10 @@ const MotionCircleChart = () => {
                 {value: 10, color: '#D3D3D3'},
                 {value: 10, color: '#D3D3D3'},
               ]}
-              innerCircleColor="#414141"
+              innerCircleColor="#000"
               innerCircleBorderWidth={4}
-              innerCircleBorderColor={'white'}
+              innerCircleBorderColor={'#000'}
+              strokeColor={"#000"}
               showValuesAsLabels={true}
               showText
               textSize={15}

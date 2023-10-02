@@ -11,7 +11,7 @@ const CalendarHorizontal = ({ onSelectDate, selected }) => {
   
     const getDates = () => {
       const _dates = [];
-      for (let i = 9; i >= 0; i--) {
+      for (let i = 30; i >= 0; i--) {
         const date = moment().subtract(i, 'days');
         _dates.push(date);
       }
