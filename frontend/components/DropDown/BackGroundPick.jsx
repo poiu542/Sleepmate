@@ -81,17 +81,6 @@ const styles = StyleSheet.create({
     width:"100%",
     height:"50px",
   },
-  input: {
-    borderStyle: "solid",
-    borderColor: "white",
-    borderRadius: 7,
-    borderWidth: 1,
-    fontSize: 15,
-    height: 50,
-    marginHorizontal: 10,
-    paddingStart: 10,
-    marginBottom: 15,
-  },
   placeholderStyles: {
     color: "white",
   },
@@ -106,20 +95,6 @@ const styles = StyleSheet.create({
     height: 50,
     zIndex:30,
     backgroundColor:"transparent",
-  },
-  getStarted: {
-    backgroundColor: "#5188E3",
-    color: "white",
-    textAlign: "center",
-    marginHorizontal: 60,
-    paddingVertical: 15,
-    borderRadius: 50,
-    marginTop: 20,
-  },
-  links: {
-    textAlign: "center",
-    textDecorationLine: "underline",
-    color: "#758580",
   },
 });
 
