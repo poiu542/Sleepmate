@@ -26,6 +26,7 @@ public class HeartRateController {
     @PostMapping("/heart-rate")
     public  ResponseEntity<?> getHeartRate(@RequestBody HeartRateRequestDto heartRateRequestDto) {
         Integer measurement = heartRateJudgementService.getJudgement(heartRateRequestDto.getMemberSeq(), heartRateRequestDto.getSleepDate());
+        System.out.println(measurement);
         if (measurement == 0) {
             NormalResponseDto normalResponseDto = normalHeartRateMeasurementService.getMinAndMaxBPM(heartRateRequestDto.getMemberSeq(), heartRateRequestDto.getSleepDate());
             return new ResponseEntity<>(normalResponseDto, HttpStatus.OK);
