@@ -21,6 +21,7 @@ import java.util.*;
 public class AbnormalHeartRateMeasurementService {
     private final HeartRateRecordRepository heartRateRecordRepository;
     private final VideoOrderRepository videoOrderRepository;
+    private final BMIMeasurmentService bmiMeasurmentService;
 
     // 감지된 시간 & 이상 심박수 & 해당 자세 반환 메서드
     public List<AbnormalResponseDto> getAbnormalSituation(Long memberSeq, LocalDate sleepDate) {
@@ -62,15 +63,16 @@ public class AbnormalHeartRateMeasurementService {
             }
         }
 
+        double bmi = bmiMeasurmentService.getBMI(memberSeq);
+
         for (VideoOrder videoOrder : videoOrders) {
-            for (int i = detectedTimes.size(); i > 0; i--){
+            for (int i = 0; i < detectedTimes.size(); i++){
                 // 감지된 시간이 시작시간보다 나중이고, 종료 시간보다 이전일때 데이터 입력
                 if (videoOrder.getStartTime().isBefore(detectedTimes.get(i)) && videoOrder.getEndTime().isAfter(detectedTimes.get(i))) {
-                    abnormalResponseDtos.add(AbnormalResponseDto.getAbnormalData(abnormalPartDto.getDetectedTime(), abnormalPartDto.getAbnormalHeartRate(), videoOrder.getPosture(), 1));
+                    abnormalResponseDtos.add(AbnormalResponseDto.getAbnormalData(abnormalPartDtos.get(i).getDetectedTime(), abnormalPartDtos.get(i).getAbnormalHeartRate(), videoOrder.getPosture(), 1, bmi));
                 }
             }
         }
-
         return abnormalResponseDtos;
     }
 }

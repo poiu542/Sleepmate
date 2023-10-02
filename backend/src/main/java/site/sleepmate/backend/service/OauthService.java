@@ -35,7 +35,7 @@ public class OauthService {
         BufferedWriter bw = new BufferedWriter(new OutputStreamWriter(conn.getOutputStream()));
         String sb = "grant_type=authorization_code" +
                 "&client_id=1e4417060773b8517915b413b7a1942d" + // TODO REST_API_KEY 입력
-                "&redirect_uri=http://localhost:8080/oauth/kakao" + // TODO 인가코드 받은 redirect_uri 입력
+                "&redirect_uri=http://localhost:8080/api/oauth/kakao" + // TODO 인가코드 받은 redirect_uri 입력
                 "&code=" + code;
         bw.write(sb);
         bw.flush();
