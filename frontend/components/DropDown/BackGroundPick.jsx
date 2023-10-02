@@ -102,7 +102,7 @@ const styles = StyleSheet.create({
     zIndex:30,
   },
   dropdown: {
-    borderColor: "#B7B7B7",
+    borderColor: "white",
     height: 50,
     zIndex:30,
     backgroundColor:"transparent",
