@@ -25,6 +25,9 @@ public class HeartRateRecord {
     @Column(name = "heart_rate", nullable = false)
     private Double heartRate;
 
+    @Column(name = "sleep_date", nullable = false)
+    private LocalDate sleepDate;
+
     @Column(name = "time", nullable = false)
     private LocalDateTime time;
 
