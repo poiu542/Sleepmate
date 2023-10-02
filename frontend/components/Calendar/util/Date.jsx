@@ -15,7 +15,7 @@ const Date = ({ date, onSelectDate, selected }) => {
   const fullDate = moment(date).format('YYYY-MM-DD')
   return (
     <TouchableOpacity
-      onPress={() => onSelectDate(fullDate)}
+      onPress={() => {onSelectDate(fullDate)}}
       style={[styles.card, selected === fullDate && { backgroundColor: "#888" }]}
     >
       <Text
