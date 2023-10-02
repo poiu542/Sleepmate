@@ -60,13 +60,7 @@ public class AbnormalHeartRateMeasurementService {
                 // 감지된 시간, 그때 저장된 심박수 저장
                 abnormalPartDtos.add(AbnormalPartDto.getAbnormalPartData(detectedTime, dectedHeartrate));
             }
-        }
-
-        for (AbnormalPartDto partDto : abnormalPartDtos) {
-            System.out.println(partDto);
-        }
-
-        System.out.println(abnormalPartDtos.size());
+        }        
 
         double bmi = bmiMeasurmentService.getBMI(memberSeq);
 
@@ -78,11 +72,6 @@ public class AbnormalHeartRateMeasurementService {
                 }
             }
         }
-
-        for (AbnormalResponseDto partDto : abnormalResponseDtos) {
-            System.out.println(partDto);
-        }
-
         return abnormalResponseDtos;
     }
 }
