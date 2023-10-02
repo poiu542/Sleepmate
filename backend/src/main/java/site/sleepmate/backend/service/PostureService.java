@@ -10,9 +10,7 @@ import site.sleepmate.backend.repository.VideoOrderRepository;
 import site.sleepmate.backend.repository.VideoRecordRepository;
 
 import java.time.LocalDate;
-import java.util.ArrayList;
-import java.util.Arrays;
-import java.util.List;
+import java.util.*;
 
 @Service
 @RequiredArgsConstructor
@@ -46,5 +44,13 @@ public class PostureService {
             postures.add(new PosturePercentageDto(posture, percentage));
         }
         return postures;
+    }
+
+    public Map<String, Integer> getChangeCount(Long memberSeq, LocalDate date){
+        int changeCount = videoOrderRepository.countBySleepDateAndMember_MemberSeq(date, memberSeq);
+        Map<String, Integer> result = new HashMap<>();
+        result.put("result", changeCount);
+
+        return result;
     }
 }
