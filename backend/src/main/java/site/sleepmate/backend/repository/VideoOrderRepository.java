@@ -8,5 +8,5 @@ import java.time.LocalDate;
 import java.util.List;
 
 public interface VideoOrderRepository extends JpaRepository<VideoOrder, Long> {
-    List<VideoOrder> findAllByMemberAndSleepDateOrderByStartTime(Member member, LocalDate sleepDate);
+    List<VideoOrder> findAllByMember_MemberSeqAndSleepDateOrderByStartTime(Long memberSeq, LocalDate sleepDate);
 }

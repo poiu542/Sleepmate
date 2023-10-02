@@ -5,6 +5,8 @@ import site.sleepmate.backend.domain.Member;
 
 import java.util.Optional;
 
-public interface MemberRepository extends JpaRepository<Member, Integer>{
+public interface MemberRepository extends JpaRepository<Member, Long>{
     Optional<Member> findByMemberSeq(Long memberSeq);
+    boolean existsByKakaoId(Long kakaoId);
+
 }

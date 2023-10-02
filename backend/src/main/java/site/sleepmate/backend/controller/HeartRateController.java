@@ -25,14 +25,14 @@ public class HeartRateController {
     private final NormalHeartRateMeasurementService normalHeartRateMeasurementService;
     private final HeartRateJudgementService heartRateJudgementService;
 
-    @GetMapping("/{member}/{sleepDate}")
-    public  ResponseEntity<?> getHeartRate(@PathVariable Member member, @PathVariable LocalDate sleepDate) {
-        Integer measurement = heartRateJudgementService.getJudgement(member, sleepDate);
+    @GetMapping("/{memberSeq}/{sleepDate}")
+    public  ResponseEntity<?> getHeartRate(@PathVariable Long memberSeq, @PathVariable LocalDate sleepDate) {
+        Integer measurement = heartRateJudgementService.getJudgement(memberSeq, sleepDate);
         if (measurement == 0) {
-            NormalResponseDto normalResponseDto = normalHeartRateMeasurementService.getMinAndMaxBPM(member, sleepDate);
+            NormalResponseDto normalResponseDto = normalHeartRateMeasurementService.getMinAndMaxBPM(memberSeq, sleepDate);
             return new ResponseEntity<>(normalResponseDto, HttpStatus.OK);
         } else {
-            List<AbnormalResponseDto> abnormalResponseDtos = abnormalHeartRateMeasurementService.getAbnormalSituation(member, sleepDate);
+            List<AbnormalResponseDto> abnormalResponseDtos = abnormalHeartRateMeasurementService.getAbnormalSituation(memberSeq, sleepDate);
             return new ResponseEntity<>(abnormalResponseDtos, HttpStatus.OK);
         }
     }
