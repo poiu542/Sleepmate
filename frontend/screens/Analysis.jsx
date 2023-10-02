@@ -1,5 +1,5 @@
 import {View, ScrollView, Dimensions, StyleSheet, Text, Image, ImageBackground} from "react-native";
-import { useState } from "react";
+import { useEffect, useState } from "react";
 import { Video } from "expo-av";
 import { StatusBar } from 'expo-status-bar';
 import tw from "twrnc";
@@ -26,6 +26,16 @@ import homevideo2 from "../assets/videos/home_video2.mp4"
 import MotionCircleChart from "../components/Chart/MotionCircleChart";
 
 const Analysis = () => {
+
+    // 오늘날짜 구하기
+    const today = new Date();
+    const year = String(today.getFullYear());
+    let month = String(today.getMonth() + 1); // 월은 0부터 시작하므로 1을 더함
+    let day = String(today.getDate());
+
+    if((month.length)==1) month=`0${month}`;
+    if((day.length)==1) day=`0${day}`;
+
     const width = Dimensions.get("window").width;
     const height = Dimensions.get("window").height-500;
 
@@ -33,6 +43,10 @@ const Analysis = () => {
 
     const [selectedDate, setSelectedDate] = useState(null);
     const [modalVisible, setModalVisible] = useRecoilState(motionModalState);
+
+    useEffect(()=>{
+        setSelectedDate(`${year}-${month}-${day}`);
+    },[])
     return(
         <View style={tw`flex-1 bg-white w-full h-full`}>
             {/* <Image style={tw`absolute top-0 left-0 right-0 bottom-0 w-full h-100`} source={turnOnTheLight}/> */}
