@@ -11,6 +11,9 @@ import {motionModalState} from '../recoil/modal/motionModalAtom';
 import turnOnTheLight from '../assets/background/turnOnTheLight.jpg';
 import sunrise from '../assets/videos/sunrise.mp4';
 
+// axios
+import {nonAuthHttp} from '../axios/axios';
+
 // 컴포넌트
 import CalendarHorizontal from "../components/Calendar/CalendarHorizontal";
 import SleepDataArriveAlert from "../components/Alert/SleepDataArriveAlert";
@@ -43,6 +46,7 @@ const Analysis = () => {
 
     const [selectedDate, setSelectedDate] = useState(null);
     const [modalVisible, setModalVisible] = useRecoilState(motionModalState);
+    
 
     useEffect(()=>{
         setSelectedDate(`${year}-${month}-${day}`);
@@ -60,7 +64,7 @@ const Analysis = () => {
                         <StatusBar style="auto" />
                     </View>
                     {/* 도착 데이터 */}
-                    <SleepDataArriveAlert/>
+                    <SleepDataArriveAlert selectedDate={selectedDate}/>
 
                     {/* 수면 시간 정리 */}
                     <SleepDataInfo/>
