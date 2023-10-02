@@ -31,8 +31,6 @@ public class HeartRateRecord {
     @Column(name = "time", nullable = false)
     private LocalDateTime time;
 
-    @Column(name = "sleep_date", nullable = false)
-    private LocalDate sleepDate;
 
     @Builder
     public HeartRateRecord(Member member, Double heartRate, LocalDateTime time, LocalDate sleepDate) {
