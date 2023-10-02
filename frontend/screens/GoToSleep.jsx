@@ -86,8 +86,9 @@ const GoToSleep = () => {
     const EndSleep = () => {
         stopSound1();
         stopSound2();
-        navigate.navigate("MainTabNavigator");
+        navigate.navigate("SubTabNavigator");
     }
+
 
     const PlayMusic = () => {
         if(back===1){stopSound2(); playSound1();}
