@@ -14,8 +14,8 @@ import java.util.List;
 public class HeartRateJudgementService {
     private final HeartRateRecordRepository heartRateRecordRepository;
 
-    public Integer getJudgement(Member member, LocalDate sleepDate) {
-        List<HeartRateRecord> heartRateRecords = heartRateRecordRepository.findAllByMemberAndSleepDateOrderByTime(member, sleepDate);
+    public Integer getJudgement(Long memberSeq, LocalDate sleepDate) {
+        List<HeartRateRecord> heartRateRecords = heartRateRecordRepository.findAllByMember_MemberSeqAndSleepDateOrderByTime(memberSeq, sleepDate);
         // 정상 심박수 0, 비정상 1
         int judgement = 0;
 
