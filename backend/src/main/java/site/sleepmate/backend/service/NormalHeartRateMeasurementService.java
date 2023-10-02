@@ -16,9 +16,9 @@ import java.util.List;
 public class NormalHeartRateMeasurementService {
     private final HeartRateRecordRepository heartRateRecordRepository;
 
-    public NormalResponseDto getMinAndMaxBPM(Member member, LocalDate sleepDate) {
+    public NormalResponseDto getMinAndMaxBPM(Long memberSeq, LocalDate sleepDate) {
         // 심박수 시간순으로 정렬해서 리스트에 담기
-        List<HeartRateRecord> heartRateRecords = heartRateRecordRepository.findAllByMemberAndSleepDateOrderByTime(member, sleepDate);
+        List<HeartRateRecord> heartRateRecords = heartRateRecordRepository.findAllByMember_MemberSeqAndSleepDateOrderByTime(memberSeq, sleepDate);
         // 분당 BPM 최소값, 최대값을 NormalDto 에 담기
         NormalResponseDto normalResponseDto = new NormalResponseDto();
         int minBPM = 0;

@@ -8,6 +8,5 @@ import java.time.LocalDate;
 import java.util.List;
 
 public interface HeartRateRecordRepository extends JpaRepository<HeartRateRecord, Long> {
-    List<HeartRateRecord> findAllByMemberAndSleepDateOrderByTime(Member member, LocalDate sleepDate);
-
+    List<HeartRateRecord> findAllByMember_MemberSeqAndSleepDateOrderByTime(Long memberSeq, LocalDate sleepDate);
 }

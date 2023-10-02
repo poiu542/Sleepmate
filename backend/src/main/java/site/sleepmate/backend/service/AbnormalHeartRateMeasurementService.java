@@ -23,11 +23,11 @@ public class AbnormalHeartRateMeasurementService {
     private final VideoOrderRepository videoOrderRepository;
 
     // 감지된 시간 & 이상 심박수 & 해당 자세 반환 메서드
-    public List<AbnormalResponseDto> getAbnormalSituation(Member member, LocalDate sleepDate) {
+    public List<AbnormalResponseDto> getAbnormalSituation(Long memberSeq, LocalDate sleepDate) {
         // 특정 회원의 심박수 기록 가져오기
-        List<HeartRateRecord> heartRateRecords = heartRateRecordRepository.findAllByMemberAndSleepDateOrderByTime(member, sleepDate);
+        List<HeartRateRecord> heartRateRecords = heartRateRecordRepository.findAllByMember_MemberSeqAndSleepDateOrderByTime(memberSeq, sleepDate);
         // 특정 회원의 영상 기록 가져오기
-        List<VideoOrder> videoOrders = videoOrderRepository.findAllByMemberAndSleepDateOrderByStartTime(member, sleepDate);
+        List<VideoOrder> videoOrders = videoOrderRepository.findAllByMember_MemberSeqAndSleepDateOrderByStartTime(memberSeq, sleepDate);
 
         // 최종 반환할 List(감지 시간, 감지된 심박수, 해당 자세)
         List<AbnormalResponseDto> abnormalResponseDtos = new ArrayList<>();
