@@ -72,7 +72,7 @@ const Analysis = () => {
                     <HR/>
 
                     {/* 수면 자세 */}
-                    <SleepMotion/>
+                    <SleepMotion selectedDate={selectedDate}/>
 
 
                     <HR/>
