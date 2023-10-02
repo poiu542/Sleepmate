@@ -48,10 +48,10 @@ const MotionCircleChart = () => {
 
 
             <PieChart
-              strokeColor="white"
               strokeWidth={4}
               donut
               isAnimated
+              textColor="black"
               data={[
                 {value: 10, color: '#FFAB91'},
                 {value: 10, color: '#FFD700'},
