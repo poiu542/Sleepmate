@@ -3,12 +3,14 @@ package site.sleepmate.backend.service;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
+import site.sleepmate.backend.domain.AccelerometerRecord;
 import site.sleepmate.backend.domain.LuxRecord;
+import site.sleepmate.backend.domain.Member;
 import site.sleepmate.backend.domain.VideoRecord;
+import site.sleepmate.backend.dto.AccelerometerRequestDto;
+import site.sleepmate.backend.dto.LuxRequestDto;
 import site.sleepmate.backend.dto.WakeUpResponseDto;
-import site.sleepmate.backend.repository.LuxRecordRepository;
-import site.sleepmate.backend.repository.VideoOrderRepository;
-import site.sleepmate.backend.repository.VideoRecordRepository;
+import site.sleepmate.backend.repository.*;
 
 import java.time.LocalDate;
 import java.time.LocalDateTime;
@@ -22,6 +24,8 @@ public class WatchService {
     private final LuxRecordRepository luxRecordRepository;
     private final VideoOrderRepository videoOrderRepository;
     private final VideoRecordRepository videoRecordRepository;
+    private final MemberRepository memberRepository;
+    private final AccelerometerRecordRepository accelerometerRecordRepository;
 
     //30분 전의 lux값과 자러간 시간, 일어난 시간 반환.
     public WakeUpResponseDto getLuxAndSleepTime(LocalDateTime time){
@@ -77,5 +81,22 @@ public class WatchService {
         Map<String, Integer> resultMap = new HashMap<>();
         resultMap.put("rhythm", result);
         return resultMap;
+    }
+
+    @Transactional
+    public void saveLuxData(LuxRequestDto luxRequestDto){
+        Member member = memberRepository.findByMemberSeq(luxRequestDto.getMemberSeq()).orElseThrow(() ->
+                new NoSuchElementException());
+        LuxRecord luxRecord = luxRequestDto.toEntity(luxRequestDto, member);
+        luxRecordRepository.save(luxRecord);
+    }
+
+    @Transactional
+    public void saveAccelerometerData(AccelerometerRequestDto accelerometerRequestDto){
+        Member member = memberRepository.findByMemberSeq(accelerometerRequestDto.getMemberSeq()).orElseThrow(() ->
+                new NoSuchElementException());
+        System.out.println(accelerometerRequestDto.getMvalue());
+        AccelerometerRecord accelerometerRecord = accelerometerRequestDto.toEntity(accelerometerRequestDto, member);
+        accelerometerRecordRepository.save(accelerometerRecord);
     }
 }
