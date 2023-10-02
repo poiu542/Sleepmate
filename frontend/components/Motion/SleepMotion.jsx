@@ -64,6 +64,9 @@ const SleepMotion = ({selectedDate}) => {
 
     ]);
 
+    const [count, setCount] = useState(0);
+
+
     const showModal = () => {
         setModalVisible(true);
     }
@@ -95,17 +98,36 @@ const SleepMotion = ({selectedDate}) => {
             console.log(err);
         });
       }
+
+    const axiosSleepChangeCount = () => {
+        const data = {
+          "memberSeq": 1,
+          "sleepDate": selectedDate
+        }
+        nonAuthHttp.post(`/api/posture/change-count`, data)
+        .then(response => {
+            const result = response.data;
+            if (result) {
+                setCount(result.result)
+            }
+        })
+        .catch(error => {
+            const err = error;
+            console.log(err);
+        });
+      }
   
   
       useEffect(()=>{
         axiosPoseDataList();
+        axiosSleepChangeCount();
       },[])
 
 
     return(
         <View style={tw`w-full h-90 bg-[#000]/50 mt-7 rounded-4 p-5`}>
         <Text style={tw`text-white text-4 text-center font-bold mt-2`}>AI가 분석한 수면 자세</Text>
-        <Text style={tw`text-[#FFF1D4] text-3.3 text-center mt-2`}>어젯밤 총 5번의 자세변화가 있었어요.</Text>
+        <Text style={tw`text-[#FFF1D4] text-3.3 text-center mt-2`}>어젯밤 총 {count}번의 자세변화가 있었어요.</Text>
         <ScrollView
             pagingEnabled
             horizontal 

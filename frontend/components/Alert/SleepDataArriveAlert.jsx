@@ -12,33 +12,6 @@ const SleepDataArriveAlert = ({selectedDate}) => {
 
     const [count, setCount] = useState(0);
 
-
-    // axios 요청
-    const axiosDataCount = () => {
-      const data = {
-        "memberSeq": 1,
-        "sleepDate": selectedDate
-      }
-      nonAuthHttp.post(`/api/posture/change-count`, data)
-      .then(response => {
-          const result = response.data;
-          if (result) {
-              setCount(result.result)
-          }
-      })
-      .catch(error => {
-          const err = error;
-          console.log(err);
-      });
-    }
-
-
-    useEffect(()=>{
-      axiosDataCount();
-    },[])
-
-    
-
     return(
 
           <View 
