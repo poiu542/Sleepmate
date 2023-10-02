@@ -3,9 +3,11 @@ package site.sleepmate.backend.domain;
 
 import jakarta.persistence.*;
 import lombok.AccessLevel;
+import lombok.Builder;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
 
+import java.time.LocalDate;
 import java.time.LocalDateTime;
 
 @Entity
@@ -27,10 +29,14 @@ public class AccelerometerRecord {
     @Column(name = "time", nullable = false)
     private LocalDateTime time;
 
+    @Column(name = "sleep_date", nullable = false)
+    private LocalDate sleepDate;
 
-    public AccelerometerRecord(Member member, Double mValue, LocalDateTime time) {
+    @Builder
+    public AccelerometerRecord(Member member, Double mValue, LocalDateTime time, LocalDate sleepDate) {
         this.member = member;
         this.mValue = mValue;
         this.time = time;
+        this.sleepDate = sleepDate;
     }
 }
