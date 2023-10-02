@@ -10,13 +10,13 @@ const CalendarHorizontal = ({ onSelectDate, selected }) => {
     const [currentMonth, setCurrentMonth] = useState()
   
     const getDates = () => {
-        const _dates = []
-        for (let i = 0; i < 10; i++) {
-          const date = moment().add(i, 'days')
-          _dates.push(date)
-        }
-        setDates(_dates)
+      const _dates = [];
+      for (let i = 9; i >= 0; i--) {
+        const date = moment().subtract(i, 'days');
+        _dates.push(date);
       }
+      setDates(_dates);
+    };
     
       useEffect(() => {
         getDates()

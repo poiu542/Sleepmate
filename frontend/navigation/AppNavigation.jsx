@@ -25,6 +25,8 @@ import IntroExplain from '../screens/IntroExplain';
 import Watch from '../screens/Watch';
 import GoToSleep from '../screens/GoToSleep';
 import SleepSetting from '../screens/SleepSetting';
+import AlarmSetting from '../screens/AlarmSetting';
+import UserSetting from '../screens/UserSetting';
 
 
 // 상단 네비게이션 버튼 컴포넌트 모음
@@ -166,7 +168,37 @@ const AppNavigation = () => {
             name="SleepSetting"
             component={SleepSetting} // Use MainTabNavigator as the component
             options={{
+              headerTitle: '설정',
+              headerTransparent: true,
+              headerBackTitleVisible: false,
+              headerLeft: () => <BackButton navigation={useNavigation()} />,
+              // headerRight: () => <StoreButton navigation={useNavigation()} />,
+              headerTitleStyle: {
+                color: 'white', // 흰색으로 텍스트 색상 설정
+              },
+            }}
+          />
+
+          <Stack.Screen
+            name="AlarmSetting"
+            component={AlarmSetting} // Use MainTabNavigator as the component
+            options={{
               headerTitle: '알람 설정',
+              headerTransparent: true,
+              headerBackTitleVisible: false,
+              headerLeft: () => <BackButton navigation={useNavigation()} />,
+              headerRight: () => <StoreButton navigation={useNavigation()} />,
+              headerTitleStyle: {
+                color: 'white', // 흰색으로 텍스트 색상 설정
+              },
+            }}
+          />
+
+          <Stack.Screen
+            name="UserSetting"
+            component={UserSetting} // Use MainTabNavigator as the component
+            options={{
+              headerTitle: '회원 정보',
               headerTransparent: true,
               headerBackTitleVisible: false,
               headerLeft: () => <BackButton navigation={useNavigation()} />,
