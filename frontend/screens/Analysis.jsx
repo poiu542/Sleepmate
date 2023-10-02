@@ -80,7 +80,7 @@ const Analysis = () => {
                     <View style={tw`mt-5`}></View>
 
                     {/* 수면 그래프 */}
-                    <MotionCircleChart/>
+                    <MotionCircleChart selectedDate={selectedDate}/>
 
                     {modalVisible&&<BackDrop/>}
                     </View>
