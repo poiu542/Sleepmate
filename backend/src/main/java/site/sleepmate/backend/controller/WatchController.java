@@ -3,9 +3,9 @@ package site.sleepmate.backend.controller;
 import lombok.RequiredArgsConstructor;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
-import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.bind.annotation.*;
+import site.sleepmate.backend.dto.AccelerometerRequestDto;
+import site.sleepmate.backend.dto.LuxRequestDto;
 import site.sleepmate.backend.dto.WakeUpResponseDto;
 import site.sleepmate.backend.service.WatchService;
 
@@ -30,4 +30,25 @@ public class WatchController {
         Map<String, Integer> rhythmResult = watchService.getCircadianRhythm();
         return new ResponseEntity<>(rhythmResult, HttpStatus.OK);
     }
+
+    @PostMapping("/illuminance")
+    public ResponseEntity<?> saveLuxData(@RequestBody LuxRequestDto luxRequestDto){
+        try{
+            watchService.saveLuxData(luxRequestDto);
+        } catch(Exception e){
+            return new ResponseEntity<>(HttpStatus.INTERNAL_SERVER_ERROR);
+        }
+        return new ResponseEntity<>(HttpStatus.OK);
+    }
+
+    @PostMapping("/acceleration")
+    public ResponseEntity<?> saveAccelerometerData(@RequestBody AccelerometerRequestDto accelerometerRequestDto){
+        try{
+            watchService.saveAccelerometerData(accelerometerRequestDto);
+        } catch(Exception e){
+            return new ResponseEntity<>(HttpStatus.INTERNAL_SERVER_ERROR);
+        }
+        return new ResponseEntity<>(HttpStatus.OK);
+    }
+
 }
