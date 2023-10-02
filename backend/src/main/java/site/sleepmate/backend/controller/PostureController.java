@@ -14,6 +14,7 @@ import site.sleepmate.backend.service.PostureService;
 
 import java.time.LocalDate;
 import java.util.List;
+import java.util.Map;
 
 @RequiredArgsConstructor
 @RequestMapping("/api/posture")
@@ -46,5 +47,14 @@ public class PostureController {
         List<PosturePercentageDto> postures = postureService.getPostures(memberSeq, sleepDate);
 
         return new ResponseEntity<>(postures, HttpStatus.OK);
+    }
+
+    @PostMapping("/change-count")
+    public ResponseEntity<Object> getChangeCount(@RequestBody MemberRequestDto memberRequestDto){
+        long memberSeq = memberRequestDto.getMemberSeq();
+        LocalDate sleepDate = memberRequestDto.getSleepDate();
+        Map<String, Integer> changeCount = postureService.getChangeCount(memberSeq, sleepDate);
+
+        return new ResponseEntity<>(changeCount, HttpStatus.OK);
     }
 }
