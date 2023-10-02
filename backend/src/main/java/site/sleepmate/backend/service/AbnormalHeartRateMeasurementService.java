@@ -42,6 +42,7 @@ public class AbnormalHeartRateMeasurementService {
         // 감지된 시간 List
         List<LocalDateTime> detectedTimes = new ArrayList<>();
 
+        // 이상 시간을 담은 Set
         String detectedTime = "";
         int dectedHeartrate = 0;
 

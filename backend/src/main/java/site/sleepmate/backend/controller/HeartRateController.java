@@ -4,15 +4,15 @@ import lombok.RequiredArgsConstructor;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
-import site.sleepmate.backend.domain.Member;
 import site.sleepmate.backend.dto.AbnormalResponseDto;
 import site.sleepmate.backend.dto.HeartRateRequestDto;
+import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RestController;
 import site.sleepmate.backend.dto.NormalResponseDto;
 import site.sleepmate.backend.service.AbnormalHeartRateMeasurementService;
 import site.sleepmate.backend.service.HeartRateJudgementService;
 import site.sleepmate.backend.service.NormalHeartRateMeasurementService;
 
-import java.time.LocalDate;
 import java.util.List;
 
 @RequiredArgsConstructor

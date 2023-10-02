@@ -3,7 +3,6 @@ package site.sleepmate.backend.service;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
 import site.sleepmate.backend.domain.HeartRateRecord;
-import site.sleepmate.backend.domain.Member;
 import site.sleepmate.backend.dto.NormalResponseDto;
 import site.sleepmate.backend.repository.HeartRateRecordRepository;
 
