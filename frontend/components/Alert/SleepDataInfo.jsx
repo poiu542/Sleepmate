@@ -5,42 +5,30 @@ import tw from 'twrnc';
 // 이미지
 import star from '../../assets/star/star.png';
 
+// 컴포넌트
+import MotionChart from '../Chart/MotionChart';
+
 const SleepDataInfo = () => {
     const score = [1,2,3];
 
     return (
         <View style={tw`w-full bg-[#000]/50 rounded-3 mt-5 p-2`}>
-            
-            {/* 별 점수 */}
-            {/* <View style={tw`flex-row mt-5 items-center justify-center`}>
-                {
-                    score.map(()=>{
-                        return(
-                            <Image style={tw`w-7 h-7 mr-3`} source={star}/>
-                        )
-                    })
-                }
-            </View> */}
 
             {/* 시간 */}
             <Text style={tw`text-white text-4 text-center font-bold mt-2`}>나의 수면 시간</Text>
             <Text style={tw`text-[#FFF1D4] text-3.3 text-center mt-5`}>11:00PM - 07:30AM</Text>
 
-            {/* 잠자는데 걸리는 시간 */}
-            {/* <View style={tw`flex-row mt-5 items-center justify-between pl-7 pr-7`}>
-                <Text style={tw`text-white text-lg text-center font-bold`}>잠드는 데 걸린 시간</Text>
-                <Text style={tw`text-white text-lg text-center font-bold`}>15분</Text>
-            </View> */}
 
             {/* 실제 잔 시간 */}
-                <Text style={tw`text-white text-4 text-center font-bold items-center mt-1`}>4시간 30분</Text>
+            <Text style={tw`text-white text-4 text-center font-bold items-center mt-1`}>4시간 30분</Text>
+
+
+            {/* 차트 */}
+            <MotionChart/>
+
 
             {/* 한줄평 */}
             <Text style={tw`text-[#ccc] text-sm text-center mt-5`}>수면시간이 부족해요. 점심시간에 쪽잠 어떠신가요?</Text>
-            {/* <View style={tw`mt-3 items-left pl-7 pr-7`}>
-                <Text style={tw`text-white text-lg text-left font-bold`}>한줄평</Text>
-                <Text style={tw`text-white text-[15px] text-left font-bold`}>수면시간이 부족해요 점심시간에 쪽잠 어떠신가요?</Text>
-            </View> */}
         </View>
     )
 }

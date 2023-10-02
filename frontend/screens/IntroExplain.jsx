@@ -70,6 +70,26 @@ const IntroExplain = () => {
         }
     }
 
+
+    //효과음 재생
+    async function playEffect() {
+        try {
+            const { status } = await Audio.requestPermissionsAsync();
+            if (status === 'granted') {
+                const { sound } = await Audio.Sound.createAsync(
+                    require('../assets/sounds/introEffect.mp3')
+                );
+                setSound(sound);
+                await sound.playAsync();
+                console.log('Audio played successfully');
+            } else {
+                console.error('Audio permission not granted');
+            }
+        } catch (error) {
+            console.error('Error playing audio:', error);
+        }
+    }
+
     useEffect(()=>{
         //음악 처음 자동 시작
         playSound();
@@ -114,6 +134,7 @@ const IntroExplain = () => {
                     setSceen(4);
                     setAnimation4(animation4Ref => { //평소 몇 시에 잠에 드시나요?
                         if (animation4Ref) {
+                            playEffect();
                             animation4Ref.fadeIn(2000);
                         }
                         return animation4Ref;
@@ -133,6 +154,7 @@ const IntroExplain = () => {
                     setSceen(6);
                     setAnimation6(animation6Ref => {//평소 몇 시간 정도 잠에 드시나요?
                         if (animation6Ref) {
+                            playEffect();
                             animation6Ref.fadeIn(2000);
                         }
                         return animation6Ref;
@@ -150,6 +172,7 @@ const IntroExplain = () => {
                     setSceen(8);
                     setAnimation8(animation8Ref => {
                         if (animation8Ref) {
+                            playEffect();
                             animation8Ref.fadeIn(2000);
                         }
                         return animation8Ref;
@@ -202,6 +225,7 @@ const IntroExplain = () => {
 
         if (sceen===12 && animation1) {
             setTimeout(() => {
+                stopSound();
                 stopSound();
                 // 메인 페이지로 이동
                 navigate.navigate("MainTabNavigator");
@@ -257,7 +281,7 @@ const IntroExplain = () => {
                     <ClockPicker display={sceen}/>
                 </Animatable.View>
                 <ConfirmBtn display={sceen}/>
-                <Animatable.Text ref={(ref) => setAnimation4(ref)} style={sceen===4?tw`absolute top-0 left-0 right-0 bottom-0 text-white text-5 mt-[${height}] text-center`:tw`hidden`}>평소 몇 시에 잠에 드시나요?</Animatable.Text>
+                <Animatable.Text ref={(ref) => setAnimation4(ref)} style={sceen===4?tw`absolute top-0 left-0 right-0 bottom-0 text-white text-5 mt-[${height}] text-center`:tw`hidden`}>평소 몇 시에 일어나세요?</Animatable.Text>
                 
                 <DropDownTime display={sceen}/>
                 <Animatable.Text ref={(ref) => setAnimation6(ref)} style={sceen===6?tw`absolute top-0 left-0 right-0 bottom-0 text-white text-5 mt-[${height}] text-center`:tw`hidden`}>평소 몇 시간 정도 잠을 자시나요?</Animatable.Text>
