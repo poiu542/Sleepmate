@@ -13,9 +13,9 @@ import site.sleepmate.backend.service.BMIMeasurmentService;
 public class BMIController {
     private final BMIMeasurmentService bmiMeasurmentService;
 
-    @GetMapping("/{member}")
-    public ResponseEntity<Double> getBMIMeasurement(@PathVariable Member member) {
-        Double bmiValue = bmiMeasurmentService.getBMI(member);
+    @GetMapping("/{memberSeq}")
+    public ResponseEntity<Double> getBMIMeasurement(@PathVariable Long memberSeq) {
+        Double bmiValue = bmiMeasurmentService.getBMI(memberSeq);
         return new ResponseEntity<>(bmiValue, HttpStatus.OK);
     }
 }

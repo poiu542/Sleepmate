@@ -105,6 +105,7 @@ public class OauthService {
         String nickname = properties.getAsJsonObject().get("nickname").getAsString();
         String ageRange = "";
         String gender = "";
+        String id = element.getAsJsonObject().get("id").getAsString();
 
         if (hasEmail) {
             email = element.getAsJsonObject().get("kakao_account").getAsJsonObject().get("email").getAsString();
@@ -122,20 +123,25 @@ public class OauthService {
         System.out.println("nickname : " + nickname);
         System.out.println("ageRange : " + ageRange);
         System.out.println("gender = " + gender);
+        System.out.println("id = " + id);
 
-
-        memberRepository.save(Member.builder()
-                .email(email)
-                .nickname(nickname)
-                .gender(gender)
-                .ageRange(ageRange)
-                .hasWatch(false)
-                .alarm(Time.valueOf("07:00:00"))
-                .noServey(true)
-                .crescendo(false)
-                .weight(160)
-                .height(60)
-                .build());
+        if (!memberRepository.existsByKakaoId(Long.valueOf(id))) {
+            memberRepository.save(Member.builder()
+                    .email(email)
+                    .nickname(nickname)
+                    .gender(gender)
+                    .ageRange(ageRange)
+                    .hasWatch(false)
+                    .alarm(Time.valueOf("07:00:00"))
+                    .noServey(true)
+                    .weight(60)
+                    .height(170)
+                    .kakaoId(Long.valueOf(id))
+                    .visit(true)
+                    .build());
+        } else {
+            System.out.println("이미 존재하는 회원입니다.");
+        }
         br.close();
     }
 }

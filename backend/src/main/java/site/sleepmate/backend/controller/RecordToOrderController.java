@@ -8,7 +8,7 @@ import java.time.LocalDate;
 
 @RestController
 @AllArgsConstructor
-@RequestMapping("/record")
+@RequestMapping("/api/record")
 public class RecordToOrderController {
     private final RecordToOrderService recordToOrderService;
 
