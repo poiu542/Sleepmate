@@ -10,7 +10,7 @@ import site.sleepmate.backend.service.OauthService;
 
 @RestController
 @AllArgsConstructor
-@RequestMapping("/oauth")
+@RequestMapping("/api/oauth")
 public class OAuthController {
     /**
      * 카카오 callback
