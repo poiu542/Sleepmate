@@ -7,6 +7,7 @@ import lombok.Builder;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
 
+import java.time.LocalDate;
 import java.time.LocalDateTime;
 
 @Entity
@@ -28,10 +29,14 @@ public class LuxRecord {
     @Column(name = "time", nullable = false)
     private LocalDateTime time;
 
+    @Column(name = "sleep_date", nullable = false)
+    private LocalDate sleepDate;
+
     @Builder
-    public LuxRecord(Member member, Integer lux, LocalDateTime time) {
+    public LuxRecord(Member member, Integer lux, LocalDateTime time, LocalDate sleepDate) {
         this.member = member;
         this.lux = lux;
         this.time = time;
+        this.sleepDate = sleepDate;
     }
 }
