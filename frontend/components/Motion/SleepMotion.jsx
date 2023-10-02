@@ -1,5 +1,5 @@
 import {View, Text, ScrollView, Dimensions, StyleSheet, Image, TouchableOpacity} from "react-native";
-import { useState } from "react";
+import { useState, useEffect } from "react";
 import { Video } from "expo-av";
 import { StatusBar } from 'expo-status-bar';
 import tw from "twrnc";
@@ -29,42 +29,105 @@ import ex_forward from '../../assets/motion/ex_forward.png';
 // 컴포넌트
 import BackDrop from "../Modal/BackDrop";
 
-const SleepMotion = () => {
+// axios
+import {nonAuthHttp} from '../../axios/axios';
+
+const SleepMotion = ({selectedDate}) => {
     const [modalVisible, setModalVisible] = useRecoilState(motionModalState);
     const [modalImg, setModalImg] = useState("ex");
     const [motions, setMotions] = useState([
         {
-            no : 1,
-            time : "11:00 PM"
+            posture : 1,
+            time : "2023-09-24T17:49:40",
+            capture:""
         },
         {
-            no : 2,
-            time : "3:00 AM"
+            posture : 2,
+            time : "2023-09-24T17:49:40",
+            capture:""
         },
         {
-            no : 1,
-            time : "7:00 AM"
+            posture : 1,
+            time : "2023-09-24T17:49:40",
+            capture:""
         },
         {
-            no :  3,
-            time : "9:00 AM"
+            posture :  3,
+            time : "2023-09-24T17:49:40",
+            capture:""
         },
         {
-            no : 2,
-            time : "3:00 AM"
+            posture : 2,
+            time : "2023-09-24T17:49:40",
+            capture:""
         },
 
     ]);
+
+    const [count, setCount] = useState(0);
+
 
     const showModal = () => {
         setModalVisible(true);
     }
 
 
+    // axios 요청
+    const axiosPoseDataList = () => {
+        const data = {
+            "memberSeq" : 1,
+            "sleepDate" : selectedDate
+        }
+        nonAuthHttp.post(`/api/posture/change`, data)
+        .then(response => {
+            const result = response.data;
+            // console.log(result);
+            if (result) {
+                // [
+                //     {
+                //     "posture" : 1,
+                //     "time" : "2023-09-24T17:49:40",
+                //     "capture" : ""
+                //     }, {…}, …
+                // ]
+                // setMotions(result.result)
+            }
+        })
+        .catch(error => {
+            const err = error;
+            console.log(err);
+        });
+      }
+
+    const axiosSleepChangeCount = () => {
+        const data = {
+          "memberSeq": 1,
+          "sleepDate": selectedDate
+        }
+        nonAuthHttp.post(`/api/posture/change-count`, data)
+        .then(response => {
+            const result = response.data;
+            if (result) {
+                setCount(result.result)
+            }
+        })
+        .catch(error => {
+            const err = error;
+            console.log(err);
+        });
+      }
+  
+  
+      useEffect(()=>{
+        axiosPoseDataList();
+        axiosSleepChangeCount();
+      },[])
+
+
     return(
         <View style={tw`w-full h-90 bg-[#000]/50 mt-7 rounded-4 p-5`}>
         <Text style={tw`text-white text-4 text-center font-bold mt-2`}>AI가 분석한 수면 자세</Text>
-        <Text style={tw`text-[#FFF1D4] text-3.3 text-center mt-2`}>어젯밤 총 5번의 자세변화가 있었어요.</Text>
+        <Text style={tw`text-[#FFF1D4] text-3.3 text-center mt-2`}>어젯밤 총 {count}번의 자세변화가 있었어요.</Text>
         <ScrollView
             pagingEnabled
             horizontal 
@@ -72,12 +135,29 @@ const SleepMotion = () => {
             >
                 
             {
+                //1 : FW
+                //2 : LSR
+                //3 : LST
+                //4 : UP
+                //5 : RSR
+                //6 : RST
+                //7 : RVS
+                //8 : X
+                //9 : OUT
                 motions.map((data, index)=>{
                     return(
                         
-                        data.no===1?<TouchableOpacity onPress={()=>showModal("1유형","1유형")} style={tw`w-20 h-20 items-center justify-between mr-5`}><Image style={tw`mr-5 w-full h-45`} source={M_motion_forward} resizeMode="contain"/><Text style={tw`text-white`}>{data.time}</Text></TouchableOpacity>:(
-                            data.no===2?<TouchableOpacity style={tw`w-20 h-20 items-center justify-between mr-5`}><Image  style={tw`mr-5 w-full h-45`} source={M_motion_shirimp_right} resizeMode="contain"/><Text style={tw`text-white`}>{data.time}</Text></TouchableOpacity>:(
-                                data.no===3?<TouchableOpacity style={tw`w-20 h-20 items-center justify-between mr-5`}><Image style={tw`mr-5 w-full h-45`} source={M_motion_reverse} resizeMode="contain"/><Text style={tw`text-white`}>{data.time}</Text></TouchableOpacity>:null
+                        data.posture===1?<TouchableOpacity onPress={()=>showModal("1유형","1유형")} style={tw`w-20 h-20 items-center justify-between mr-5`}><Image style={tw`mr-5 w-full h-45`} source={M_motion_forward} resizeMode="contain"/><Text style={tw`text-white`}>{data.time.split("T")[1]}</Text></TouchableOpacity>:(
+                            data.posture===2?<TouchableOpacity style={tw`w-20 h-20 items-center justify-between mr-5`}><Image  style={tw`mr-5 w-full h-45`} source={M_motion_shirimp_left} resizeMode="contain"/><Text style={tw`text-white`}>{data.time.split("T")[1]}</Text></TouchableOpacity>:(
+                                data.posture===3?<TouchableOpacity style={tw`w-20 h-20 items-center justify-between mr-5`}><Image style={tw`mr-5 w-full h-45`} source={M_motion_origin_left} resizeMode="contain"/><Text style={tw`text-white`}>{data.time.split("T")[1]}</Text></TouchableOpacity>:(
+                                    data.posture===4?<TouchableOpacity style={tw`w-20 h-20 items-center justify-between mr-5`}><Image style={tw`mr-5 w-full h-45`} source={M_motion_hands_up} resizeMode="contain"/><Text style={tw`text-white`}>{data.time.split("T")[1]}</Text></TouchableOpacity>:(
+                                        data.posture===5?<TouchableOpacity style={tw`w-20 h-20 items-center justify-between mr-5`}><Image style={tw`mr-5 w-full h-45`} source={M_motion_shirimp_right} resizeMode="contain"/><Text style={tw`text-white`}>{data.time.split("T")[1]}</Text></TouchableOpacity>:(
+                                            data.posture===6?<TouchableOpacity style={tw`w-20 h-20 items-center justify-between mr-5`}><Image style={tw`mr-5 w-full h-45`} source={M_motion_origin_right} resizeMode="contain"/><Text style={tw`text-white`}>{data.time.split("T")[1]}</Text></TouchableOpacity>:(
+                                                data.posture===7?<TouchableOpacity style={tw`w-20 h-20 items-center justify-between mr-5`}><Image style={tw`mr-5 w-full h-45`} source={M_motion_reverse} resizeMode="contain"/><Text style={tw`text-white`}>{data.time.split("T")[1]}</Text></TouchableOpacity>:null
+                                            )
+                                        )
+                                    )
+                                )
                             )
                         )
                         

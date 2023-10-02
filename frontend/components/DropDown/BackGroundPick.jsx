@@ -18,7 +18,7 @@ const BackGroundPick = () => {
   const [back, setBack] = useRecoilState(sleepBackState);
 
   const [genderOpen, setGenderOpen] = useState(false);
-  const [genderValue, setGenderValue] = useState(null);
+  const [genderValue, setGenderValue] = useState("Starry Night");
   const [gender, setGender] = useState([
     { label: "Starry Night", value:1 },
     { label: "Rain", value: 2 },
@@ -62,12 +62,14 @@ const BackGroundPick = () => {
               onChangeValue={changeValue}
               zIndex={3000}
               zIndexInverse={1000}
+              showArrowIcon={false}
+              dropDownContainerStyle={{backgroundColor: 'transparent', borderColor:"white",zIndex:100}}
+              listItemLabelStyle={{ color: 'white', zIndex:"100" }}
+              labelStyle={{ color: 'white' }}
             />
           </View>
         )}
       />
-
-    
     </View>
   );
 };
@@ -79,17 +81,6 @@ const styles = StyleSheet.create({
     width:"100%",
     height:"50px",
   },
-  input: {
-    borderStyle: "solid",
-    borderColor: "white",
-    borderRadius: 7,
-    borderWidth: 1,
-    fontSize: 15,
-    height: 50,
-    marginHorizontal: 10,
-    paddingStart: 10,
-    marginBottom: 15,
-  },
   placeholderStyles: {
     color: "white",
   },
@@ -100,24 +91,10 @@ const styles = StyleSheet.create({
     zIndex:30,
   },
   dropdown: {
-    borderColor: "#B7B7B7",
+    borderColor: "white",
     height: 50,
     zIndex:30,
     backgroundColor:"transparent",
-  },
-  getStarted: {
-    backgroundColor: "#5188E3",
-    color: "white",
-    textAlign: "center",
-    marginHorizontal: 60,
-    paddingVertical: 15,
-    borderRadius: 50,
-    marginTop: 20,
-  },
-  links: {
-    textAlign: "center",
-    textDecorationLine: "underline",
-    color: "#758580",
   },
 });
 

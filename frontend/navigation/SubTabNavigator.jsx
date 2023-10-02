@@ -11,16 +11,10 @@ import { useNavigation } from '@react-navigation/native';
 import Analysis from '../screens/Analysis';
 const MainTab = createBottomTabNavigator();
 
-const MainTabNavigator = () => {
-  
-    const [initialRoute, setInitialRoute] = useState("Sleep");
 
-    useEffect(()=>{
-      const sleepEnded = true;
-      if(sleepEnded){
-        setInitialRoute('Analysis')
-      }
-    }, [])
+const SubTabNavigator = () => {
+  
+    const [initialRoute, setInitialRoute] = useState("Analysis");
 
     return (
       <MainTab.Navigator
@@ -74,4 +68,4 @@ const MainTabNavigator = () => {
     );
   };
 
-export default MainTabNavigator;
+export default SubTabNavigator;

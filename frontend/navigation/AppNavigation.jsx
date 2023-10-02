@@ -20,6 +20,7 @@ import Test from '../screens/Test';
 import Diagnosis from '../screens/Diagnosis';
 import Sleep from '../screens/Sleep';
 import MainTabNavigator from './MainTabNavigator';
+import SubTabNavigator from './SubTabNavigator';
 import Analysis from '../screens/Analysis';
 import IntroExplain from '../screens/IntroExplain';
 import Watch from '../screens/Watch';
@@ -143,6 +144,18 @@ const AppNavigation = () => {
         <Stack.Screen
             name="MainTabNavigator"
             component={MainTabNavigator} // Use MainTabNavigator as the component
+            options={{
+              headerTitle: '',
+              headerTransparent: true,
+              headerBackTitleVisible: false,
+              headerBackVisible : false,
+              // headerLeft: () => <BackButton navigation={useNavigation()} />,
+              headerRight: () => <ConfigButton navigation={useNavigation()} />,
+            }}
+          />
+          <Stack.Screen
+            name="SubTabNavigator"
+            component={SubTabNavigator} // Use MainTabNavigator as the component
             options={{
               headerTitle: '',
               headerTransparent: true,

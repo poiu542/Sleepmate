@@ -1,10 +1,108 @@
 import { PieChart } from "react-native-gifted-charts";
-import React from 'react';
+import React, {useEffect, useState} from 'react';
 import { View, Text, Image } from 'react-native';
 import tw from 'twrnc';
 import Svg, { Image as SvgImage } from 'react-native-svg';
 
-const MotionCircleChart = () => {
+// axios
+import {nonAuthHttp} from '../../axios/axios';
+
+const MotionCircleChart = ({selectedDate}) => {
+  
+  const [bestPose, setBestPose] = useState({
+    "posture" : 1,
+    "percentage" : 0.1
+  });
+
+  const [totalPose, setTotalPose] = useState([
+           {"posture" : 1,
+           "percentage" : 0.1},
+
+           {"posture" : 2,
+           "percentage" : 0.1},
+
+           {"posture" : 3,
+           "percentage" : 0.1},
+
+           {"posture" : 4,
+           "percentage" : 0.1},
+
+           {"posture" : 5,
+           "percentage" : 0.1},
+
+           {"posture" : 6,
+           "percentage" : 0.1},
+
+           {"posture" : 7,
+           "percentage" : 0.1},
+
+           {"posture" : 8,
+           "percentage" : 0.1},
+
+           {"posture" : 9,
+           "percentage" : 0.1},
+  ]);
+
+  // axios 요청
+  // 1. 베스트 포즈
+  const axiosBestPose = () => {
+    const data = {
+        "memberSeq" : 1,
+        "sleepDate" : selectedDate
+    }
+    nonAuthHttp.post(`/api/posture/most`, data)
+    .then(response => {
+        const result = response.data;
+        // console.log(result);
+        if (result) {
+          // {
+          //   "posture" : 1,
+          //   "percentage" : 0.5
+          //   }
+            // setBestPose(result.result)
+        }
+    })
+    .catch(error => {
+        const err = error;
+        console.log(err);
+    });
+  }
+
+  // 2. 전체 자세 퍼센티지
+  const axiosTotalPosePercentage = () => {
+    const data = {
+        "memberSeq" : 1,
+        "sleepDate" : selectedDate
+    }
+    nonAuthHttp.post(`/api/posture`, data)
+    .then(response => {
+        const result = response.data;
+        // console.log(result);
+        if (result) {
+          // {
+          //   postureList : [
+          //        {”posture” : 1,
+          //        “percentage” : 0.5},
+          //        {”posture” : 2,
+          //        “percentage” : 0.2}, …
+          //     ]
+          //   }
+          //   setTotalPose(result.result.postureList)
+        }
+    })
+    .catch(error => {
+        const err = error;
+        console.log(err);
+    });
+  }
+
+
+  // useEffect(()=>{
+  //   axiosBestPose();
+  //   axiosTotalPosePercentage();
+  // },[])
+
+
     const renderLegend = (text, color) => {
         return (
           <View style={{flexDirection: 'row', marginBottom: 12}}>
@@ -48,26 +146,27 @@ const MotionCircleChart = () => {
 
 
             <PieChart
-              strokeColor="white"
               strokeWidth={4}
               donut
               isAnimated
+              textColor="black"
               data={[
-                {value: 10, color: '#FFAB91'},
-                {value: 10, color: '#FFD700'},
-                {value: 10, color: '#FFECB3'},
+                {value: totalPose[0].percentage*100, color: '#FFAB91'},
+                {value: totalPose[1].percentage*100, color: '#FFD700'},
+                {value: totalPose[2].percentage*100, color: '#FFECB3'},
 
-                {value: 10, color: '#98FB98'},
-                {value: 10, color: '#ADD8E6'},
-                {value: 10, color: '#D8BFD8'},
+                {value: totalPose[3].percentage*100, color: '#98FB98'},
+                {value: totalPose[4].percentage*100, color: '#ADD8E6'},
+                {value: totalPose[5].percentage*100, color: '#D8BFD8'},
 
-                {value: 10, color: '#E6E6FA'},
-                {value: 10, color: '#D3D3D3'},
-                {value: 10, color: '#D3D3D3'},
+                {value: totalPose[6].percentage*100, color: '#E6E6FA'},
+                {value: totalPose[7].percentage*100, color: '#D3D3D3'},
+                {value: totalPose[8].percentage*100, color: '#D3D3D3'},
               ]}
-              innerCircleColor="#414141"
+              innerCircleColor="#000"
               innerCircleBorderWidth={4}
-              innerCircleBorderColor={'white'}
+              innerCircleBorderColor={'#000'}
+              strokeColor={"#000"}
               showValuesAsLabels={true}
               showText
               textSize={15}
@@ -75,8 +174,26 @@ const MotionCircleChart = () => {
               centerLabelComponent={() => {
                 return (
                   <View>
-                    <Text style={{color: 'white', fontSize: 36, textAlign:"center"}}>10</Text>
-                    <Text style={{color: 'white', fontSize: 18, textAlign:"center"}}>FW</Text>
+                    <Text style={{color: 'white', fontSize: 36, textAlign:"center"}}>
+                      {bestPose.posture==1? "FW":(
+                        bestPose.posture==2? "LSR":(
+                          bestPose.posture==3? "LST":(
+                            bestPose.posture==4? "UP":(
+                              bestPose.posture==5? "RSR":(
+                                bestPose.posture==6? "RST":(
+                                  bestPose.posture==7? "RVS":(
+                                    bestPose.posture==8? "X":(
+                                      bestPose.posture==9? "OUT": null
+                                    )
+                                  )
+                                )
+                              )
+                            )
+                          )
+                        )
+                      )}
+                    </Text>
+                    <Text style={{color: 'white', fontSize: 18, textAlign:"center"}}>{bestPose.percentage*100}%</Text>
                   </View>
                 );
               }}

@@ -34,7 +34,7 @@ const AlarmSetting = () => {
 
             <View style={tw`absolute bg-[#323232] rounded-xl w-[350px] h-[300px] mt-40 top-[3%]`}>
               <Text style={tw`flex-1 text-white p-8 text-5 font-black`}>기상 시간</Text>
-              <View style={tw`flex-3 z-10 mt-1`}>
+              <View style={tw`flex-3 z-10 mt-1 top-[125%]`}>
                   <ClockPicker display={4}/>
               </View>
             </View>
