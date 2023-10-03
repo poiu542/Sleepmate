@@ -12,15 +12,15 @@ const SleepDataInfo = () => {
     const score = [1,2,3];
 
     return (
-        <View style={tw`w-full bg-[#000]/50 rounded-3 mt-5 p-2`}>
+        <View style={tw`w-full bg-[#000]/50 rounded-3 mt-5 p-5`}>
 
             {/* 시간 */}
             <Text style={tw`text-white text-4 text-center font-bold mt-2`}>나의 수면 시간</Text>
-            <Text style={tw`text-[#FFF1D4] text-3.3 text-center mt-5`}>11:00PM - 07:30AM</Text>
+            <Text style={tw`text-[#FFF1D4] text-3.3 text-center mt-2`}>11:00PM - 07:30AM</Text>
 
 
             {/* 실제 잔 시간 */}
-            <Text style={tw`text-white text-4 text-center font-bold items-center mt-1`}>4시간 30분</Text>
+            <Text style={tw`text-white text-4 text-center font-bold items-center mt-2`}>4시간 30분</Text>
 
 
             {/* 차트 */}

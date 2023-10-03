@@ -65,7 +65,7 @@ const IntroExplain = () => {
         if (sound) {
           await sound.stopAsync();
           await sound.unloadAsync();
-          setSound(null);
+          setSound(false);
           console.log('Audio stopped successfully');
         }
     }
@@ -79,7 +79,6 @@ const IntroExplain = () => {
                 const { sound } = await Audio.Sound.createAsync(
                     require('../assets/sounds/introEffect.mp3')
                 );
-                setSound(sound);
                 await sound.playAsync();
                 console.log('Audio played successfully');
             } else {
@@ -92,7 +91,7 @@ const IntroExplain = () => {
 
     useEffect(()=>{
         //음악 처음 자동 시작
-        playSound();
+        if(sound==null) playSound();
     },[])
 
     const navigate = useNavigation()
@@ -226,7 +225,6 @@ const IntroExplain = () => {
         if (sceen===12 && animation1) {
             setTimeout(() => {
                 stopSound();
-                stopSound();
                 // 메인 페이지로 이동
                 navigate.navigate("MainTabNavigator");
             }, 2000);
@@ -268,7 +266,7 @@ const IntroExplain = () => {
             <View style={tw`flex-1`}>
 
                 {/*  음악 관리 */}
-                {   sound!=null?
+                {   sound!=false && sound!=null?
                     <TouchableOpacity style={tw`absolute top-0 left-80 right-0 bottom-0 mt-10 w-10 h-10 justify-center items-center z-10`} onPress={() => stopSound()}><Image source={volumeUp} resizeMode="contain" style={tw`w-7 h-10`}></Image></TouchableOpacity>
                     :
                     <TouchableOpacity style={tw`absolute top-0 left-80 right-0 bottom-0 mt-10 w-10 h-10 justify-center items-center z-10`} onPress={() => playSound()}><Image source={mute} resizeMode="contain" style={tw`w-7 h-10`}></Image></TouchableOpacity>
