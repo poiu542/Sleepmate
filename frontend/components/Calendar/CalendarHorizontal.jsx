@@ -25,8 +25,8 @@ const CalendarHorizontal = ({ onSelectDate, selected }) => {
           scrollViewRef.current.scrollToEnd({ animated: false });
         }, 50);
         //오늘로 디폴트 날짜 세팅
-        // const today = moment().toISOString().slice(0,10);
-        // onSelectDate(today);
+        const today = moment().toISOString().slice(0,10);
+        onSelectDate(today);
       }, [])
   
     /**
