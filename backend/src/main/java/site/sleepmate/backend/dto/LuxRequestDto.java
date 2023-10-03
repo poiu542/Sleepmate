@@ -17,7 +17,7 @@ import java.time.LocalTime;
 @AllArgsConstructor
 public class LuxRequestDto {
     private Long memberSeq;
-    private Integer lux;
+    private Double lux;
 
     public LuxRecord toEntity(LuxRequestDto luxRequestDto, Member member){
         LocalDateTime currentTime = LocalDateTime.now();

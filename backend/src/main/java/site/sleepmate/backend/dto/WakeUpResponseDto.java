@@ -15,7 +15,7 @@ import java.time.LocalDateTime;
 @NoArgsConstructor
 @AllArgsConstructor
 public class WakeUpResponseDto {
-    private Integer lux;
+    private Double lux;
     private LocalDateTime startTime;
     private LocalDateTime endTime;
 

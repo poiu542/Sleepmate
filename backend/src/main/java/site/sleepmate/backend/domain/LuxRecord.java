@@ -24,7 +24,7 @@ public class LuxRecord {
     private Member member;
 
     @Column(name = "lux", nullable = false)
-    private Integer lux;
+    private Double lux;
 
     @Column(name = "time", nullable = false)
     private LocalDateTime time;
@@ -33,7 +33,7 @@ public class LuxRecord {
     private LocalDate sleepDate;
 
     @Builder
-    public LuxRecord(Member member, Integer lux, LocalDateTime time, LocalDate sleepDate) {
+    public LuxRecord(Member member, Double lux, LocalDateTime time, LocalDate sleepDate) {
         this.member = member;
         this.lux = lux;
         this.time = time;
