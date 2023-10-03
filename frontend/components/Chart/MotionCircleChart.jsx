@@ -50,7 +50,7 @@ const MotionCircleChart = ({selectedDate}) => {
         "memberSeq" : 1,
         "sleepDate" : selectedDate
     }
-    nonAuthHttp.post(`/api/posture/most`, data)
+    nonAuthHttp.post(`/api/posture/posture/most`, data)
     .then(response => {
         const result = response.data;
         // console.log(result);
@@ -59,7 +59,7 @@ const MotionCircleChart = ({selectedDate}) => {
           //   "posture" : 1,
           //   "percentage" : 0.5
           //   }
-            // setBestPose(result.result)
+          setBestPose(result)
         }
     })
     .catch(error => {
@@ -97,10 +97,10 @@ const MotionCircleChart = ({selectedDate}) => {
   }
 
 
-  // useEffect(()=>{
-  //   axiosBestPose();
-  //   axiosTotalPosePercentage();
-  // },[])
+  useEffect(()=>{
+    axiosBestPose();
+    // axiosTotalPosePercentage();
+  },[])
 
 
     const renderLegend = (text, color) => {
@@ -193,7 +193,7 @@ const MotionCircleChart = ({selectedDate}) => {
                         )
                       )}
                     </Text>
-                    <Text style={{color: 'white', fontSize: 18, textAlign:"center"}}>{bestPose.percentage*100}%</Text>
+                    <Text style={{color: 'white', fontSize: 18, textAlign:"center"}}>{bestPose.percentage!="NaN"?bestPose.percentage*100:0}%</Text>
                   </View>
                 );
               }}
