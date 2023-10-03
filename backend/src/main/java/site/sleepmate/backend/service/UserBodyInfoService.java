@@ -27,25 +27,8 @@ public class UserBodyInfoService {
 
         if (optionalMember.isPresent()) {
             memberRepository.updateMemberPartialInfo(memberSeq, weight, height);
-
-//            // 변경된 정보를 저장
-//            Member updatedMember = Member.builder()
-//                    .ageRange(optionalMember.get().getAgeRange())
-//                    .alarm(optionalMember.get().getAlarm())
-//                    .email(optionalMember.get().getEmail())
-//                    .gender(optionalMember.get().getGender())
-//                    .hasWatch(optionalMember.get().getHasWatch())
-//                    .kakaoId(optionalMember.get().getKakaoId())
-//                    .get
-//                    .weight(weight)
-//                    .height(height)
-//                    .build();
-//
-//            memberRepository.save(updatedMember);
         } else {
-            // 해당 멤버가 존재하지 않는 경우 예외 처리 또는 다른 작업 수행
             throw new IOException("멤버를 찾을 수 없습니다.");
         }
-
     }
 }
