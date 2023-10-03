@@ -6,6 +6,7 @@ import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 import site.sleepmate.backend.dto.AccelerometerRequestDto;
 import site.sleepmate.backend.dto.LuxRequestDto;
+import site.sleepmate.backend.dto.MemberRequestDto;
 import site.sleepmate.backend.dto.WakeUpResponseDto;
 import site.sleepmate.backend.service.WatchService;
 
@@ -18,16 +19,18 @@ import java.util.Map;
 public class WatchController {
     private final WatchService watchService;
 
-    @GetMapping("/luxAndTime")
-    public ResponseEntity<WakeUpResponseDto> getLuxAndSleepTime(){
+    @PostMapping("/luxAndTime")
+    public ResponseEntity<WakeUpResponseDto> getLuxAndSleepTime(@RequestBody MemberRequestDto memberRequestDto){
+        long memberSeq = memberRequestDto.getMemberSeq();
         LocalDateTime nowTime = watchService.getLastRecord().getTime();
-        WakeUpResponseDto wakeUpResponseDto = watchService.getLuxAndSleepTime(nowTime);
+        WakeUpResponseDto wakeUpResponseDto = watchService.getLuxAndSleepTime(nowTime, memberSeq);
         return new ResponseEntity<>(wakeUpResponseDto, HttpStatus.OK);
     }
 
-    @GetMapping("/rhythm")
-    public ResponseEntity<Map<String, Integer>> getCircadianRhythm(){
-        Map<String, Integer> rhythmResult = watchService.getCircadianRhythm();
+    @PostMapping("/rhythm")
+    public ResponseEntity<Map<String, Integer>> getCircadianRhythm(@RequestBody MemberRequestDto memberRequestDto){
+        long memberSeq = memberRequestDto.getMemberSeq();
+        Map<String, Integer> rhythmResult = watchService.getCircadianRhythm(memberSeq);
         return new ResponseEntity<>(rhythmResult, HttpStatus.OK);
     }
 
