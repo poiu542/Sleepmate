@@ -74,20 +74,50 @@ const MotionCircleChart = ({selectedDate}) => {
         "memberSeq" : 1,
         "sleepDate" : selectedDate
     }
-    nonAuthHttp.post(`/api/posture`, data)
+    nonAuthHttp.post(`/api/posture/posture`, data)
     .then(response => {
         const result = response.data;
         // console.log(result);
         if (result) {
-          // {
-          //   postureList : [
-          //        {”posture” : 1,
-          //        “percentage” : 0.5},
-          //        {”posture” : 2,
-          //        “percentage” : 0.2}, …
-          //     ]
-          //   }
-          //   setTotalPose(result.result.postureList)
+        //   [
+        //     {
+        //         "posture": 0,
+        //         "percentage": "NaN"
+        //     },
+        //     {
+        //         "posture": 1,
+        //         "percentage": "NaN"
+        //     },
+        //     {
+        //         "posture": 2,
+        //         "percentage": "NaN"
+        //     },
+        //     {
+        //         "posture": 3,
+        //         "percentage": "NaN"
+        //     },
+        //     {
+        //         "posture": 4,
+        //         "percentage": "NaN"
+        //     },
+        //     {
+        //         "posture": 5,
+        //         "percentage": "NaN"
+        //     },
+        //     {
+        //         "posture": 6,
+        //         "percentage": "NaN"
+        //     },
+        //     {
+        //         "posture": 7,
+        //         "percentage": "NaN"
+        //     },
+        //     {
+        //         "posture": 8,
+        //         "percentage": "NaN"
+        //     }
+        // ]
+          setTotalPose(result)
         }
     })
     .catch(error => {
@@ -99,7 +129,7 @@ const MotionCircleChart = ({selectedDate}) => {
 
   useEffect(()=>{
     axiosBestPose();
-    // axiosTotalPosePercentage();
+    axiosTotalPosePercentage();
   },[])
 
 
@@ -151,17 +181,17 @@ const MotionCircleChart = ({selectedDate}) => {
               isAnimated
               textColor="black"
               data={[
-                {value: totalPose[0].percentage*100, color: '#FFAB91'},
-                {value: totalPose[1].percentage*100, color: '#FFD700'},
-                {value: totalPose[2].percentage*100, color: '#FFECB3'},
+                {value: totalPose[0].percentage=="NaN"?0:totalPose[0].percentage*100, color: '#FFAB91'},
+                {value: totalPose[1].percentage=="NaN"?0:totalPose[1].percentage*100, color: '#FFD700'},
+                {value: totalPose[2].percentage=="NaN"?0:totalPose[2].percentage*100, color: '#FFECB3'},
 
-                {value: totalPose[3].percentage*100, color: '#98FB98'},
-                {value: totalPose[4].percentage*100, color: '#ADD8E6'},
-                {value: totalPose[5].percentage*100, color: '#D8BFD8'},
+                {value: totalPose[3].percentage=="NaN"?0:totalPose[3].percentage*100, color: '#98FB98'},
+                {value: totalPose[4].percentage=="NaN"?0:totalPose[4].percentage*100, color: '#ADD8E6'},
+                {value: totalPose[5].percentage=="NaN"?0:totalPose[5].percentage*100, color: '#D8BFD8'},
 
-                {value: totalPose[6].percentage*100, color: '#E6E6FA'},
-                {value: totalPose[7].percentage*100, color: '#D3D3D3'},
-                {value: totalPose[8].percentage*100, color: '#D3D3D3'},
+                {value: totalPose[6].percentage=="NaN"?0:totalPose[6].percentage*100, color: '#E6E6FA'},
+                {value: totalPose[7].percentage=="NaN"?0:totalPose[7].percentage*100, color: '#D3D3D3'},
+                {value: totalPose[8].percentage=="NaN"?0:totalPose[8].percentage*100, color: '#D3D3D3'},
               ]}
               innerCircleColor="#000"
               innerCircleBorderWidth={4}
