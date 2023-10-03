@@ -42,7 +42,7 @@ const MainTabNavigator = () => {
               <Text
                 style={[
                   tw `text-[2.6]`,
-                  { color: focused ? '#777' : '#eee' }, 
+                  { color: focused ? '#fff' : '#999' }, 
                 ]}
               >
                 {label}
@@ -60,10 +60,11 @@ const MainTabNavigator = () => {
             } 
             return <Ionicons name={iconName} size={size} color={color} />;
           },
-          tabBarActiveTintColor : "#777",
-          tabBarInactiveTintColor : "#eee",
+          tabBarActiveTintColor : "#fff",
+          tabBarInactiveTintColor : "#999",
           tabBarStyle : {
-            backgroundColor : "#bbb",
+            borderColor : "transparent",
+            backgroundColor : "#333",
           },
         })}
       >

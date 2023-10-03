@@ -1,6 +1,6 @@
 import React, { useEffect } from 'react';
 import {useState} from "react"
-import { Text, View, ImageBackground, Image, ScrollView, Pressable } from 'react-native';
+import { Text, View, ImageBackground, Image, ScrollView, Pressable, TouchableOpacity } from 'react-native';
 import sun from "../../assets/images/Sunny.png"
 import tw from "twrnc"
 import BottomSheetModal from './BottomSheetModal';
@@ -9,7 +9,15 @@ import { useRecoilState } from 'recoil';
 import { nonAuthHttp } from '../../axios/axios';
 import { FontAwesome } from '@expo/vector-icons';
 import HeartChart from './HeartChart';
+import { Fontisto } from '@expo/vector-icons';
 import ServiceLoading from '../../screens/ServiceLoading';
+import M_motion_forward from '../../assets/motion/M_motion_forward.png';
+import M_motion_hands_up from '../../assets/motion/M_motion_hands_up.png';
+import M_motion_origin_left from '../../assets/motion/M_motion_origin_left.png';
+import M_motion_origin_right from '../../assets/motion/M_motion_origin_right.png';
+import M_motion_reverse from '../../assets/motion/M_motion_reverse.png';
+import M_motion_shirimp_left from '../../assets/motion/M_motion_shirimp_left.png';
+import M_motion_shirimp_right from '../../assets/motion/M_motion_shirimp_right.png';
 function Breath(props) {
     const [isBottomSheetVisible, setIsBottomSheetVisible] = useState(false);
     const [date, setDate] = useRecoilState(diagnosisDateState);
@@ -36,7 +44,8 @@ function Breath(props) {
         
         async function requestBreath(){
             const send = {
-                sleepDate : "2023-09-21",
+                // sleepDate : "2023-09-20",
+                sleepDate : date,
                 memberSeq : 1
             }
             console.log(date);
@@ -71,7 +80,7 @@ function Breath(props) {
         setData(null); //데이터 값을 없애주기 
         getBreath(); //데이터값 생김
     
-    },[])
+    },[date])
 
     if(!data){
         return (
@@ -111,20 +120,37 @@ function Breath(props) {
                             <HeartChart min={data.minHeartRate} max={data.maxHeartRate}></HeartChart>
                             </View>
                             :
-                            <View style={tw `flex-2 border-[0.3] border-white `}>
-                                <Text style={tw `text-[#fff] text-sm mb-3`} >비정상 심박수 감지 내역</Text>
-                                <ScrollView style={tw `border-[#555] border-[0.2] h-50`}>
+                            <View style={tw `flex-2 bg-[#444] p-1 rounded-3`}>
+                                <Text style={tw `text-[#FFF] text-sm mb-1 self-center`} >비정상 심박수 감지 내역</Text>
+                                <Text style={tw `text-[#FFF1D4] text-xs mb-3 self-center`} >40-85사이의 심박수는 정상으로 간주</Text>
+                                <ScrollView style={tw `h-40`}>
                                     {
                                         data.map((el) => {
                                             return (
                                                 <>
                                                 <View style={tw `flex-row justify-center items-center`}>
-                                                <Text style={tw `flex-1 text-[#fff] text-sm font-bold mb-0`}>{el.detectedTime}</Text>
+                                                <Text style={tw `flex-0.7 text-[#fff] text-sm font-bold mb-0`}>{el.detectedTime}</Text>
                                                 <View style={tw `flex-1 flex-row`}>
-                                                    <Text style={tw `text-[#fff] text-base font-bold mb-0`}>{el.abnormalHeartRate}</Text>
-                                                    <Text style={tw `text-[#fff] text-xs mt-1.7`}>bpm</Text>
+                                                    <Text style={tw `text-[#fff] text-xs mt-1.7`}><Fontisto name="heartbeat-alt" size={20} color="#FED1D1" /></Text>
+                                                    <Text style={tw `text-[#FED1D1] text-base font-bold mb-0`}>{el.abnormalHeartRate}</Text>
+                                                    <Text style={tw `text-[#FED1D1] text-xs mt-1.7`}>bpm</Text>
                                                 </View>
-                                                <Text style={tw `flex-1 text-[#fff] text-sm font-bold mb-0`}>{el.posture}</Text>
+                                                {
+                                                    el.posture===1?<Image style={tw`mr-5 w-12 h-45`} source={M_motion_forward} resizeMode="contain"/>:(
+                                                        el.posture===2?<Image  style={tw`mr-5 w-12 h-45`} source={M_motion_shirimp_left} resizeMode="contain"/>:(
+                                                            el.posture===3?<Image style={tw`w-12 h-23`} source={M_motion_origin_left} resizeMode="contain"/>:(
+                                                                el.posture===4?<Image style={tw`mr-5 w-12 h-45`} source={M_motion_hands_up} resizeMode="contain"/>:(
+                                                                    el.posture===5?<Image style={tw`mr-5 w-12 h-45`} source={M_motion_shirimp_right} resizeMode="contain"/>:(
+                                                                        el.posture===6?<Image style={tw`mr-5 w-12 h-45`} source={M_motion_origin_right} resizeMode="contain"/>:(
+                                                                            el.posture===7?<Image style={tw`mr-5 w-12 h-45`} source={M_motion_reverse} resizeMode="contain"/>:null
+                                                                        )
+                                                                    )
+                                                                )
+                                                            )
+                                                        )
+                                                    )
+                                                }
+                                                
                                                 </View>
                                                 </>
                                             )
@@ -139,7 +165,7 @@ function Breath(props) {
                             <View style={tw `flex-1 items-center justify-center`}>
                                 <Text style={tw `text-[#fff] text-xs font-bold mb-2`} >나의 BMI 지수</Text>
                                 <FontAwesome name="balance-scale" size={27} color="white" />
-                                <Text style={tw `mt-2 text-[#C0A4E5] text-base font-bold`}>{bmi}</Text>
+                                <Text style={tw `mt-2 text-[#fff] text-base font-bold`}>{bmi}</Text>
                                 <Text style={tw `text-[#FFF1D4] text-sm font-bold`}>{bmiStatus}</Text>
                             </View>
                             

@@ -15,7 +15,7 @@ function Diagnosis() {
     return (
         <>
         <StatusBar style="auto"/>
-        <View style={tw `flex flex-1 bg-[#111]`}>
+        <View style={tw `flex flex-1 bg-[#16151A]`}>
             <ScrollView style={tw `p-3 py-8`}>
                 <Text style={tw `p-1 my-5 text-[#ddd] text-lg font-bold self-center `}>수면 진단 리포트</Text>
                  <CalendarHorizontal onSelectDate={setSelectedDate} selected={selectedDate} />
