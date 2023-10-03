@@ -16,7 +16,7 @@ function Circadian(props) {
     function getCircadian(){
         async function requestCircadian(){
             const send = {
-                sleepDate : "2023-09-24",
+                // sleepDate : "2023-09-24",
                 memberSeq : 1
             }
             console.log(date);
@@ -41,6 +41,7 @@ function Circadian(props) {
                     <View style={tw `flex-1 flex-row`}>
                         <View style={tw `flex-2 `}>
                             <Text style={tw `text-lg text-[#fff] font-bold text-[4]`}>나의 일주기 리듬</Text>
+                            {/* <Text style={tw `text-lg text-[#fff] font-bold text-[4]`}>{date}</Text> */}
                         </View>
                         <Pressable style={tw `flex-1  justify-center`} onPress={toggleBottomSheet}>
                             <Text style={tw `text-[#ccc] text-xs`}>&#62; more</Text>
