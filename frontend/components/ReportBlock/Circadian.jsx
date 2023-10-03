@@ -1,14 +1,39 @@
-import React, {useState} from 'react';
+import React, {useEffect, useState} from 'react';
 import { Text, View, ImageBackground, Image, ScrollView, Pressable } from 'react-native';
 import sun from "../../assets/images/Sunny.png"
 import tw from "twrnc"
 import BottomSheetModal from './BottomSheetModal';
+import { diagnosisDateState } from '../../recoil/date/diagnosisDate';
+import { useRecoilState } from 'recoil';
+import { nonAuthHttp } from '../../axios/axios';
 function Circadian(props) {
     const [isBottomSheetVisible, setIsBottomSheetVisible] = useState(false);
-
+    const [date, setDate] = useRecoilState(diagnosisDateState);
+    const [data, setData] = useState();
     const toggleBottomSheet = () => {
         setIsBottomSheetVisible(!isBottomSheetVisible);
     };
+    function getCircadian(){
+        async function requestCircadian(){
+            const send = {
+                sleepDate : "2023-09-24",
+                memberSeq : 1
+            }
+            console.log(date);
+            try {
+                const response = await nonAuthHttp.post(`api/watch/luxAndTime`, send);
+                console.log(response.data);
+                setData(response.data)
+            } catch (error) {
+                console.log(error);
+            }
+        }
+        requestCircadian()
+    }
+    useEffect(()=>{
+        getCircadian();
+    
+    },[])
     return (
         <>
         <View style={tw `flex-1 w-full bg-[#333] rounded-7 p-3 mb-6`}>
