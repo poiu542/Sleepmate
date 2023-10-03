@@ -21,7 +21,7 @@ import java.util.*;
 public class AbnormalHeartRateMeasurementService {
     private final HeartRateRecordRepository heartRateRecordRepository;
     private final VideoOrderRepository videoOrderRepository;
-    private final BMIMeasurmentService bmiMeasurmentService;
+    private final BMIMeasurementService bmiMeasurementService;
 
     // 감지된 시간 & 이상 심박수 & 해당 자세 반환 메서드
     public List<AbnormalResponseDto> getAbnormalSituation(Long memberSeq, LocalDate sleepDate) {
@@ -63,7 +63,7 @@ public class AbnormalHeartRateMeasurementService {
             }
         }
 
-        double bmi = bmiMeasurmentService.getBMI(memberSeq);
+        double bmi = bmiMeasurementService.getBMI(memberSeq);
 
         for (VideoOrder videoOrder : videoOrders) {
             for (int i = 0; i < detectedTimes.size(); i++){

@@ -9,7 +9,7 @@ import java.util.Optional;
 
 @Service
 @RequiredArgsConstructor
-public class BMIMeasurmentService {
+public class BMIMeasurementService {
     private final MemberRepository memberRepository;
 
     public Double getBMI(Long memberSeq) {
