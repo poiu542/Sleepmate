@@ -14,7 +14,7 @@ import java.util.List;
 @RequiredArgsConstructor
 public class NormalHeartRateMeasurementService {
     private final HeartRateRecordRepository heartRateRecordRepository;
-    private final BMIMeasurmentService bmiMeasurmentService;
+    private final BMIMeasurementService bmiMeasurementService;
 
     public NormalResponseDto getMinAndMaxBPM(Long memberSeq, LocalDate sleepDate) {
         NormalResponseDto normalResponseDto = new NormalResponseDto();
@@ -30,7 +30,7 @@ public class NormalHeartRateMeasurementService {
             else if (heartRateRecords.get(i).getHeartRate() > maxBPM) maxBPM = heartRateRecords.get(i).getHeartRate();
         }
 
-        double bmi = bmiMeasurmentService.getBMI(memberSeq);
+        double bmi = bmiMeasurementService.getBMI(memberSeq);
 
         return normalResponseDto.getNormalResponseDto((int) minBPM, (int) maxBPM, 0, bmi);
     }
