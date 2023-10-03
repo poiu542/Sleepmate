@@ -20,6 +20,9 @@ import androidx.core.app.NotificationCompat
 import com.example.sleepmate.presentation.MainActivity
 import kotlinx.coroutines.GlobalScope
 import kotlinx.coroutines.launch
+import retrofit2.Call
+import retrofit2.Callback
+import retrofit2.Response
 
 /**
  * Foreground 서비스 코드
@@ -84,9 +87,16 @@ class MyForegroundService : Service() {
         accelerometerSensor = sensorManager.getDefaultSensor(Sensor.TYPE_ACCELEROMETER)
         lightSensor = sensorManager.getDefaultSensor(Sensor.TYPE_LIGHT)
 
+        if (heartRateSensor == null) {
+            Log.d("HeartRate", "Heart Rate 센서를 찾을 수 없습니다.")
+        }
+
+
         // 센서 리스트 확인하기 - 사용하는 기기의 전체 센서의 리스트를 Log로 확인하고 싶을 때 사용
 //        var sensorList:List<Sensor> = sensorManager.getSensorList(-1)
 //        Log.d("sensorList", sensorList.toString())
+
+        val api = APIS.create()
 
         // HeartRate 센서
         heartRateListener = object : SensorEventListener {
@@ -101,11 +111,25 @@ class MyForegroundService : Service() {
                         GlobalScope.launch {
                             try {
                                 val udpClient: UdpClient by lazy {
-                                    UdpClient(this@MyForegroundService,"192.168.119.200", 9894)
+                                    UdpClient(this@MyForegroundService,"192.168.169.212", 9894)
                                 }
 
                                 udpClient.sendData("heartRate : $heartRateValue")
                                 Log.d("HeartRate", "heartRate : $heartRateValue")
+
+                                val data = HeartModel("$heartRateValue")
+
+                                api.post_heart_rate(data).enqueue(object : Callback<PostResult> {
+                                    override fun onResponse(call: Call<PostResult>, response: Response<PostResult>) {
+                                        Log.d("log", response.toString())
+                                        Log.d("log", response.body().toString())
+                                    }
+
+                                    override fun onFailure(call: Call<PostResult>, t: Throwable) {
+                                        Log.d("log", t.message.toString())
+                                        Log.d("log", "HeartRate fail")
+                                    }
+                                })
 
                                 heartRateLastSentTimeMillis = currentTimeMillis
                             } catch (e: Exception) {
@@ -132,11 +156,25 @@ class MyForegroundService : Service() {
                         GlobalScope.launch {
                             try {
                                 val udpClient: UdpClient by lazy {
-                                    UdpClient(this@MyForegroundService,"192.168.119.200", 9894)
+                                    UdpClient(this@MyForegroundService,"192.168.169.212", 9894)
                                 }
 
-                                udpClient.sendData("acclerometer : $accelerometerValue")
-                                Log.d("Accelerometer", "acclerometer : $accelerometerValue")
+                                udpClient.sendData("accelerometer : $accelerometerValue")
+                                Log.d("Accelerometer", "accelerometer : $accelerometerValue")
+
+                                val data = AccelerometerModel(1L, "$accelerometerValue")
+
+                                api.post_accelerometer(data).enqueue(object : Callback<PostResult> {
+                                    override fun onResponse(call: Call<PostResult>, response: Response<PostResult>) {
+                                        Log.d("log", response.toString())
+                                        Log.d("log", response.body().toString())
+                                    }
+
+                                    override fun onFailure(call: Call<PostResult>, t: Throwable) {
+                                        Log.d("log", t.message.toString())
+                                        Log.d("log", "Accelerometer fail")
+                                    }
+                                })
 
                                 accelerometerLastSentTimeMillis = currentTimeMillis
                             } catch (e: Exception) {
@@ -161,11 +199,25 @@ class MyForegroundService : Service() {
                         GlobalScope.launch {
                             try {
                                 val udpClient: UdpClient by lazy {
-                                    UdpClient(this@MyForegroundService,"192.168.119.200", 9894)
+                                    UdpClient(this@MyForegroundService,"192.168.169.212", 9894)
                                 }
 
                                 udpClient.sendData("light : $lightValue")
                                 Log.d("Light", "light : $lightValue")
+
+                                val data = LuxModel(1L, "$lightValue")
+
+                                api.post_lux(data).enqueue(object : Callback<PostResult> {
+                                    override fun onResponse(call: Call<PostResult>, response: Response<PostResult>) {
+                                        Log.d("log", response.toString())
+                                        Log.d("log", response.body().toString())
+                                    }
+
+                                    override fun onFailure(call: Call<PostResult>, t: Throwable) {
+                                        Log.d("log", t.message.toString())
+                                        Log.d("log", "Lux fail")
+                                    }
+                                })
 
                                 lightLastSentTimeMillis = currentTimeMillis
                             } catch (e: Exception) {
@@ -181,7 +233,7 @@ class MyForegroundService : Service() {
         sensorManager.registerListener(
             heartRateListener,
             heartRateSensor,
-            SensorManager.SENSOR_DELAY_NORMAL
+            SensorManager.SENSOR_DELAY_FASTEST
         )
 
         sensorManager.registerListener(
