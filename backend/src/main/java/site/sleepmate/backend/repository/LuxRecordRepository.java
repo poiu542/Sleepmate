@@ -9,6 +9,8 @@ import java.time.LocalDateTime;
 import java.util.List;
 
 public interface LuxRecordRepository extends JpaRepository<LuxRecord, Long> {
-    @Query("select l from LuxRecord l where l.time between :startTime and :endTime")
-    List<LuxRecord> findByTime(@Param("startTime") LocalDateTime startTime, @Param("endTime") LocalDateTime endTime);
+    @Query("select l from LuxRecord l join l.member m where m.memberSeq=:memberSeq " +
+            "and l.time between :startTime and :endTime")
+    List<LuxRecord> findByTime(@Param("memberSeq") long memberSeq, @Param("startTime") LocalDateTime startTime,
+                               @Param("endTime") LocalDateTime endTime);
 }
