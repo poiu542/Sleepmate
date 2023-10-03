@@ -28,13 +28,13 @@ public class WatchService {
     private final AccelerometerRecordRepository accelerometerRecordRepository;
 
     //30분 전의 lux값과 자러간 시간, 일어난 시간 반환.
-    public WakeUpResponseDto getLuxAndSleepTime(LocalDateTime time){
+    public WakeUpResponseDto getLuxAndSleepTime(LocalDateTime time, long memberSeq){
         //lux값 조회
-        LuxRecord lux = getLuxBefore30Min(time);
+        LuxRecord lux = getLuxBefore30Min(time, memberSeq);
         //자러간 시간, 일어난 시간 조회
         LocalDate date = getLastRecord().getSleepDate(); //가장 최근 취침 날짜 가져옴
-        VideoRecord startSleep = videoRecordRepository.findTop1BySleepDateOrderByVideoSeqAsc(date).orElseThrow(NoSuchElementException::new);
-        VideoRecord endSleep = videoRecordRepository.findTop1BySleepDateOrderByVideoSeqDesc(date).orElseThrow(NoSuchElementException::new);
+        VideoRecord startSleep = videoRecordRepository.findTop1BySleepDateAndMember_MemberSeqOrderByVideoSeqAsc(date, memberSeq).orElseThrow(NoSuchElementException::new);
+        VideoRecord endSleep = videoRecordRepository.findTop1BySleepDateAndMember_MemberSeqOrderByVideoSeqDesc(date, memberSeq).orElseThrow(NoSuchElementException::new);
 
         return WakeUpResponseDto.fromEntities(lux, startSleep, endSleep);
     }
@@ -43,21 +43,21 @@ public class WatchService {
         return videoRecordRepository.findTop1ByOrderByVideoSeqDesc().orElseThrow(NoSuchElementException::new);
     }
 
-    private LuxRecord getLuxBefore30Min(LocalDateTime time){
+    private LuxRecord getLuxBefore30Min(LocalDateTime time, long memberSeq){
         //lux값 조회
         LocalDateTime before30MinTime = time.minusMinutes(30); //30분 전 시각
         LocalDateTime startTime = LocalDateTime.of(before30MinTime.getYear(), before30MinTime.getMonthValue(),
                 before30MinTime.getDayOfMonth(), before30MinTime.getHour(), before30MinTime.getMinute(), 0);
         LocalDateTime endTime = startTime.plusMinutes(1);
-        List<LuxRecord> luxs = luxRecordRepository.findByTime(startTime, endTime);
+        List<LuxRecord> luxs = luxRecordRepository.findByTime(memberSeq, startTime, endTime);
         return luxs.get(0);
     }
 
     //일주기 리듬
-    public Map<String, Integer> getCircadianRhythm(){
+    public Map<String, Integer> getCircadianRhythm(long memberSeq){
         LocalDate date = getLastRecord().getSleepDate();
-        VideoRecord startSleep = videoRecordRepository.findTop1BySleepDateOrderByVideoSeqAsc(date).orElseThrow(NoSuchElementException::new);
-        VideoRecord endSleep = videoRecordRepository.findTop1BySleepDateOrderByVideoSeqDesc(date).orElseThrow(NoSuchElementException::new);
+        VideoRecord startSleep = videoRecordRepository.findTop1BySleepDateAndMember_MemberSeqOrderByVideoSeqAsc(date, memberSeq).orElseThrow(NoSuchElementException::new);
+        VideoRecord endSleep = videoRecordRepository.findTop1BySleepDateAndMember_MemberSeqOrderByVideoSeqDesc(date, memberSeq).orElseThrow(NoSuchElementException::new);
         //당일 새벽 3시(이후에 잠들기 시작하면 일주기 리듬 안좋음)
         LocalDateTime startMarginalTime = LocalDateTime.of(date.plusDays(1), LocalTime.of(3, 0));
         //당일 아침 10시(이후에 기상하면 일주기 리듬 안좋음)
@@ -68,7 +68,7 @@ public class WatchService {
         if(startSleep.getTime().isAfter(startMarginalTime) || endSleep.getTime().isAfter(endMarginalTime)){
             isRhythmFine = false;
         }
-        LuxRecord lux = getLuxBefore30Min(endSleep.getTime());
+        LuxRecord lux = getLuxBefore30Min(endSleep.getTime(), memberSeq);
 
         int result = -1;
         if(!isRhythmFine){ //일주기 리듬 안좋으면
