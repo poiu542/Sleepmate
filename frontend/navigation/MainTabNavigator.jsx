@@ -56,7 +56,7 @@ const MainTabNavigator = () => {
             } else if (route.name === 'Analysis') {
               iconName = focused ? 'body' : 'body-outline';
             } else if (route.name === 'Diagnosis') {
-              iconName = focused ? 'bulb' : 'bulb-outline';
+              iconName = focused ? 'md-document-text' : "md-document-text-outline";
             } 
             return <Ionicons name={iconName} size={size} color={color} />;
           },
