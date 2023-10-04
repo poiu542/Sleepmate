@@ -20,9 +20,7 @@ public class OauthService {
     private final MemberRepository memberRepository;
     public String getKakaoAccessToken(String code) throws IOException {
         String access_Token = "";
-        String refresh_Token = "";
         String reqURL = "https://kauth.kakao.com/oauth/token";
-
 
         URL url = new URL(reqURL);
         HttpURLConnection conn = (HttpURLConnection) url.openConnection();
@@ -35,7 +33,7 @@ public class OauthService {
         BufferedWriter bw = new BufferedWriter(new OutputStreamWriter(conn.getOutputStream()));
         String sb = "grant_type=authorization_code" +
                 "&client_id=1e4417060773b8517915b413b7a1942d" + // TODO REST_API_KEY 입력
-                "&redirect_uri=http://localhost:8080/api/oauth/kakao" + // TODO 인가코드 받은 redirect_uri 입력
+                "&redirect_uri=https://j9b103.p.ssafy.io/api/oauth/kakao" + // TODO 인가코드 받은 redirect_uri 입력
                 "&code=" + code;
         bw.write(sb);
         bw.flush();
