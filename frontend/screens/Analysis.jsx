@@ -67,7 +67,7 @@ const Analysis = () => {
                     <SleepDataArriveAlert selectedDate={selectedDate}/>
 
                     {/* 수면 시간 정리 */}
-                    <SleepDataInfo/>
+                    <SleepDataInfo selectedDate={selectedDate}/>
 
                     <HR/>
 
