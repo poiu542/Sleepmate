@@ -39,3 +39,10 @@ spring:
             user-info-uri: https://kapi.kakao.com/v2/user/me
             user-name-attribute: id
 
+aws:
+  access-key: ${ACCESS:access-key}
+  secret-key: ${REFRESH:refresh-key}
+  s3:
+    region: ${REGION:ap-northeast-2}
+    bucket: ${BUCKET:sleepmate}
+    url: ${URL:http://localhost:8080}

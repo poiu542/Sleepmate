@@ -42,7 +42,7 @@ class MainActivity : ComponentActivity() {
 
     // 전송 테스트 버튼을 눌렀을 때 연결할 udp address
     private val udpClient: UdpClient by lazy {
-        UdpClient(this,"192.168.119.200", 9894)
+        UdpClient(this,"192.168.169.212", 9894)
     }
 
     // Manifest 파일에서 permission 가져오기

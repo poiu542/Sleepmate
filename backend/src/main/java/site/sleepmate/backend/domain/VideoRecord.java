@@ -42,4 +42,8 @@ public class VideoRecord {
         this.capture = capture;
         this.sleepDate = sleepDate;
     }
+
+    public void updateCapture(final String capture) {
+        this.capture = capture;
+    }
 }
