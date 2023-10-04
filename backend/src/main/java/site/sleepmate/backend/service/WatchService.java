@@ -28,24 +28,22 @@ public class WatchService {
     private final AccelerometerRecordRepository accelerometerRecordRepository;
 
     //30분 전의 lux값과 자러간 시간, 일어난 시간 반환.
-    public WakeUpResponseDto getLuxAndSleepTime(LocalDateTime time, long memberSeq){
-        //lux값 조회
-        LuxRecord lux = getLuxBefore30Min(time, memberSeq);
-        //자러간 시간, 일어난 시간 조회
-        LocalDate date = getLastRecord().getSleepDate(); //가장 최근 취침 날짜 가져옴
-        VideoRecord startSleep = videoRecordRepository.findTop1BySleepDateAndMember_MemberSeqOrderByVideoSeqAsc(date, memberSeq).orElseThrow(NoSuchElementException::new);
-        VideoRecord endSleep = videoRecordRepository.findTop1BySleepDateAndMember_MemberSeqOrderByVideoSeqDesc(date, memberSeq).orElseThrow(NoSuchElementException::new);
+    public WakeUpResponseDto getLuxAndSleepTime(long memberSeq, LocalDate sleepDate){
+        VideoRecord startSleep = videoRecordRepository.findTop1BySleepDateAndMember_MemberSeqOrderByVideoSeqAsc(sleepDate, memberSeq).orElseThrow(NoSuchElementException::new);
+        VideoRecord endSleep = videoRecordRepository.findTop1BySleepDateAndMember_MemberSeqOrderByVideoSeqDesc(sleepDate, memberSeq).orElseThrow(NoSuchElementException::new);
+        //lux값 조회(해당일자의 마지막 로그에 찍힌 시간 기준)
+        LuxRecord lux = getLuxBefore30Min(endSleep.getTime(), memberSeq, sleepDate);
 
         return WakeUpResponseDto.fromEntities(lux, startSleep, endSleep);
     }
 
-    public VideoRecord getLastRecord(){
-        return videoRecordRepository.findTop1ByOrderByVideoSeqDesc().orElseThrow(NoSuchElementException::new);
+    public VideoRecord getLastRecord(long memberSeq, LocalDate sleepDate){
+        return videoRecordRepository.findTop1BySleepDateAndMember_MemberSeqOrderByVideoSeqDesc(sleepDate, memberSeq).orElseThrow(NoSuchElementException::new);
     }
 
-    private LuxRecord getLuxBefore30Min(LocalDateTime time, long memberSeq){
-        //lux값 조회
-        LocalDateTime before30MinTime = time.minusMinutes(30); //30분 전 시각
+    private LuxRecord getLuxBefore30Min(LocalDateTime time, long memberSeq, LocalDate sleepDate){
+        //lux값 조회. 조도 값을 30초 간격으로 가져오므로, 1분 시간간격사이에 적어도 하나의 로그 존재
+        LocalDateTime before30MinTime = time.minusMinutes(1); //1분 전 시각(sleepDate를 통해 가져온 시간에서 minus)
         LocalDateTime startTime = LocalDateTime.of(before30MinTime.getYear(), before30MinTime.getMonthValue(),
                 before30MinTime.getDayOfMonth(), before30MinTime.getHour(), before30MinTime.getMinute(), 0);
         LocalDateTime endTime = startTime.plusMinutes(1);
@@ -54,21 +52,20 @@ public class WatchService {
     }
 
     //일주기 리듬
-    public Map<String, Integer> getCircadianRhythm(long memberSeq){
-        LocalDate date = getLastRecord().getSleepDate();
-        VideoRecord startSleep = videoRecordRepository.findTop1BySleepDateAndMember_MemberSeqOrderByVideoSeqAsc(date, memberSeq).orElseThrow(NoSuchElementException::new);
-        VideoRecord endSleep = videoRecordRepository.findTop1BySleepDateAndMember_MemberSeqOrderByVideoSeqDesc(date, memberSeq).orElseThrow(NoSuchElementException::new);
+    public Map<String, Integer> getCircadianRhythm(long memberSeq, LocalDate sleepDate){
+        VideoRecord startSleep = videoRecordRepository.findTop1BySleepDateAndMember_MemberSeqOrderByVideoSeqAsc(sleepDate, memberSeq).orElseThrow(NoSuchElementException::new);
+        VideoRecord endSleep = videoRecordRepository.findTop1BySleepDateAndMember_MemberSeqOrderByVideoSeqDesc(sleepDate, memberSeq).orElseThrow(NoSuchElementException::new);
         //당일 새벽 3시(이후에 잠들기 시작하면 일주기 리듬 안좋음)
-        LocalDateTime startMarginalTime = LocalDateTime.of(date.plusDays(1), LocalTime.of(3, 0));
+        LocalDateTime startMarginalTime = LocalDateTime.of(sleepDate.plusDays(1), LocalTime.of(3, 0));
         //당일 아침 10시(이후에 기상하면 일주기 리듬 안좋음)
-        LocalDateTime endMarginalTime = LocalDateTime.of(date.plusDays(1), LocalTime.of(10, 0));
+        LocalDateTime endMarginalTime = LocalDateTime.of(sleepDate.plusDays(1), LocalTime.of(10, 0));
 
         boolean isRhythmFine = true;
         //새벽 3시 이후 취침했거나, 오전 10시 이후 기상했다면 주의.
         if(startSleep.getTime().isAfter(startMarginalTime) || endSleep.getTime().isAfter(endMarginalTime)){
             isRhythmFine = false;
         }
-        LuxRecord lux = getLuxBefore30Min(endSleep.getTime(), memberSeq);
+        LuxRecord lux = getLuxBefore30Min(endSleep.getTime(), memberSeq, sleepDate);
 
         int result = -1;
         if(!isRhythmFine){ //일주기 리듬 안좋으면
