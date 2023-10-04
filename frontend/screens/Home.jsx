@@ -4,6 +4,7 @@ import { Video } from "expo-av";
 import tw from "twrnc";
 import { Ionicons } from '@expo/vector-icons';
 import { useNavigation } from '@react-navigation/native';
+import {Webview} from 'react-native-webview';
 
 const Home = () => {
     const navigate = useNavigation()
@@ -50,6 +51,12 @@ const Home = () => {
                 <TouchableOpacity onPress={()=>{navigate.navigate("MainTabNavigator")}} style={tw `bg-[#FFDC00]/70 rounded-2 h-13 items-center justify-center`}>
                     <Text style={tw `text-base`}><Ionicons style={tw `mt-3`} name="enter-outline" size={18} color="black" /> &nbsp; 카카오 로그인</Text>
                 </TouchableOpacity>
+                {/* <Webview 
+                    style={tw `bg-[#FFDC00]/70 rounded-2 h-13 items-center justify-center`}
+                    source={{uri : "https://kauth.kakao.com/oauth/authorize?response_type=code&client_id=1e4417060773b8517915b413b7a1942d&redirect_uri=http://localhost:8080/api/oauth/kakao&scope=account_email,profile_nickname,gender,age_range"}}>
+                    <Text style={tw `text-base`}><Ionicons style={tw `mt-3`} name="enter-outline" size={18} color="black" /> &nbsp; 카카오 로그인</Text>
+                </Webview> */}
+              
                 {/* <TouchableOpacity onPress={()=>{navigate.navigate("MainTabNavigator")}} style={tw `bg-[#FFDC00]/70 rounded-2 h-13 items-center justify-center`}>
                     <Text style={tw `text-base`}><Ionicons style={tw `mt-3`} name="enter-outline" size={18} color="black" /> &nbsp; 홈으로</Text>
                 </TouchableOpacity> */}

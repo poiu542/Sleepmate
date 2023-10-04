@@ -8,7 +8,7 @@ export default function App() {
   return (
     <RecoilRoot>
       <AppNavigation />
-      <StatusBar style="auto" />
+      <StatusBar statusBarStyle={"light-content"} />
     </RecoilRoot>
   );
 }
