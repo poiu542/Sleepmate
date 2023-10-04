@@ -28,7 +28,7 @@ import GoToSleep from '../screens/GoToSleep';
 import SleepSetting from '../screens/SleepSetting';
 import AlarmSetting from '../screens/AlarmSetting';
 import UserSetting from '../screens/UserSetting';
-
+import Kakao from '../screens/Kakao';
 
 // 상단 네비게이션 버튼 컴포넌트 모음
 
@@ -140,6 +140,7 @@ const AppNavigation = () => {
         <Stack.Screen name='IntroExplane' component={IntroExplane} options={{headerShown:false}} />
         <Stack.Screen name='Diagnosis' component={Diagnosis} options={{headerShown:false}} />
         <Stack.Screen name='Sleep' component={Sleep} options={{headerShown:false}} />
+        <Stack.Screen name='Kakao' component={Kakao} options={{headerShown:false}} />
         {/* <Stack.Screen name='MainTabNavigator' component={MainTabNavigator}/> */}
         <Stack.Screen
             name="MainTabNavigator"
