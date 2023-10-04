@@ -63,6 +63,10 @@ public class AbnormalHeartRateMeasurementService {
             }
         }
 
+        for (int i = 0; i < abnormalPartDtos.size(); i++) {
+            System.out.println(abnormalPartDtos.get(i));
+        }
+
         double bmi = bmiMeasurementService.getBMI(memberSeq);
 
         for (VideoOrder videoOrder : videoOrders) {

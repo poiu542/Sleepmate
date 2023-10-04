@@ -19,6 +19,7 @@ import java.util.NoSuchElementException;
 public class SaveTimeService {
     private final VideoRecordRepository videoRecordRepository;
     private final MemberRepository memberRepository;
+
     public SleepAndWakeUpTimeResponseDto getSleepAndWakeupTime(Long memberSeq, LocalDate sleepDate) {
         List<VideoRecord> videoRecords = videoRecordRepository.findAllByMember_MemberSeqAndSleepDateOrderByTimeDesc(memberSeq, sleepDate);
 
