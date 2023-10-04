@@ -31,7 +31,7 @@ const SleepDataInfo = ({selectedDate}) => {
             const result = response.data;
             console.log(result);
             if (result) {
-                setSleepTime(result.result)
+                setSleepTime(result)
             }
         })
         .catch(error => {
@@ -43,7 +43,7 @@ const SleepDataInfo = ({selectedDate}) => {
   
       useEffect(()=>{
         axiosSleepTime();
-      },[])
+      },[selectedDate])
 
     return (
         <View style={tw`w-full bg-[#000]/50 rounded-3 mt-5 p-5`}>

@@ -51,6 +51,11 @@ const Analysis = () => {
     useEffect(()=>{
         setSelectedDate(`${year}-${month}-${day}`);
     },[])
+
+    // useEffect(()=>{
+    //     console.log(selectedDate);
+        
+    // },[selectedDate])
     
     return(
         <View style={tw`flex-1 bg-white w-full h-full`}>

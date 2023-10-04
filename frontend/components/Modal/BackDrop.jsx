@@ -15,6 +15,8 @@ const BackDrop = () => {
   const [modalVisible, setModalVisible] = useRecoilState(motionModalState);
   const [motionDesc, setMotionDesc] = useRecoilState(motionDescState);
 
+  console.log(motionDesc);
+
   const refRBSheet = useRef();
 
   useEffect(()=>{
@@ -54,12 +56,28 @@ const BackDrop = () => {
       >
         <View style={tw`mt-5`}>
             <Text style={tw`text-xl font-bold p-5 text-black`}>
-              {motionDesc.type===1?"FW(Forward) 바른자세":null}
+              {motionDesc.type===1?"FW(Forward) 정자세":(
+                motionDesc.type===2?"BACK 엎드림":(
+                  motionDesc.type===3?"UP 만세":(
+                    motionDesc.type===4?"LEFT 왼쪽눕기":(
+                      motionDesc.type===5?"LEFT_S 왼쪽새우":(
+                        motionDesc.type===6?"RIGHT 오른쪽눕기":(
+                          motionDesc.type===7?"RIGHT_S 오른쪽새우":(
+                            motionDesc.type===8?"ETC 기타":(
+                              motionDesc.type===9?"OUT 없음":null
+                            )
+                          )
+                        )
+                      )
+                    )
+                  )
+                )
+              )}
             </Text>
         </View>
 
         <View style={{ width: SCREEN_WIDTH, justifyContent: 'center', alignItems: 'center', marginTop:50 }}>
-          <Image source={ex_forward} resizeMode="contain" style={{ width: SCREEN_WIDTH, height: SCREEN_WIDTH}} />
+          <Image source={{uri:motionDesc.imgSrc}} resizeMode="contain" style={{ width: SCREEN_WIDTH, height: SCREEN_WIDTH}} />
         </View>
 
       </RBSheet>

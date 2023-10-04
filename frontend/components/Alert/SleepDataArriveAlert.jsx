@@ -23,7 +23,7 @@ const SleepDataArriveAlert = ({selectedDate}) => {
         .then(response => {
             const result = response.data;
             if (result) {
-                setCount(result.result)
+                setCount(result)
             }
         })
         .catch(error => {
@@ -35,7 +35,7 @@ const SleepDataArriveAlert = ({selectedDate}) => {
   
       useEffect(()=>{
         axiosSleepMotionCount();
-      },[])
+      },[selectedDate])
 
 
     return(

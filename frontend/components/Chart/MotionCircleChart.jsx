@@ -130,7 +130,7 @@ const MotionCircleChart = ({selectedDate}) => {
   useEffect(()=>{
     axiosBestPose();
     axiosTotalPosePercentage();
-  },[])
+  },[selectedDate])
 
 
     const renderLegend = (text, color) => {
@@ -199,19 +199,30 @@ const MotionCircleChart = ({selectedDate}) => {
               strokeColor={"#000"}
               showValuesAsLabels={true}
               showText
-              textSize={15}
+              textSize={12}
               showTextBackground={true}
+              // textBackgroundRadius={15}
               centerLabelComponent={() => {
                 return (
+                  //1 : FW
+                  //2 : 엎드려
+                  //3 : 만세
+                  //4 : 왼쪽눕기
+                  //5 : 왼쪽 새우잠
+                  //6 : 오른쪽 눕기
+                  //7 : 오른쪽 새우잠
+                  //8 : 기타포즈
+                  //9 : OUT
                   <View>
-                    <Text style={{color: 'white', fontSize: 36, textAlign:"center"}}>
+                    
+                    <Text style={{color: 'white', fontSize: 20, textAlign:"center"}}>
                       {bestPose.posture==1? "FW":(
-                        bestPose.posture==2? "LSR":(
-                          bestPose.posture==3? "LST":(
-                            bestPose.posture==4? "UP":(
-                              bestPose.posture==5? "RSR":(
-                                bestPose.posture==6? "RST":(
-                                  bestPose.posture==7? "RVS":(
+                        bestPose.posture==2? "BACK":(
+                          bestPose.posture==3? "UP":(
+                            bestPose.posture==4? "LEFT":(
+                              bestPose.posture==5? "LEFT_R":(
+                                bestPose.posture==6? "RIGHT":(
+                                  bestPose.posture==7? "RIGHT_R":(
                                     bestPose.posture==8? "X":(
                                       bestPose.posture==9? "OUT": null
                                     )
@@ -239,8 +250,8 @@ const MotionCircleChart = ({selectedDate}) => {
                 marginTop: 20,
               }}>
               {renderLegend('FW', '#FFB6C1')}
-              {renderLegend('LSR', '#FFD700')}
-              {renderLegend('LST', '#FFECB3')}
+              {renderLegend('BACK', '#FFD700')}
+              {renderLegend('UP', '#FFECB3')}
             </View>
 
             <View
@@ -250,9 +261,9 @@ const MotionCircleChart = ({selectedDate}) => {
                 justifyContent: 'space-between',
                 marginTop: 20,
               }}>
-              {renderLegend('UP', '#98FB98')}
-              {renderLegend('RSR', '#ADD8E6')}
-              {renderLegend('RST', '#D8BFD8')}
+              {renderLegend('LEFT', '#98FB98')}
+              {renderLegend('LEFT_R', '#ADD8E6')}
+              {renderLegend('RIGHT', '#D8BFD8')}
             </View>
 
             <View
@@ -262,7 +273,7 @@ const MotionCircleChart = ({selectedDate}) => {
                 justifyContent: 'space-between',
                 marginTop: 20,
               }}>
-              {renderLegend('RVS', '#E6E6FA')}
+              {renderLegend('RIGHT_R', '#E6E6FA')}
               {renderLegend('X      ', '#D3D3D3')}
               {renderLegend('OUT', '#D3D3D3')}
             </View>
