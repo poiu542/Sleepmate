@@ -72,7 +72,7 @@ public class PostureController {
         return new ResponseEntity<>(HttpStatus.OK);
     }
 
-    @GetMapping("/remSleepBehaviorDisorder")
+    @PostMapping("/remSleepBehaviorDisorder")
     public ResponseEntity<CheckRemSleepBehaviorDisorderResponseDto> checkRemSleepBehaviorDisorder(@RequestBody final CheckRemSleepBehaviorDisorderRequestDto requestDto) {
         final Long memberSeq = requestDto.getMemberSeq();
         final LocalDate sleepDate = requestDto.getSleepDate();
