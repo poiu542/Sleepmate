@@ -3,7 +3,6 @@ import { useState, useEffect } from "react";
 import { Video } from "expo-av";
 import { StatusBar } from 'expo-status-bar';
 import tw from "twrnc";
-import { useRecoilState} from 'recoil';
 import {motionModalState} from '../../recoil/modal/motionModalAtom';
 import { motionDescState } from "../../recoil/modal/motionDescAtom";
 
@@ -36,9 +35,15 @@ import BackDrop from "../Modal/BackDrop";
 // axios
 import {nonAuthHttp} from '../../axios/axios';
 
+//recoil
+import {useRecoilState} from 'recoil';
+import {userSeq} from '../../recoil/user/userAtom';
+
 const SleepMotion = ({selectedDate}) => {
     const [modalVisible, setModalVisible] = useRecoilState(motionModalState);
     const [motionDesc, setMotionDesc] = useRecoilState(motionDescState);
+
+    const [memberSeq, setMemberSeq] = useRecoilState(userSeq);
 
     const [loadingBar, setLoadingBar] = useState(true);
 
@@ -88,7 +93,7 @@ const SleepMotion = ({selectedDate}) => {
     // axios 요청
     const axiosPoseDataList = () => {
         const data = {
-            "memberSeq" : 1,
+            "memberSeq" : memberSeq,
             "sleepDate" : selectedDate
         }
         nonAuthHttp.post(`/api/posture/change`, data)
@@ -115,7 +120,7 @@ const SleepMotion = ({selectedDate}) => {
 
     const axiosSleepChangeCount = () => {
         const data = {
-          "memberSeq": 1,
+          "memberSeq": memberSeq,
           "sleepDate": selectedDate
         }
         nonAuthHttp.post(`/api/posture/change-count`, data)

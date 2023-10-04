@@ -8,15 +8,20 @@ import alarm_bell from '../../assets/alarm/data_alarm.png';
 // axios
 import {nonAuthHttp} from '../../axios/axios';
 
+//recoil
+import {useRecoilState} from 'recoil';
+import {userSeq} from '../../recoil/user/userAtom';
+
 const SleepDataArriveAlert = ({selectedDate}) => {
 
     const [count, setCount] = useState(0);
+    const [memberSeq, setMemberSeq] = useRecoilState(userSeq);
 
 
     //axios 연결
     const axiosSleepMotionCount = () => {
         const data = {
-          "memberSeq": 1,
+          "memberSeq": memberSeq,
           "sleepDate": selectedDate
         }
         nonAuthHttp.post(`/api/video`, data)

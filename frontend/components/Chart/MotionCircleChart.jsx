@@ -7,7 +7,13 @@ import Svg, { Image as SvgImage } from 'react-native-svg';
 // axios
 import {nonAuthHttp} from '../../axios/axios';
 
+//recoil
+import {useRecoilState} from 'recoil';
+import {userSeq} from '../../recoil/user/userAtom';
+
 const MotionCircleChart = ({selectedDate}) => {
+
+  const [memberSeq, setMemberSeq] = useRecoilState(userSeq);
   
   const [bestPose, setBestPose] = useState({
     "posture" : 1,
@@ -49,7 +55,7 @@ const MotionCircleChart = ({selectedDate}) => {
   // 1. 베스트 포즈
   const axiosBestPose = () => {
     const data = {
-        "memberSeq" : 1,
+        "memberSeq" : memberSeq,
         "sleepDate" : selectedDate
     }
     nonAuthHttp.post(`/api/posture/posture/most`, data)
@@ -73,12 +79,12 @@ const MotionCircleChart = ({selectedDate}) => {
   // 2. 전체 자세 퍼센티지
   const axiosTotalPosePercentage = () => {
     const data = {
-        "memberSeq" : 1,
+        "memberSeq" : memberSeq,
         "sleepDate" : selectedDate
     }
     nonAuthHttp.post(`/api/posture/posture`, data)
     .then(response => {
-      // setLoadingBar(false);
+      setLoadingBar(false);
         const result = response.data;
         // console.log(result);
         if (result) {

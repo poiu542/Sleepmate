@@ -11,9 +11,15 @@ import MotionChart from '../Chart/MotionChart';
 // axios
 import {nonAuthHttp} from '../../axios/axios';
 
+//recoil
+import {useRecoilState} from 'recoil';
+import {userSeq} from '../../recoil/user/userAtom';
+
 
 const SleepDataInfo = ({selectedDate}) => {
     const score = [1,2,3];
+    const [memberSeq, setMemberSeq] = useRecoilState(userSeq);
+    
     const [sleepTime, setSleepTime]=useState({
         "sleepTime": "02:34:10",
         "wakeUpTime": "02:36:30",
@@ -23,7 +29,7 @@ const SleepDataInfo = ({selectedDate}) => {
     //axios 연결
     const axiosSleepTime = () => {
         const data = {
-          "memberSeq": 1,
+          "memberSeq": memberSeq,
           "sleepDate": selectedDate
         }
         nonAuthHttp.post(`/api/video/comprehensive-data`, data)
@@ -58,7 +64,7 @@ const SleepDataInfo = ({selectedDate}) => {
 
 
             {/* 차트 */}
-            <MotionChart/>
+            <MotionChart selectedDate={selectedDate}/>
 
 
             {/* 한줄평 */}

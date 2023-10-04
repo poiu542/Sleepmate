@@ -121,9 +121,6 @@ const IntroExplain = () => {
         if(sound==null) playSound();
     },[])
 
-    useEffect(()=>{
-        setLoading(!loading);
-    },[sceen])
 
     const navigate = useNavigation()
 
@@ -284,10 +281,6 @@ const IntroExplain = () => {
         <TouchableWithoutFeedback onPress={Keyboard.dismiss}>
         <Animatable.View ref={(ref) => setAnimation12(ref)} style={tw`flex-1 bg-black`}>
 
-            {
-                loading&&<ActivityIndicator style={tw`flex-1`} color="white" size="large"/>
-            }
-
             <StatusBar hidden />
 
             <Video 
@@ -306,9 +299,9 @@ const IntroExplain = () => {
 
                 {/*  음악 관리 */}
                 {   sound!=false && sound!=null?
-                    <TouchableOpacity style={tw`absolute top-0 left-80 right-0 bottom-0 mt-10 w-10 h-10 justify-center items-center z-10`} onPress={() => stopSound()}><Image source={volumeUp} resizeMode="contain" style={tw`w-7 h-10`}></Image></TouchableOpacity>
+                    <TouchableOpacity style={tw`absolute mt-10 top-0 left-80 right-0 bottom-0 w-10 h-10 justify-center items-center z-10`} onPress={() => stopSound()}><Image source={volumeUp} resizeMode="contain" style={tw`w-7 h-10`}></Image></TouchableOpacity>
                     :
-                    <TouchableOpacity style={tw`absolute top-0 left-80 right-0 bottom-0 mt-10 w-10 h-10 justify-center items-center z-10`} onPress={() => playSound()}><Image source={mute} resizeMode="contain" style={tw`w-7 h-10`}></Image></TouchableOpacity>
+                    <TouchableOpacity style={tw`absolute mt-10 top-0 left-80 right-0 bottom-10 w-10 h-10 justify-center items-center z-10`} onPress={() => playSound()}><Image source={mute} resizeMode="contain" style={tw`w-7 h-10`}></Image></TouchableOpacity>
                 }
                 <Animatable.Text ref={(ref) => setAnimation1(ref)} style={ sceen===1?tw`absolute top-0 left-0 right-0 bottom-0 text-white text-4.2 font-bold mt-[${height}] text-center`:tw`hidden`}>환영합니다.</Animatable.Text>
                 <Animatable.Text ref={(ref) => setAnimation2(ref)} style={sceen===2?tw`absolute top-0 left-0 right-0 bottom-0 text-white text-4.2 font-bold  mt-[${height}] text-center leading-7` :tw`hidden`}>{`저는 여러분의 숙면을 도와드릴\nsleep mate입니다.`}</Animatable.Text>
@@ -359,6 +352,10 @@ const IntroExplain = () => {
                 <Animatable.Text ref={(ref) => setAnimation10(ref)} style={sceen===10?tw`absolute top-0 left-0 right-0 bottom-0 text-white text-4.2 font-bold mt-[${height}] text-center`:tw`hidden`}>감사합니다.</Animatable.Text>
                 <Animatable.Text ref={(ref) => setAnimation11(ref)} style={sceen===11?tw`absolute top-0 left-0 right-0 bottom-0 text-white text-4.2 font-bold mt-[${height}] text-center`:tw`hidden`}>{`sleep mate가\n행복한 수면 경험을 선사해드리겠습니다.`}</Animatable.Text>
             </View>
+            {
+                loading&&<ActivityIndicator style={tw`flex-1 mt--150`} color="white" size="large"/>
+            }
+
         </Animatable.View>
         </TouchableWithoutFeedback>
     )
