@@ -1,4 +1,4 @@
-import {View, Text, ScrollView, Dimensions, StyleSheet, Image, TouchableOpacity} from "react-native";
+import {View, Text, ScrollView, Dimensions, StyleSheet, Image, TouchableOpacity, ActivityIndicator} from "react-native";
 import { useState, useEffect } from "react";
 import { Video } from "expo-av";
 import { StatusBar } from 'expo-status-bar';
@@ -39,6 +39,8 @@ import {nonAuthHttp} from '../../axios/axios';
 const SleepMotion = ({selectedDate}) => {
     const [modalVisible, setModalVisible] = useRecoilState(motionModalState);
     const [motionDesc, setMotionDesc] = useRecoilState(motionDescState);
+
+    const [loadingBar, setLoadingBar] = useState(true);
 
     const [modalImg, setModalImg] = useState("ex");
     const [motions, setMotions] = useState([
@@ -91,6 +93,7 @@ const SleepMotion = ({selectedDate}) => {
         }
         nonAuthHttp.post(`/api/posture/change`, data)
         .then(response => {
+            setLoadingBar(false);
             const result = response.data;
             // console.log(result);
             if (result) {
@@ -155,7 +158,7 @@ const SleepMotion = ({selectedDate}) => {
                 //7 : 오른쪽 새우잠
                 //8 : 기타포즈
                 //9 : OUT
-                motions.map((data, index)=>{
+                count!==0?motions.map((data, index)=>{
                     return(
                         
                         data.posture===1?<TouchableOpacity onPress={()=>showModal(1, motions[0].capture, "FW(Forward) 정자세 유형입니다.")} style={tw`w-20 h-20 items-center justify-between mr-5`}><Image style={tw`mr-5 w-full h-45`} source={M_motion_forward} resizeMode="contain"/><Text style={tw`text-white`}>{data.time.split("T")[1]}</Text></TouchableOpacity>:(
@@ -177,11 +180,16 @@ const SleepMotion = ({selectedDate}) => {
                         )
                         
                     )
-                })
+                }):<Text style={tw`text-white font-black w-[350px] h-full pt-30 pl-20`}>데이터가 존재하지 않습니다.</Text>
             }
+
+        {
+            loadingBar&&<ActivityIndicator style={tw`flex-1 w-10 h-10 mt-25 ml-35`} color="white" size="large"/>
+        }
 
         </ScrollView>
         <Text style={tw`text-white text-3 text-center mt-2`}>* 각 이미지 클릭 시 자세한 나의 모습을 볼 수 있어요</Text>
+
 
         </View>
     )

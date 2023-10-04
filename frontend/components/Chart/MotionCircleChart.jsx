@@ -1,6 +1,6 @@
 import { PieChart } from "react-native-gifted-charts";
 import React, {useEffect, useState} from 'react';
-import { View, Text, Image } from 'react-native';
+import { View, Text, Image, ActivityIndicator } from 'react-native';
 import tw from 'twrnc';
 import Svg, { Image as SvgImage } from 'react-native-svg';
 
@@ -13,6 +13,8 @@ const MotionCircleChart = ({selectedDate}) => {
     "posture" : 1,
     "percentage" : 0.1
   });
+
+  const [loadingBar, setLoadingBar] = useState(true);
 
   const [totalPose, setTotalPose] = useState([
            {"posture" : 1,
@@ -76,6 +78,7 @@ const MotionCircleChart = ({selectedDate}) => {
     }
     nonAuthHttp.post(`/api/posture/posture`, data)
     .then(response => {
+      // setLoadingBar(false);
         const result = response.data;
         // console.log(result);
         if (result) {
@@ -152,7 +155,7 @@ const MotionCircleChart = ({selectedDate}) => {
     
       return (
         <View style={tw`bg-[#000]/50 rounded-3`}>
-          <View
+          {totalPose[0].percentage!=="NaN"?<View
             style={{
               marginHorizontal: 30,
               paddingVertical: 50,
@@ -280,7 +283,24 @@ const MotionCircleChart = ({selectedDate}) => {
             {/****************************************************************************/}
 
             
-          </View>
+          </View>:<View  style={{
+              marginHorizontal: 30,
+              paddingVertical: 50,
+              justifyContent: 'center',
+              alignItems: 'center',
+            }}>
+            <Text
+              style={[{
+                color: 'white',
+                fontWeight: 'bold',
+                marginBottom: 12,
+              },tw`text-4`]}>
+              나의 자세 유형
+            </Text>
+            <Text style={tw`text-white font-black w-[350px] h-[300px] pt-30 pl-25`}>데이터가 존재하지 않습니다.</Text></View>}
+            {
+              loadingBar&&<ActivityIndicator style={tw`flex-1 w-10 h-10 ml-40 mt-30 h-[300px]`} color="white" size="large"/>
+            }
         </View>
     );
 }

@@ -63,7 +63,7 @@ const Analysis = () => {
             <Video style={tw`absolute top-0 left-0 right-0 bottom-0 w-full h-full`} source={homevideo2} resizeMode={"cover"} repeat={true} paused={false} onAnimatedValueUpdate={() => {}}></Video>
             {/* <Image style={tw `flex-1 absolute top-0 left-0 right-0 bottom-0 w-100 h-70`} source={turnOnTheLight} resizeMode="cover" ></Image> */}
             <ScrollView>
-                <View style={tw`rounded-5 shadow-2xl w-full mb-5 self-center mt-25 px-3 bg-[#000]/60`}>
+                <View style={tw`rounded-5 shadow-2xl w-full h-full mb-5 self-center mt-25 px-3 bg-[#000]/60`}>
                     <View style={styles.container}>
                         <CalendarHorizontal onSelectDate={setSelectedDate} selected={selectedDate} />
                         <StatusBar style="auto" />
