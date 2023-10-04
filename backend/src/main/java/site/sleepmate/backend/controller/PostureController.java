@@ -1,18 +1,21 @@
 package site.sleepmate.backend.controller;
 
 import lombok.RequiredArgsConstructor;
+import org.apache.coyote.Response;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
-import org.springframework.web.bind.annotation.PostMapping;
-import org.springframework.web.bind.annotation.RequestBody;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.bind.annotation.*;
+import org.springframework.web.multipart.MultipartFile;
 import site.sleepmate.backend.dto.MemberRequestDto;
 import site.sleepmate.backend.dto.PosturePercentageDto;
 import site.sleepmate.backend.dto.PostureResponseDto;
+import site.sleepmate.backend.dto.posture.CheckRemSleepBehaviorDisorderRequestDto;
+import site.sleepmate.backend.dto.posture.CheckRemSleepBehaviorDisorderResponseDto;
+import site.sleepmate.backend.dto.posture.SavePosturePictureRequestDto;
 import site.sleepmate.backend.service.PostureService;
 
 import java.time.LocalDate;
+import java.time.LocalDateTime;
 import java.util.List;
 import java.util.Map;
 
@@ -56,5 +59,26 @@ public class PostureController {
         Map<String, Integer> changeCount = postureService.getChangeCount(memberSeq, sleepDate);
 
         return new ResponseEntity<>(changeCount, HttpStatus.OK);
+    }
+
+    @PatchMapping("/picture")
+    public ResponseEntity<Void> savePosturePicture(@ModelAttribute final SavePosturePictureRequestDto requestDto){
+        final Long memberSeq = requestDto.getMemberSeq();
+        final LocalDateTime sleepdatetime = requestDto.getSleepdatetime();
+        final MultipartFile picture = requestDto.getPicture();
+
+        postureService.savePosturePicture(memberSeq, sleepdatetime, picture);
+
+        return new ResponseEntity<>(HttpStatus.OK);
+    }
+
+    @GetMapping("/remSleepBehaviorDisorder")
+    public ResponseEntity<CheckRemSleepBehaviorDisorderResponseDto> checkRemSleepBehaviorDisorder(@RequestBody final CheckRemSleepBehaviorDisorderRequestDto requestDto) {
+        final Long memberSeq = requestDto.getMemberSeq();
+        final LocalDate sleepDate = requestDto.getSleepDate();
+
+        final CheckRemSleepBehaviorDisorderResponseDto responseDto = postureService.checkRemSleepBehaviorDisorder(memberSeq, sleepDate);
+
+        return new ResponseEntity<>(responseDto, HttpStatus.OK);
     }
 }
