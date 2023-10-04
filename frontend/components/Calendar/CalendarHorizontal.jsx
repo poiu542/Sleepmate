@@ -9,7 +9,6 @@ const CalendarHorizontal = ({ onSelectDate, selected }) => {
     const [dates, setDates] = useState([])
     const [scrollPosition, setScrollPosition] = useState(0)
     const [currentMonth, setCurrentMonth] = useState()
-    console.log(selected);
     const getDates = () => {
       const _dates = [];
       for (let i = 40; i >= 0; i--) {

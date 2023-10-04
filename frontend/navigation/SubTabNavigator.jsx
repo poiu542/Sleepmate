@@ -36,7 +36,7 @@ const SubTabNavigator = () => {
               <Text
                 style={[
                   tw `text-[2.6]`,
-                  { color: focused ? '#777' : '#eee' }, 
+                  { color: focused ? '#fff' : '#999' }, 
                 ]}
               >
                 {label}
@@ -50,14 +50,14 @@ const SubTabNavigator = () => {
             } else if (route.name === 'Analysis') {
               iconName = focused ? 'body' : 'body-outline';
             } else if (route.name === 'Diagnosis') {
-              iconName = focused ? 'bulb' : 'bulb-outline';
+              iconName = focused ? 'md-document-text' : 'md-document-text-outline';
             } 
             return <Ionicons name={iconName} size={size} color={color} />;
           },
-          tabBarActiveTintColor : "#777",
-          tabBarInactiveTintColor : "#eee",
+          tabBarActiveTintColor : "#fff",
+          tabBarInactiveTintColor : "#999",
           tabBarStyle : {
-            backgroundColor : "#bbb",
+            backgroundColor : "#333",
           },
         })}
       >
