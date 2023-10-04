@@ -6,7 +6,7 @@ import {useRecoilState} from 'recoil';
 const nonAuthHttp = axios.create({
     // baseURL : import.meta.env.VITE_APP_SERVER as string,
     baseURL : "https://j9b103.p.ssafy.io",
-    timeout: 10000,
+    timeout: 100000,
     // headers: {
     //     'Content-Type': 'application/json',
     // },

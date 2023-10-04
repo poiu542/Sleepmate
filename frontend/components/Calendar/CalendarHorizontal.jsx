@@ -9,7 +9,6 @@ const CalendarHorizontal = ({ onSelectDate, selected }) => {
     const [dates, setDates] = useState([])
     const [scrollPosition, setScrollPosition] = useState(0)
     const [currentMonth, setCurrentMonth] = useState()
-    console.log(selected);
     const getDates = () => {
       const _dates = [];
       for (let i = 40; i >= 0; i--) {
@@ -25,8 +24,8 @@ const CalendarHorizontal = ({ onSelectDate, selected }) => {
           scrollViewRef.current.scrollToEnd({ animated: false });
         }, 50);
         //오늘로 디폴트 날짜 세팅
-        // const today = moment().toISOString().slice(0,10);
-        // onSelectDate(today);
+        const today = moment().toISOString().slice(0,10);
+        onSelectDate(today);
       }, [])
   
     /**

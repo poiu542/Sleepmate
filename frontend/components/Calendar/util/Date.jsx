@@ -1,7 +1,10 @@
 import { StyleSheet, Text, View, TouchableOpacity } from 'react-native'
 import moment from 'moment'
+import { diagnosisDateState } from '../../../recoil/date/diagnosisDate'
+import { useRecoilState } from 'recoil'
 
 const Date = ({ date, onSelectDate, selected }) => {
+  const [recoilDate, setRecoilDate] = useRecoilState(diagnosisDateState);
   /**
    * use moment to compare the date to today
    * if today, show 'Today'
@@ -15,7 +18,7 @@ const Date = ({ date, onSelectDate, selected }) => {
   const fullDate = moment(date).format('YYYY-MM-DD')
   return (
     <TouchableOpacity
-      onPress={() => {onSelectDate(fullDate)}}
+      onPress={() => {onSelectDate(fullDate); setRecoilDate(fullDate);}}
       style={[styles.card, selected === fullDate && { backgroundColor: "#888" }]}
     >
       <Text

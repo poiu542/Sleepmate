@@ -11,16 +11,13 @@ import CalendarHorizontal from '../components/Calendar/CalendarHorizontal';
 
 function Diagnosis() {
     const [selectedDate, setSelectedDate] = useState();
-    // useEffect(()=>{
-    //     const today = new Date().toISOString();
-    //     setSelectedDate(today)
-    // })
+
     return (
         <>
         <StatusBar style="auto"/>
-        <View style={tw `flex flex-1 bg-[#111]`}>
-            <Image style={tw `mt-15 ml-5 mb-1`} source={title}></Image>
+        <View style={tw `flex flex-1 bg-[#16151A]`}>
             <ScrollView style={tw `p-3 py-8`}>
+                <Text style={tw `p-1 my-5 text-[#ddd] text-lg font-bold self-center `}>수면 진단 리포트</Text>
                  <CalendarHorizontal onSelectDate={setSelectedDate} selected={selectedDate} />
                         
                 {/* 진단박스1 */}
@@ -28,16 +25,6 @@ function Diagnosis() {
                 <Breath></Breath>
                 <Rem></Rem>
             </ScrollView>
-            {/* <Modal
-                animated
-                animationType="fade"
-                visible={true}
-                transparent
-                onRequestClose={() => this._handleDismiss()}>
-                <View style={tw `bg-[#fff]/90 flex-1 justify-end`}>
-                    
-                </View>
-            </Modal> */}
         </View>
         </>
     );
