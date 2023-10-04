@@ -6,11 +6,13 @@ import BottomSheetModal from './BottomSheetModal';
 import { diagnosisDateState } from '../../recoil/date/diagnosisDate';
 import { useRecoilState } from 'recoil';
 import { nonAuthHttp } from '../../axios/axios';
+import { userSeq } from '../../recoil/user/userAtom';
 function Circadian(props) {
     const [isBottomSheetVisible, setIsBottomSheetVisible] = useState(false);
     const [date, setDate] = useRecoilState(diagnosisDateState);
     const [rhythm, setRhythm] = useState(0);
     const [data, setData] = useState();
+    const [memberSeq, setMemberSeq] = useRecoilState(userSeq);
 
     const toggleBottomSheet = () => {
         setIsBottomSheetVisible(!isBottomSheetVisible);
@@ -19,7 +21,7 @@ function Circadian(props) {
         async function requestCircadian(){
             const send = {
                 sleepDate : date,
-                memberSeq : 1
+                memberSeq : memberSeq,
             }
             console.log(date);
             try {
