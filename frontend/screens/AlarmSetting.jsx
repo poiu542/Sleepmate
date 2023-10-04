@@ -26,7 +26,7 @@ const AlarmSetting = () => {
     <View style={tw`flex-1 bg-black w-full h-full`}>
       <ScrollView>
 
-        <View style={tw`bg-black justify-center items-center mt-20 mb-20 w-full h-[900px]`}>
+        <View style={tw`bg-black justify-center items-center mt-20 mb-20 w-full h-[800px]`}>
             <StatusBar style="light" />
             <View style={tw`absolute z-10 bg-[#323232] rounded-xl w-[350px] h-[100px] top-[5%]`}>
                 <Toggle/>
@@ -41,12 +41,12 @@ const AlarmSetting = () => {
 
             {/* <Text style={tw `absolute mt-120 ml-25 text-white text-center text-white text-lg z-10`}>수면 예상 시간 8시간 30분</Text> */}
             
-            <View style={tw`absolute bg-[#323232] rounded-xl w-[350px] h-[350px] mt-120 top-[3%]`}>
+            {/* <View style={tw`absolute bg-[#323232] rounded-xl w-[350px] h-[350px] mt-120 top-[3%]`}>
               <Text style={tw`flex-1 text-white p-8 text-5 font-black`}>평균 수면 시간</Text>
               <View style={tw`flex-3 z-10 mt--30`}>
                 <SleepTerm/>
               </View>
-            </View>
+            </View> */}
         </View>
       </ScrollView>
       </View>
