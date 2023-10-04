@@ -4,13 +4,23 @@ import lombok.RequiredArgsConstructor;
 import org.springframework.data.domain.Sort;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
+import org.springframework.web.multipart.MultipartFile;
+import site.sleepmate.backend.domain.AccelerometerRecord;
+import site.sleepmate.backend.domain.VideoRecord;
 import site.sleepmate.backend.dto.PosturePercentageDto;
 import site.sleepmate.backend.dto.PostureResponseDto;
+import site.sleepmate.backend.dto.posture.CheckRemSleepBehaviorDisorderResponseDto;
+import site.sleepmate.backend.properties.AwsS3Properties;
+import site.sleepmate.backend.repository.AccelerometerRecordRepository;
 import site.sleepmate.backend.repository.VideoOrderRepository;
 import site.sleepmate.backend.repository.VideoRecordRepository;
+import site.sleepmate.backend.util.AwsS3Manager;
+import site.sleepmate.backend.util.FileUtility;
 
 import java.time.LocalDate;
+import java.time.LocalDateTime;
 import java.util.*;
+import java.util.function.UnaryOperator;
 
 @Service
 @RequiredArgsConstructor
@@ -18,6 +28,11 @@ import java.util.*;
 public class PostureService {
     private final VideoOrderRepository videoOrderRepository;
     private final VideoRecordRepository videoRecordRepository;
+    private final AccelerometerRecordRepository accelerometerRecordRepository;
+
+    private final AwsS3Manager awsS3Manager;
+    private final AwsS3Properties awsS3Properties;
+
     public List<PostureResponseDto> getChangeHistory(Long memberSeq, LocalDate date){
         return videoOrderRepository.findBySleepDateAndMember_MemberSeq(date, memberSeq, Sort.by("startTime"));
     }
@@ -52,5 +67,65 @@ public class PostureService {
         result.put("result", changeCount);
 
         return result;
+    }
+
+    @Transactional
+    public void savePosturePicture(final Long memberSeq, final LocalDateTime sleepdatetime, final MultipartFile picture) {
+        final VideoRecord videoRecord = videoRecordRepository.findAllByMember_MemberSeqAndTime(memberSeq, sleepdatetime)
+                .orElseThrow(() -> new IllegalArgumentException("해당하는 자세 로그가 없습니다."));
+
+        final String contentType = picture.getContentType();
+
+        if (contentType == null) {
+            throw new IllegalArgumentException("CONTENT_TYPE이 존재하지 않습니다.");
+        }
+
+        if (!contentType.matches("(^image)(/)\\w*")) {
+            throw new IllegalArgumentException("지원하지 않는 형식의 CONTENT_TYPE입니다.");
+        }
+
+        final UnaryOperator<String> titleGenerator = createPictureTitleGenerator(memberSeq,
+                String.valueOf(sleepdatetime.toLocalDate()), String.valueOf(sleepdatetime));
+
+        final String picturePath = awsS3Manager.uploadFiles(titleGenerator, List.of(picture)).get(0);
+
+        String storageUrl = awsS3Properties.getUrl();
+
+        if (!storageUrl.endsWith("/")) {
+            storageUrl += '/';
+        }
+
+        videoRecord.updateCapture(storageUrl + picturePath);
+    }
+
+    public static UnaryOperator<String> createPictureTitleGenerator(final Long memberSeq, final String sleepdate, final String sleepdatetime) {
+        return originalFileName -> memberSeq + "/" + sleepdate + "/" + sleepdatetime + FileUtility.getFileExtension(originalFileName);
+    }
+
+    public CheckRemSleepBehaviorDisorderResponseDto checkRemSleepBehaviorDisorder(final Long memberSeq, final LocalDate date) {
+        final List<AccelerometerRecord> accelerometerRecordList = accelerometerRecordRepository
+                .findAllByMember_MemberSeqAndSleepDateOrderByTime(memberSeq, date);
+
+        int abnormalCnt = 0;
+
+        String result;
+
+        for (final AccelerometerRecord accelerometerRecord : accelerometerRecordList) {
+            if (accelerometerRecord.getMValue() >= 15) {
+                abnormalCnt++;
+            }
+        }
+
+        if (abnormalCnt > 5) {
+            result = "high";
+        } else if (abnormalCnt > 1) {
+            result = "middle";
+        } else {
+            result = "low";
+        }
+
+        return CheckRemSleepBehaviorDisorderResponseDto.builder()
+                .disorderState(result)
+                .build();
     }
 }
