@@ -1,6 +1,5 @@
 package site.sleepmate.backend.controller;
 
-import jakarta.persistence.criteria.CriteriaBuilder;
 import lombok.AllArgsConstructor;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
@@ -29,4 +28,5 @@ public class ResultDataController {
         TotalSleepDataResponseDto totalSleepDataResponseDto = videoRecordResultService.getTotalSleepData(memberRequestDto.getMemberSeq(), memberRequestDto.getSleepDate());
         return new ResponseEntity<>(totalSleepDataResponseDto, HttpStatus.OK);
     }
+
 }
