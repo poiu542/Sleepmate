@@ -10,6 +10,7 @@ import site.sleepmate.backend.dto.MemberRequestDto;
 import site.sleepmate.backend.dto.WakeUpResponseDto;
 import site.sleepmate.backend.service.WatchService;
 
+import java.time.LocalDate;
 import java.time.LocalDateTime;
 import java.util.Map;
 
@@ -22,15 +23,16 @@ public class WatchController {
     @PostMapping("/luxAndTime")
     public ResponseEntity<WakeUpResponseDto> getLuxAndSleepTime(@RequestBody MemberRequestDto memberRequestDto){
         long memberSeq = memberRequestDto.getMemberSeq();
-        LocalDateTime nowTime = watchService.getLastRecord().getTime();
-        WakeUpResponseDto wakeUpResponseDto = watchService.getLuxAndSleepTime(nowTime, memberSeq);
+        LocalDate sleepDate = memberRequestDto.getSleepDate();
+        WakeUpResponseDto wakeUpResponseDto = watchService.getLuxAndSleepTime(memberSeq, sleepDate);
         return new ResponseEntity<>(wakeUpResponseDto, HttpStatus.OK);
     }
 
     @PostMapping("/rhythm")
     public ResponseEntity<Map<String, Integer>> getCircadianRhythm(@RequestBody MemberRequestDto memberRequestDto){
         long memberSeq = memberRequestDto.getMemberSeq();
-        Map<String, Integer> rhythmResult = watchService.getCircadianRhythm(memberSeq);
+        LocalDate sleepDate = memberRequestDto.getSleepDate();
+        Map<String, Integer> rhythmResult = watchService.getCircadianRhythm(memberSeq, sleepDate);
         return new ResponseEntity<>(rhythmResult, HttpStatus.OK);
     }
 
