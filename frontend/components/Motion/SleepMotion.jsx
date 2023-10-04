@@ -5,6 +5,7 @@ import { StatusBar } from 'expo-status-bar';
 import tw from "twrnc";
 import { useRecoilState} from 'recoil';
 import {motionModalState} from '../../recoil/modal/motionModalAtom';
+import { motionDescState } from "../../recoil/modal/motionDescAtom";
 
 // 이미지
 import G_motion_forward from '../../assets/motion/G_motion_forward.png';
@@ -34,6 +35,8 @@ import {nonAuthHttp} from '../../axios/axios';
 
 const SleepMotion = ({selectedDate}) => {
     const [modalVisible, setModalVisible] = useRecoilState(motionModalState);
+    const [motionDesc, setMotionDesc] = useRecoilState(motionDescState);
+
     const [modalImg, setModalImg] = useState("ex");
     const [motions, setMotions] = useState([
         {
@@ -67,7 +70,12 @@ const SleepMotion = ({selectedDate}) => {
     const [count, setCount] = useState(0);
 
 
-    const showModal = () => {
+    const showModal = (type, imgSrc, desc) => {
+        setMotionDesc({
+            type,
+            imgSrc,
+            desc,
+        });
         setModalVisible(true);
     }
 
@@ -147,7 +155,7 @@ const SleepMotion = ({selectedDate}) => {
                 motions.map((data, index)=>{
                     return(
                         
-                        data.posture===1?<TouchableOpacity onPress={()=>showModal("1유형","1유형")} style={tw`w-20 h-20 items-center justify-between mr-5`}><Image style={tw`mr-5 w-full h-45`} source={M_motion_forward} resizeMode="contain"/><Text style={tw`text-white`}>{data.time.split("T")[1]}</Text></TouchableOpacity>:(
+                        data.posture===1?<TouchableOpacity onPress={()=>showModal(1, null, "FW(Forward) 바른자세 유형입니다.")} style={tw`w-20 h-20 items-center justify-between mr-5`}><Image style={tw`mr-5 w-full h-45`} source={M_motion_forward} resizeMode="contain"/><Text style={tw`text-white`}>{data.time.split("T")[1]}</Text></TouchableOpacity>:(
                             data.posture===2?<TouchableOpacity style={tw`w-20 h-20 items-center justify-between mr-5`}><Image  style={tw`mr-5 w-full h-45`} source={M_motion_shirimp_left} resizeMode="contain"/><Text style={tw`text-white`}>{data.time.split("T")[1]}</Text></TouchableOpacity>:(
                                 data.posture===3?<TouchableOpacity style={tw`w-20 h-20 items-center justify-between mr-5`}><Image style={tw`mr-5 w-full h-45`} source={M_motion_origin_left} resizeMode="contain"/><Text style={tw`text-white`}>{data.time.split("T")[1]}</Text></TouchableOpacity>:(
                                     data.posture===4?<TouchableOpacity style={tw`w-20 h-20 items-center justify-between mr-5`}><Image style={tw`mr-5 w-full h-45`} source={M_motion_hands_up} resizeMode="contain"/><Text style={tw`text-white`}>{data.time.split("T")[1]}</Text></TouchableOpacity>:(
