@@ -18,6 +18,8 @@ import M_motion_origin_right from '../../assets/motion/M_motion_origin_right.png
 import M_motion_reverse from '../../assets/motion/M_motion_reverse.png';
 import M_motion_shirimp_left from '../../assets/motion/M_motion_shirimp_left.png';
 import M_motion_shirimp_right from '../../assets/motion/M_motion_shirimp_right.png';
+import { userSeq } from '../../recoil/user/userAtom';
+
 function Breath(props) {
     const [isBottomSheetVisible, setIsBottomSheetVisible] = useState(false);
     const [date, setDate] = useRecoilState(diagnosisDateState);
@@ -25,6 +27,7 @@ function Breath(props) {
     const [bmiStatus, setBmiStatus] = useState();
     const [bmi, setBmi] = useState();
     const [normal, setNormal] = useState(true);
+    const [memberSeq, useMemberSeq] = useRecoilState(userSeq);
 
     const toggleBottomSheet = () => {
         setIsBottomSheetVisible(!isBottomSheetVisible);
@@ -44,13 +47,13 @@ function Breath(props) {
         
         async function requestBreath(){
             const send = {
-                // sleepDate : "2023-09-20",
                 sleepDate : date,
-                memberSeq : 1
+                memberSeq : memberSeq
             }
             console.log(date);
             try {
                 const response = await nonAuthHttp.post(`api/health/heart-rate`, send);
+                
                 console.log(response.data);
                 //정상이면
                 if(response.data.minHeartRate){
