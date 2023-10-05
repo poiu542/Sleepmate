@@ -12,38 +12,30 @@ import java.time.LocalDateTime;
 @Entity
 @Getter
 @NoArgsConstructor(access = AccessLevel.PROTECTED)
-public class VideoRecord {
+public class HeartRateRecord {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
-    @Column(name = "video_seq", updatable = false)
-    private Long videoSeq;
+    @Column(name = "heart_rate_seq", updatable = false)
+    private Long heartRateSeq;
 
     @ManyToOne(fetch = FetchType.LAZY)
     @JoinColumn(name = "member_seq")
     private Member member;
 
-    @Column(name = "time", nullable = false)
-    private LocalDateTime time;
-
-    @Column(name = "posture", nullable = false)
-    private Integer posture;
-
-    @Column(name = "capture", nullable = false)
-    private String capture;
+    @Column(name = "heart_rate", nullable = false)
+    private Double heartRate;
 
     @Column(name = "sleep_date", nullable = false)
     private LocalDate sleepDate;
 
-    @Builder
-    public VideoRecord(Member member, LocalDateTime time, Integer posture, String capture, LocalDate sleepDate) {
-        this.member = member;
-        this.time = time;
-        this.posture = posture;
-        this.capture = capture;
-        this.sleepDate = sleepDate;
-    }
+    @Column(name = "time", nullable = false)
+    private LocalDateTime time;
 
-    public void updateCapture(final String capture) {
-        this.capture = capture;
+    @Builder
+    public HeartRateRecord(Member member, Double heartRate, LocalDateTime time, LocalDate sleepDate) {
+        this.member = member;
+        this.heartRate = heartRate;
+        this.time = time;
+        this.sleepDate = sleepDate;
     }
 }
