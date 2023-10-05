@@ -4,6 +4,7 @@ import lombok.AllArgsConstructor;
 import lombok.Builder;
 import lombok.Data;
 import lombok.NoArgsConstructor;
+import site.sleepmate.backend.domain.AccelerometerRecord;
 import site.sleepmate.backend.domain.LuxRecord;
 import site.sleepmate.backend.domain.VideoOrder;
 import site.sleepmate.backend.domain.VideoRecord;
@@ -19,7 +20,9 @@ public class WakeUpResponseDto {
     private String startTime;
     private String endTime;
 
-    public static WakeUpResponseDto fromEntities(LuxRecord luxRecord, VideoRecord startRecord, VideoRecord endRecord){
+    public static WakeUpResponseDto fromEntities(LuxRecord luxRecord,
+                                                 AccelerometerRecord startRecord,
+                                                 AccelerometerRecord endRecord){
         return WakeUpResponseDto.builder()
                 .lux(luxRecord.getLux())
                 .startTime(startRecord.getTime().toString())
