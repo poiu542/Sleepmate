@@ -34,23 +34,20 @@ public class AbnormalHeartRateMeasurementService {
         List<AbnormalResponseDto> abnormalResponseDtos = new ArrayList<>();
         // 로직 중간에 필요한 List(감지 시간, 감지된 심박수)
         List<AbnormalPartDto> abnormalPartDtos = new ArrayList<>();
-
-        // 세 가지 정보(감지 시간, 감지된 심박수, 해당 자세)가 담긴 DTO
-        AbnormalResponseDto abnormalResponseDto = new AbnormalResponseDto();
-        // 두 가지 정보(감지 시간, 감지된 심박수)가 담긴 DTO
-        AbnormalPartDto abnormalPartDto = new AbnormalPartDto();
         // 감지된 시간 List
         List<LocalDateTime> detectedTimes = new ArrayList<>();
 
         // 이상 시간을 담은 Set
-        String detectedTime = "";
-        int dectedHeartrate = 0;
+        String detectedTime;
+        int dectedHeartrate;
 
         // DateTime -> String 변경
         DateTimeFormatter formatter = DateTimeFormatter.ofPattern("HH:mm");
 
         // 이상 심박수일때, detectedTimeAndHeartRate에 시간, 이상 심박수 담기
         for (HeartRateRecord heartRateRecord : heartRateRecords) {
+            if (heartRateRecord.getHeartRate() == 0) continue;
+
             if (heartRateRecord.getHeartRate() > 85 || heartRateRecord.getHeartRate() < 40) {
                 // 감지 시간 LocalDateTime으로 리스트에 저장
                 detectedTimes.add(heartRateRecord.getTime());
@@ -61,10 +58,6 @@ public class AbnormalHeartRateMeasurementService {
                 // 감지된 시간, 그때 저장된 심박수 저장
                 abnormalPartDtos.add(AbnormalPartDto.getAbnormalPartData(detectedTime, dectedHeartrate));
             }
-        }
-
-        for (int i = 0; i < abnormalPartDtos.size(); i++) {
-            System.out.println(abnormalPartDtos.get(i));
         }
 
         double bmi = bmiMeasurementService.getBMI(memberSeq);
