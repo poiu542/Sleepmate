@@ -1,4 +1,4 @@
-import {View, ScrollView, Dimensions, StyleSheet, Text, Image, ImageBackground} from "react-native";
+import {View, ScrollView, Dimensions, StyleSheet, Text, Image, ImageBackground, ActivityIndicator} from "react-native";
 import { useEffect, useState } from "react";
 import { Video } from "expo-av";
 import { StatusBar } from 'expo-status-bar';
@@ -46,20 +46,27 @@ const Analysis = () => {
 
     const [selectedDate, setSelectedDate] = useState(null);
     const [modalVisible, setModalVisible] = useRecoilState(motionModalState);
+
+    const [loadingBar, setLoadingBar] = useState(true);
     
 
     useEffect(()=>{
         setSelectedDate(`${year}-${month}-${day}`);
     },[])
+
+    // useEffect(()=>{
+    //     console.log(selectedDate);
+        
+    // },[selectedDate])
     
     return(
         <>
         <View style={tw`flex-1 w-full h-full`}>
             {/* <Image style={tw`absolute top-0 left-0 right-0 bottom-0 w-full h-100`} source={turnOnTheLight}/> */}
-            <Video style={tw`absolute top-0 left-0 right-0 bottom-0 w-full h-full`} source={homevideo2} resizeMode={"cover"} repeat={true} paused={false} onAnimatedValueUpdate={() => {}}></Video>
+            <Video style={tw`absolute top-0 left-0 right-0 bottom-0 w-full h-full`} source={homevideo2} resizeMode={"cover"} repeat={true} paused={false} accessible={()=>{setLoadingBar(false); console.log(false);}} onAnimatedValueUpdate={() => {setLoadingBar(false)}}></Video>
             {/* <Image style={tw `flex-1 absolute top-0 left-0 right-0 bottom-0 w-100 h-70`} source={turnOnTheLight} resizeMode="cover" ></Image> */}
-            <ScrollView>
-                <View style={tw`rounded-0 shadow-2xl w-full self-center px-3 bg-[#333]`}>
+            {loadingBar&&<ScrollView>
+                <View style={tw`rounded-5 shadow-2xl w-full h-full mb-5 self-center mt-25 px-3 bg-[#000]/60`}>
                     <View style={styles.container}>
                         <CalendarHorizontal onSelectDate={setSelectedDate} selected={selectedDate} />
                         <StatusBar style="auto" />
@@ -68,7 +75,7 @@ const Analysis = () => {
                     <SleepDataArriveAlert selectedDate={selectedDate}/>
 
                     {/* 수면 시간 정리 */}
-                    <SleepDataInfo/>
+                    <SleepDataInfo selectedDate={selectedDate}/>
 
                     <HR/>
 
@@ -85,7 +92,7 @@ const Analysis = () => {
 
                     {modalVisible&&<BackDrop/>}
                     </View>
-            </ScrollView>
+            </ScrollView>}
 
 
          </View>

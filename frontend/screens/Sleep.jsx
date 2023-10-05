@@ -15,7 +15,7 @@ const Sleep = () => {
       <Video style={tw `absolute top-0 left-0 bottom-0 right-0 `}
             source={require("../assets/videos/home_video2.mp4")}
             resizeMode="cover"
-            isLooping={true}
+            repeat={true}
             shouldPlay={true}
         />
             <View style={tw `flex-1 px-10 py-160 z-10`}>

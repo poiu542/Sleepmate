@@ -56,7 +56,7 @@ const BackGroundPick = () => {
               setOpen={setGenderOpen}
               setValue={setGenderValue}
               setItems={setGender}
-              placeholder="배경선택"
+              placeholder="Starry Night"
               placeholderStyle={styles.placeholderStyles}
               onOpen={onGenderOpen}
               onChangeValue={changeValue}
