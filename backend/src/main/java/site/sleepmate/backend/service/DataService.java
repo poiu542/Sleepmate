@@ -19,21 +19,26 @@ import java.util.NoSuchElementException;
 public class DataService {
     private final HeartRateRecordRepository heartRateRecordRepository;
     private final MemberRepository memberRepository;
-    public void saveHeartRateRecord(double heartRate){
-        Member member = memberRepository.findByMemberSeq(1l).orElseThrow(() -> new NoSuchElementException());
 
-        LocalDateTime currentTime = LocalDateTime.now();
+    public void saveHeartRateRecord(final double heartRate){
+        final Member member = memberRepository.findByMemberSeq(1L).orElseThrow(NoSuchElementException::new);
+
+        final LocalDateTime currentTime = LocalDateTime.now();
+
         LocalDate sleepDate = currentTime.toLocalDate();
+
         if(currentTime.isBefore(LocalDateTime.of(sleepDate, LocalTime.of(12, 0, 0)))){
             //현재 시간이 해당일의 정오 이전이면, 자정 이후의 잠. sleepDate 하루 빼줌
             sleepDate = sleepDate.minusDays(1);
         } //현재 시간이 해당일의 정오 이후이면, 자정 이전의 잠. sleepDate 그대로
-        HeartRateRecord heartRateRecord = HeartRateRecord.builder()
+
+        final HeartRateRecord heartRateRecord = HeartRateRecord.builder()
                 .heartRate(heartRate)
                 .time(currentTime)
                 .member(member)
                 .sleepDate(sleepDate)
                 .build();
+
         heartRateRecordRepository.save(heartRateRecord);
     }
 }
