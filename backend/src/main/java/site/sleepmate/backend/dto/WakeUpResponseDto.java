@@ -16,14 +16,14 @@ import java.time.LocalDateTime;
 @AllArgsConstructor
 public class WakeUpResponseDto {
     private Double lux;
-    private LocalDateTime startTime;
-    private LocalDateTime endTime;
+    private String startTime;
+    private String endTime;
 
     public static WakeUpResponseDto fromEntities(LuxRecord luxRecord, VideoRecord startRecord, VideoRecord endRecord){
         return WakeUpResponseDto.builder()
                 .lux(luxRecord.getLux())
-                .startTime(startRecord.getTime())
-                .endTime(endRecord.getTime())
+                .startTime(startRecord.getTime().toString())
+                .endTime(endRecord.getTime().toString())
                 .build();
     }
 }
