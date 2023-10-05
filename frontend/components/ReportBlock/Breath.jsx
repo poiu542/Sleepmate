@@ -19,6 +19,7 @@ import M_motion_reverse from '../../assets/motion/M_motion_reverse.png';
 import M_motion_shirimp_left from '../../assets/motion/M_motion_shirimp_left.png';
 import M_motion_shirimp_right from '../../assets/motion/M_motion_shirimp_right.png';
 import { userSeq } from '../../recoil/user/userAtom';
+import RNEventSource from 'react-native-event-source';
 
 function Breath(props) {
     const [isBottomSheetVisible, setIsBottomSheetVisible] = useState(false);
@@ -44,19 +45,21 @@ function Breath(props) {
         }
     }
     function getBreath(){
-        
-        async function requestBreath(){
-            const send = {
-                sleepDate : date,
-                memberSeq : memberSeq
-            }
-            console.log(date);
+  
+    async function requestBreath(){
+        const send = {
+            sleepDate : date,
+            memberSeq : memberSeq
+        }
+        console.log("test");
+        console.log(date);
             try {
                 const response = await nonAuthHttp.post(`api/health/heart-rate`, send);
                 
                 console.log(response.data);
                 //정상이면
                 if(response.data.minHeartRate){
+                    console.log("test");
                     console.log("normal!");
                     setNormal(true);
                     setData(response.data);
@@ -67,7 +70,12 @@ function Breath(props) {
                     
                 } else {
                     setNormal(false);
-                    console.log("not normal");
+                //     const eventSource = new RNEventSource('https://j9b103.p.ssafy.io/api/notifications/subscribe/1');
+                //     eventSource.addEventListener('sse', (event) => {
+                //     console.log("hey");
+                //     console.log(event);
+                // });
+                    console.log("not normal!!!");
                     const value = response.data[0].bmi;
                     setBmi(value);
                     calBmi(value);

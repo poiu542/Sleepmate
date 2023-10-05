@@ -7,6 +7,8 @@ import { useNavigation } from '@react-navigation/native';
 import {Webview} from 'react-native-webview';
 
 const Home = () => {
+    
+    
     const navigate = useNavigation()
     let [showLogin, setShowLogin] = useState(false);
     const [fadeAnim] = useState(new Animated.Value(0));
@@ -25,13 +27,12 @@ const Home = () => {
       }, [showLogin]);
     return(
         <>
-        <Video style={tw`absolute top-0 left-0 right-0 bottom-0`}
+        <Video style={tw `absolute top-0 left-0 bottom-0 right-0`}
             source={require("../assets/videos/home_video2.mp4")}
             resizeMode="cover"
             repeat={true}
             shouldPlay={true}
-            isLooping={true}
-        />
+      />
             {
                 showLogin?
                 <>
@@ -89,7 +90,6 @@ const Home = () => {
             
       
             
-        {/* </Video> */}
         </>
     )
 }

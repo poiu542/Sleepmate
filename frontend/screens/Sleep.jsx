@@ -11,18 +11,20 @@ const Sleep = () => {
 
   return (
     <>
-      <Video style={tw`absolute top-0 left-0 right-0 bottom-0`}
+    {/* <View style={tw`absolute top-0 left-0 bottom-0 right-0`}> */}
+      <Video style={tw `absolute top-0 left-0 bottom-0 right-0 `}
             source={require("../assets/videos/home_video2.mp4")}
             resizeMode="cover"
             repeat={true}
             shouldPlay={true}
-            isLooping={true}
         />
             <View style={tw `flex-1 px-10 py-160 z-10`}>
                 <TouchableOpacity onPress={()=>{navigate.navigate("Watch")}} style={tw `border-[#fff] border-[0.3] rounded-2 h-13 items-center justify-center`}>
                     <Text style={tw `text-white text-lg`}>Go to sleep</Text>
                 </TouchableOpacity>
             </View>
+        {/* </Video> */}
+    {/* </View> */}
     </>
   );
 };
