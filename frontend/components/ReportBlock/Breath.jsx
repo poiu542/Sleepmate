@@ -19,7 +19,6 @@ import M_motion_reverse from '../../assets/motion/M_motion_reverse.png';
 import M_motion_shirimp_left from '../../assets/motion/M_motion_shirimp_left.png';
 import M_motion_shirimp_right from '../../assets/motion/M_motion_shirimp_right.png';
 import { userSeq } from '../../recoil/user/userAtom';
-import RNEventSource from 'react-native-event-source';
 
 function Breath(props) {
     const [isBottomSheetVisible, setIsBottomSheetVisible] = useState(false);

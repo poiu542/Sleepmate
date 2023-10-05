@@ -163,7 +163,8 @@ const SleepMotion = ({selectedDate}) => {
                 //7 : 오른쪽 새우잠
                 //8 : 기타포즈
                 //9 : OUT
-                count!==0?motions?.map((data, index)=>{
+                count!==0?motions.map((data, index)=>{
+                    console.log(data);
                     return(
                         
                         data.posture===1?<TouchableOpacity onPress={()=>showModal(1, motions[0].capture, "FW(Forward) 정자세 유형입니다.")} style={tw`w-20 h-20 items-center justify-between mr-5`}><Image style={tw`mr-5 w-full h-45`} source={M_motion_forward} resizeMode="contain"/><Text style={tw`text-white`}>{data.time.split("T")[1]?data.time.split("T")[1]:null}</Text></TouchableOpacity>:(
