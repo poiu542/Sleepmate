@@ -25,12 +25,12 @@ const Home = () => {
       }, [showLogin]);
     return(
         <>
-        <Video style={tw `flex-1 `}
+        {/* <Video style={tw `flex-1 `}
             source={require("../assets/videos/home_video2.mp4")}
             resizeMode="cover"
             isLooping={true}
             shouldPlay={true}
-        >
+        > */}
             {
                 showLogin?
                 <>
@@ -88,7 +88,7 @@ const Home = () => {
             
       
             
-        </Video>
+        {/* </Video> */}
         </>
     )
 }
