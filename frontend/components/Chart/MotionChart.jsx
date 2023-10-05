@@ -23,7 +23,7 @@ const MotionChart = ({selectedDate}) => {
     {value: 6.9,label: '한국평균',frontColor: '#FFD700'},
     {value: 0,label: '',frontColor: '#28B2B3'},
 
-    {value: 7,label: '권장',frontColor: '#98FB98'},
+    {value: 8 ,label: '권장',frontColor: '#98FB98'},
     ];
 
 
@@ -59,8 +59,9 @@ const MotionChart = ({selectedDate}) => {
             showFractionalValue
             showYAxisIndices
             noOfSections={4}
-            maxValue={12}
+            maxValue={10}
             data={barData}
+            barBorderRadius={5}
             isAnimated
             xAxisLabelTextStyle={tw`text-white`}
             yAxisTextStyle={tw`text-white`}

@@ -27,7 +27,7 @@ function Circadian(props) {
             try {
                 const response = await nonAuthHttp.post(`api/watch/luxAndTime`, send);
                 const response2 = await nonAuthHttp.post(`api/watch/rhythm`, send);
-                console.log(response.data);
+                console.log(response.data.endTime);
                 console.log(response2.data.rhythm);
                 setRhythm(response2.data.rhythm);
                 setData(response.data)
@@ -78,7 +78,29 @@ function Circadian(props) {
     if(!data){
         return (
             <>
-                <Text>Loading...</Text>
+                <View style={tw `flex-1 w-full bg-[#333] rounded-7 p-3 mb-6`}>
+                        {/* header */}
+                        <View style={tw `flex-1 flex-row`}>
+                            <View style={tw `flex-2 `}>
+                                <Text style={tw `text-lg text-[#fff] font-bold text-[4]`}>나의 일주기 리듬</Text>
+                                {/* <Text style={tw `text-lg text-[#fff] font-bold text-[4]`}>{date}</Text> */}
+                            </View>
+                            <Pressable style={tw `flex-1  justify-center`} onPress={toggleBottomSheet}>
+                                <Text style={tw `text-[#ccc] text-xs`}>&#62; more</Text>
+                            </Pressable>
+                      
+                        </View>
+                        {/* body */}
+                        <View style={tw `flex-2 flex-row p-2 my-3 self-center`}>
+                            <Text style={tw `text-white py-5`}>...</Text>
+                        </View>
+                        {/* tail */}
+                        <View style={tw `flex-1 items-center`}>
+                        
+                        </View>
+                    </View>
+                    <BottomSheetModal isVisible={isBottomSheetVisible} onClose={toggleBottomSheet} modalN={1} />
+
             </>
         )
     } else {

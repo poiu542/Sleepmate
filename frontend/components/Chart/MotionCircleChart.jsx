@@ -224,7 +224,7 @@ const MotionCircleChart = ({selectedDate}) => {
                   //9 : OUT
                   <View>
                     
-                    <Text style={{color: 'white', fontSize: 20, textAlign:"center"}}>
+                    <Text style={{color: 'white', fontSize: 15, textAlign:"center"}}>
                       {bestPose.posture==1? "FW":(
                         bestPose.posture==2? "BACK":(
                           bestPose.posture==3? "UP":(
@@ -258,9 +258,9 @@ const MotionCircleChart = ({selectedDate}) => {
                 justifyContent: 'space-between',
                 marginTop: 20,
               }}>
-              {renderLegend('FW', '#FFB6C1')}
-              {renderLegend('BACK', '#FFD700')}
-              {renderLegend('UP', '#FFECB3')}
+              {renderLegend('바로잠', '#FFB6C1')}
+              {renderLegend('엎드린잠', '#FFD700')}
+              {renderLegend('만세', '#FFECB3')}
             </View>
 
             <View
@@ -270,9 +270,9 @@ const MotionCircleChart = ({selectedDate}) => {
                 justifyContent: 'space-between',
                 marginTop: 20,
               }}>
-              {renderLegend('LEFT', '#98FB98')}
-              {renderLegend('LEFT_R', '#ADD8E6')}
-              {renderLegend('RIGHT', '#D8BFD8')}
+              {renderLegend('왼쪽', '#98FB98')}
+              {renderLegend('왼쪽새우잠', '#ADD8E6')}
+              {renderLegend('오른쪽', '#D8BFD8')}
             </View>
 
             <View
@@ -282,9 +282,9 @@ const MotionCircleChart = ({selectedDate}) => {
                 justifyContent: 'space-between',
                 marginTop: 20,
               }}>
-              {renderLegend('RIGHT_R', '#E6E6FA')}
-              {renderLegend('X      ', '#D3D3D3')}
-              {renderLegend('OUT', '#D3D3D3')}
+              {renderLegend('오른새우잠', '#E6E6FA')}
+              {renderLegend('기타      ', '#D3D3D3')}
+              {renderLegend('None', '#D3D3D3')}
             </View>
             {/****************************************************************************/}
 
