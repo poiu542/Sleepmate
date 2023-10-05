@@ -10,6 +10,8 @@ import java.util.Optional;
 public interface AccelerometerRecordRepository extends JpaRepository<AccelerometerRecord, Long> {
     List<AccelerometerRecord> findAllByMember_MemberSeqAndSleepDateOrderByTime(final Long memberSeq, final LocalDate date);
 
+    List<AccelerometerRecord> findAllByMember_MemberSeqAndSleepDateOrderByTimeDesc(final Long memberSeq, final LocalDate date);
+
     Optional<AccelerometerRecord> findTop1ByMember_MemberSeqAndSleepDateOrderByTimeAsc(final Long memberSeq, final LocalDate date);
     Optional<AccelerometerRecord> findTop1ByMember_MemberSeqAndSleepDateOrderByTimeDesc(final Long memberSeq, final LocalDate date);
     Optional<AccelerometerRecord> findTop1ByMember_MemberSeqOrderByTimeDesc(final Long memberSeq);
