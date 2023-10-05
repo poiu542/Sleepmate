@@ -60,11 +60,9 @@ const BackGroundPick = () => {
               placeholderStyle={styles.placeholderStyles}
               onOpen={onGenderOpen}
               onChangeValue={changeValue}
-              zIndex={3000}
-              zIndexInverse={1000}
               showArrowIcon={false}
-              dropDownContainerStyle={{backgroundColor: 'transparent', borderColor:"white",zIndex:100}}
-              listItemLabelStyle={{ color: 'white', zIndex:"100" }}
+              dropDownContainerStyle={{backgroundColor: 'transparent', borderColor:"white"}}
+              listItemLabelStyle={{ color: 'white' }}
               labelStyle={{ color: 'white' }}
             />
           </View>
@@ -88,12 +86,10 @@ const styles = StyleSheet.create({
     marginHorizontal: 10,
     width: "50%",
     marginBottom: 15,
-    zIndex:30,
   },
   dropdown: {
     borderColor: "white",
     height: 50,
-    zIndex:30,
     backgroundColor:"transparent",
   },
 });

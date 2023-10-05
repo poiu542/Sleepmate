@@ -23,6 +23,7 @@ import AlarmTimer from "../components/Timer/AlarmTimer";
 const GoToSleep = () => {
     const [back, setBack] = useRecoilState(sleepBackState);
     const [alarm, setAlarm] = useRecoilState(wakeupMusicState);
+    const [loading, setLoading] = useState(false);
 
     const navigate = useNavigation()
 
@@ -108,60 +109,67 @@ const GoToSleep = () => {
     },[back, alarm])
 
     
-
-    return(
-        <View style={tw`flex-1`}>
-
-            {
-                back===1?<Video 
-                    style={tw`absolute top-0 left-0 right-0 bottom-0`}
-                    source={require("../assets/videos/sleeping_starry.mp4")}
-                    resizeMode="cover"
-                    repeat={true}
-                    shouldPlay={true}
-                    isLooping={true}
-                />:<Video 
-                    style={tw`absolute top-0 left-0 right-0 bottom-0`}
-                    source={require("../assets/videos/sleeping_rain.mp4")}
-                    resizeMode="cover"
-                    repeat={true}
-                    shouldPlay={true}
-                    isLooping={true}
-                />
-            }
-
-            {/* 배경 & 음악 선택 dropdown */}
-            <View style={tw`absolute z-10 top-0 left-0 right-0 bottom-0 mt-20 w-70 h-5`}><BackGroundPick/></View>
-
-            {/*  음악 관리 */}
-            {   sound!=null?
-                (back===1?
-                    <TouchableOpacity style={tw`absolute top-0 left-80 right-0 bottom-0 mt-20 w-10 h-10 justify-center items-center z-10`} onPress={() => stopSound1()}><Image source={volumeUp} resizeMode="contain" style={tw`w-7 h-10`}></Image></TouchableOpacity>
-                    : <TouchableOpacity style={tw`absolute top-0 left-80 right-0 bottom-0 mt-20 w-10 h-10 justify-center items-center z-10`} onPress={() => stopSound2()}><Image source={volumeUp} resizeMode="contain" style={tw`w-7 h-10`}></Image></TouchableOpacity>
-                ):<TouchableOpacity style={tw`absolute top-0 left-80 right-0 bottom-0 mt-20 w-10 h-10 justify-center items-center z-10`} onPress={() => PlayMusic()}><Image source={mute} resizeMode="contain" style={tw`w-7 h-10`}></Image></TouchableOpacity>
-                    // <TouchableOpacity style={tw`absolute top-0 left-80 right-0 bottom-0 mt-20 w-10 h-10 justify-center items-center z-10`} onPress={() => stopSound1()}><Image source={volumeUp} resizeMode="contain" style={tw`w-7 h-10`}></Image></TouchableOpacity>
-                    // :
-                    // <TouchableOpacity style={tw`absolute top-0 left-80 right-0 bottom-0 mt-20 w-10 h-10 justify-center items-center z-10`} onPress={() => playSound1()}><Image source={mute} resizeMode="contain" style={tw`w-7 h-10`}></Image></TouchableOpacity>
-            }
-
-
-                {/* 타이머 예시용 */}
-                {/* <AlarmTimer/> */}
-
-                <View style={tw`absolute mt-145 ml-[37%] w-full h-5 z-10`}> 
-                    <View style={tw`bg-red-700 w-5 h-5 rounded-xl`}></View>
-                    <Text style={tw`text-white ml-7 w-30 h-full mt--4`}>RECORD</Text>
-                </View>
-                
-                <View style={tw `absolute px-10 w-full mt-160 z-10`}>
-                        <TouchableOpacity onPress={()=>{EndSleep()}} style={tw `border-[#fff] border-[0.3] rounded-2 h-13 items-center justify-center`}>
-                            <Text style={tw `text-white text-lg`}>wake up</Text>
-                        </TouchableOpacity>
-                </View>
-
-         
-        </View>
-    )
+    if(loading){
+        return (
+            <>
+            <Text>loading...</Text>
+            </>
+        )
+    } else {
+        
+        return(
+            <View style={tw`flex-1`}>
+                {
+                    back===1?<Video 
+                        style={tw`absolute top-0 left-0 right-0 bottom-0`}
+                        source={require("../assets/videos/sleeping_starry.mp4")}
+                        resizeMode="cover"
+                        repeat={true}
+                        shouldPlay={true}
+                        isLooping={true}
+                    />:<Video 
+                        style={tw`absolute top-0 left-0 right-0 bottom-0`}
+                        source={require("../assets/videos/sleeping_rain.mp4")}
+                        resizeMode="cover"
+                        repeat={true}
+                        shouldPlay={true}
+                        isLooping={true}
+                    />
+                }
+    
+                {/* 배경 & 음악 선택 dropdown */}
+                <View style={tw`absolute z-10 top-0 left-0 right-0 bottom-0 mt-20 w-70 h-5`}><BackGroundPick/></View>
+    
+                {/*  음악 관리 */}
+                {   sound!=null?
+                    (back===1?
+                        <TouchableOpacity style={tw`absolute top-0 left-80 right-0 bottom-0 mt-20 w-10 h-10 justify-center items-center z-10`} onPress={() => stopSound1()}><Image source={volumeUp} resizeMode="contain" style={tw`w-7 h-10`}></Image></TouchableOpacity>
+                        : <TouchableOpacity style={tw`absolute top-0 left-80 right-0 bottom-0 mt-20 w-10 h-10 justify-center items-center z-10`} onPress={() => stopSound2()}><Image source={volumeUp} resizeMode="contain" style={tw`w-7 h-10`}></Image></TouchableOpacity>
+                    ):<TouchableOpacity style={tw`absolute top-0 left-80 right-0 bottom-0 mt-20 w-10 h-10 justify-center items-center z-10`} onPress={() => PlayMusic()}><Image source={mute} resizeMode="contain" style={tw`w-7 h-10`}></Image></TouchableOpacity>
+                        // <TouchableOpacity style={tw`absolute top-0 left-80 right-0 bottom-0 mt-20 w-10 h-10 justify-center items-center z-10`} onPress={() => stopSound1()}><Image source={volumeUp} resizeMode="contain" style={tw`w-7 h-10`}></Image></TouchableOpacity>
+                        // :
+                        // <TouchableOpacity style={tw`absolute top-0 left-80 right-0 bottom-0 mt-20 w-10 h-10 justify-center items-center z-10`} onPress={() => playSound1()}><Image source={mute} resizeMode="contain" style={tw`w-7 h-10`}></Image></TouchableOpacity>
+                }
+    
+    
+                    {/* 타이머 예시용 */}
+                    {/* <AlarmTimer/> */}
+    
+                    <View style={tw`absolute mt-145 ml-[37%] w-full h-5 z-10`}> 
+                        <View style={tw`bg-red-700 w-5 h-5 rounded-xl`}></View>
+                        <Text style={tw`text-white ml-7 w-30 h-full mt--4`}>RECORD</Text>
+                    </View>
+                    
+                    <View style={tw `absolute px-10 w-full mt-160 z-10`}>
+                            <TouchableOpacity onPress={()=>{EndSleep()}} style={tw `border-[#fff] border-[0.3] rounded-2 h-13 items-center justify-center`}>
+                                <Text style={tw `text-white text-lg`}>wake up</Text>
+                            </TouchableOpacity>
+                    </View>
+    
+             
+            </View>
+        )
+    }
 
 }
 
