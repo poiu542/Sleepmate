@@ -17,7 +17,7 @@ public interface VideoRecordRepository extends JpaRepository<VideoRecord, Long> 
     Optional<VideoRecord> findTop1BySleepDateAndMember_MemberSeqOrderByVideoSeqDesc(LocalDate date, Long memberSeq);
     Optional<VideoRecord> findTop1ByOrderByVideoSeqDesc();
 
-
+    VideoRecord findByTime(LocalDateTime time);
 
     List<VideoRecord> findAllByMember_MemberSeqAndSleepDateOrderByTimeDesc(Long memberSeq, LocalDate localDate);
 

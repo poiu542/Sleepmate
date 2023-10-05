@@ -3,16 +3,17 @@ package site.sleepmate.backend.service;
 import jakarta.persistence.criteria.CriteriaBuilder;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
-import site.sleepmate.backend.domain.HeartRateRecord;
-import site.sleepmate.backend.domain.Member;
-import site.sleepmate.backend.domain.VideoOrder;
+import site.sleepmate.backend.domain.*;
 import site.sleepmate.backend.dto.AbnormalPartDto;
 import site.sleepmate.backend.dto.AbnormalResponseDto;
+import site.sleepmate.backend.repository.AccelerometerRecordRepository;
 import site.sleepmate.backend.repository.HeartRateRecordRepository;
 import site.sleepmate.backend.repository.VideoOrderRepository;
+import site.sleepmate.backend.repository.VideoRecordRepository;
 
 import java.time.LocalDate;
 import java.time.LocalDateTime;
+import java.time.LocalTime;
 import java.time.format.DateTimeFormatter;
 import java.util.*;
 
@@ -21,6 +22,8 @@ import java.util.*;
 public class AbnormalHeartRateMeasurementService {
     private final HeartRateRecordRepository heartRateRecordRepository;
     private final VideoOrderRepository videoOrderRepository;
+    private final VideoRecordRepository videoRecordRepository;
+    private final AccelerometerRecordRepository accelerometerRecordRepository;
     private final BMIMeasurementService bmiMeasurementService;
 
     // 감지된 시간 & 이상 심박수 & 해당 자세 반환 메서드
@@ -28,7 +31,10 @@ public class AbnormalHeartRateMeasurementService {
         // 특정 회원의 심박수 기록 가져오기
         List<HeartRateRecord> heartRateRecords = heartRateRecordRepository.findAllByMember_MemberSeqAndSleepDateOrderByTime(memberSeq, sleepDate);
         // 특정 회원의 영상 기록 가져오기
-        List<VideoOrder> videoOrders = videoOrderRepository.findAllByMember_MemberSeqAndSleepDateOrderByStartTime(memberSeq, sleepDate);
+//        List<VideoOrder> videoOrders = videoOrderRepository.findAllByMember_MemberSeqAndSleepDateOrderByStartTime(memberSeq, sleepDate);
+        List<AccelerometerRecord> accelerometerRecords = accelerometerRecordRepository.findAllByMember_MemberSeqAndSleepDateOrderByTimeDesc(memberSeq, sleepDate);
+        // 특정 회원의 영상 기록 가져오기
+        List<VideoRecord> videoRecords = videoRecordRepository.findAllByMember_MemberSeqAndSleepDate(memberSeq, sleepDate);
 
         // 최종 반환할 List(감지 시간, 감지된 심박수, 해당 자세)
         List<AbnormalResponseDto> abnormalResponseDtos = new ArrayList<>();
@@ -42,7 +48,7 @@ public class AbnormalHeartRateMeasurementService {
         int dectedHeartrate;
 
         // DateTime -> String 변경
-        DateTimeFormatter formatter = DateTimeFormatter.ofPattern("HH:mm");
+        DateTimeFormatter formatter = DateTimeFormatter.ofPattern("HH:mm:ss");
 
         // 이상 심박수일때, detectedTimeAndHeartRate에 시간, 이상 심박수 담기
         for (HeartRateRecord heartRateRecord : heartRateRecords) {
@@ -60,13 +66,23 @@ public class AbnormalHeartRateMeasurementService {
             }
         }
 
+        for (int i = 0; i < detectedTimes.size(); i++) {
+            System.out.println(detectedTimes.get(i));
+        }
+
+        LocalTime localTime = null;
+
         double bmi = bmiMeasurementService.getBMI(memberSeq);
 
-        for (VideoOrder videoOrder : videoOrders) {
-            for (int i = 0; i < detectedTimes.size(); i++){
-                // 감지된 시간이 시작시간보다 나중이고, 종료 시간보다 이전일때 데이터 입력
-                if (videoOrder.getStartTime().isBefore(detectedTimes.get(i)) && videoOrder.getEndTime().isAfter(detectedTimes.get(i))) {
-                    abnormalResponseDtos.add(AbnormalResponseDto.getAbnormalData(abnormalPartDtos.get(i).getDetectedTime(), abnormalPartDtos.get(i).getAbnormalHeartRate(), videoOrder.getPosture(), 1, bmi));
+
+        for (int i = 0; i < detectedTimes.size(); i++) {
+            for (int j = 0; j < videoRecords.size(); j++) {
+                if (videoRecords.get(j).getTime().minusSeconds(15).isBefore(detectedTimes.get(i)) &&
+                        videoRecords.get(j).getTime().isAfter(detectedTimes.get(i))) {
+//                if (detectedTimes.get(i).isAfter(videoRecords.get(j).getTime()) && detectedTimes.get(i).isAfter(videoRecords.get(j).getTime())) {
+                    LocalDateTime target = videoRecords.get(j).getTime();
+                    VideoRecord videoRecord = videoRecordRepository.findByTime(target);
+                    abnormalResponseDtos.add(AbnormalResponseDto.getAbnormalData(abnormalPartDtos.get(j).getDetectedTime(), abnormalPartDtos.get(j).getAbnormalHeartRate(), videoRecord.getPosture(), 1, bmi));
                 }
             }
         }
