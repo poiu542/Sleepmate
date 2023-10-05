@@ -8,10 +8,11 @@ import site.sleepmate.backend.dto.AccelerometerRequestDto;
 import site.sleepmate.backend.dto.LuxRequestDto;
 import site.sleepmate.backend.dto.MemberRequestDto;
 import site.sleepmate.backend.dto.WakeUpResponseDto;
+import site.sleepmate.backend.dto.watch.ConnectionRequestDto;
+import site.sleepmate.backend.dto.watch.ConnectionResponseDto;
 import site.sleepmate.backend.service.WatchService;
 
 import java.time.LocalDate;
-import java.time.LocalDateTime;
 import java.util.Map;
 
 @RequiredArgsConstructor
@@ -56,4 +57,28 @@ public class WatchController {
         return new ResponseEntity<>(HttpStatus.OK);
     }
 
+    @PostMapping("/connection")
+    public ResponseEntity<Void> connection(@RequestBody final ConnectionRequestDto requestDto) {
+        final Long memberSeq = requestDto.getMemberSeq();
+
+        watchService.connection(memberSeq);
+
+        return new ResponseEntity<>(HttpStatus.OK);
+    }
+
+    @PostMapping("/disconnection")
+    public ResponseEntity<Void> disconnection(@RequestBody final ConnectionRequestDto requestDto) {
+        final Long memberSeq = requestDto.getMemberSeq();
+
+        watchService.disconnection(memberSeq);
+
+        return new ResponseEntity<>(HttpStatus.OK);
+    }
+
+    @GetMapping("/connection/{memberSeq}")
+    public ResponseEntity<ConnectionResponseDto> isConnected(@PathVariable final Long memberSeq) {
+        final ConnectionResponseDto responseDto = watchService.isConnected(memberSeq);
+
+        return new ResponseEntity<>(responseDto, HttpStatus.OK);
+    }
 }
