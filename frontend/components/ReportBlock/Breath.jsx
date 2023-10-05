@@ -95,7 +95,31 @@ function Breath(props) {
 
     if(!data){
         return (
-            <ServiceLoading/>
+            <>
+                <View style={tw `flex-1 w-full bg-[#333] rounded-7 p-3 mb-6`}>
+                        {/* header */}
+                        <View style={tw `flex-1 flex-row`}>
+                            <View style={tw `flex-2 `}>
+                                <Text style={tw `text-lg text-[#fff] font-bold text-[4]`}>심박수 안정도</Text>
+                                {/* <Text style={tw `text-lg text-[#fff] font-bold text-[4]`}>{date}</Text> */}
+                            </View>
+                            <Pressable style={tw `flex-1  justify-center`} onPress={toggleBottomSheet}>
+                                <Text style={tw `text-[#ccc] text-xs`}>&#62; more</Text>
+                            </Pressable>
+                      
+                        </View>
+                        {/* body */}
+                        <View style={tw `flex-2 flex-row p-2 my-3 self-center`}>
+                            <Text style={tw `text-white py-5`}>데이터가 없습니다.</Text>
+                        </View>
+                        {/* tail */}
+                        <View style={tw `flex-1 items-center`}>
+                        
+                        </View>
+                    </View>
+                    <BottomSheetModal isVisible={isBottomSheetVisible} onClose={toggleBottomSheet} modalN={2} />
+
+            </>
         )
     } else {
         return (
