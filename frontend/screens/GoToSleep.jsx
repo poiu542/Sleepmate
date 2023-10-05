@@ -146,7 +146,7 @@ const GoToSleep = () => {
 
 
                 {/* 타이머 예시용 */}
-                <AlarmTimer/>
+                {/* <AlarmTimer/> */}
 
                 <View style={tw`absolute mt-145 ml-[37%] w-full h-5 z-10`}> 
                     <View style={tw`bg-red-700 w-5 h-5 rounded-xl`}></View>
