@@ -26,6 +26,8 @@ public class NormalHeartRateMeasurementService {
         double bpm = 0;
 
         for (int i = 0; i < heartRateRecords.size(); i++) {
+            if (heartRateRecords.get(i).getHeartRate() == 0) continue;
+
             if (heartRateRecords.get(i).getHeartRate() < minBPM) minBPM = heartRateRecords.get(i).getHeartRate();
             else if (heartRateRecords.get(i).getHeartRate() > maxBPM) maxBPM = heartRateRecords.get(i).getHeartRate();
         }
