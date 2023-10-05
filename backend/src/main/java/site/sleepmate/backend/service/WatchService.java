@@ -131,4 +131,15 @@ public class WatchService {
 
         connectionRepository.save(connection);
     }
+
+    public ConnectionResponseDto isConnected(final Long memberSeq) {
+        final Connection connection = connectionRepository.findTop1ByMember_MemberSeqOrderByTimeDesc(memberSeq)
+                .orElseThrow(() -> new IllegalArgumentException("최근 connection이 없습니다."));
+
+        final boolean isConnected = connection.getState();
+
+        return ConnectionResponseDto.builder()
+                .connection(isConnected)
+                .build();
+    }
 }

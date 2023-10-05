@@ -74,4 +74,11 @@ public class WatchController {
 
         return new ResponseEntity<>(HttpStatus.OK);
     }
+
+    @GetMapping("/connection/{memberSeq}")
+    public ResponseEntity<ConnectionResponseDto> isConnected(@PathVariable final Long memberSeq) {
+        final ConnectionResponseDto responseDto = watchService.isConnected(memberSeq);
+
+        return new ResponseEntity<>(responseDto, HttpStatus.OK);
+    }
 }
