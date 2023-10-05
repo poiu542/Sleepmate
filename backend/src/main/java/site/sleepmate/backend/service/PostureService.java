@@ -12,6 +12,7 @@ import site.sleepmate.backend.dto.PosturePercentageDto;
 import site.sleepmate.backend.dto.PostureResponseDto;
 import site.sleepmate.backend.dto.VideoRecordRequestDto;
 import site.sleepmate.backend.dto.posture.CheckRemSleepBehaviorDisorderResponseDto;
+import site.sleepmate.backend.dto.posture.PostureRealResponseDto;
 import site.sleepmate.backend.properties.AwsS3Properties;
 import site.sleepmate.backend.repository.AccelerometerRecordRepository;
 import site.sleepmate.backend.repository.MemberRepository;
@@ -37,8 +38,23 @@ public class PostureService {
     private final AwsS3Manager awsS3Manager;
     private final AwsS3Properties awsS3Properties;
 
-    public List<PostureResponseDto> getChangeHistory(final Long memberSeq, final LocalDate date){
-        return videoOrderRepository.findBySleepDateAndMember_MemberSeq(date, memberSeq, Sort.by("startTime"));
+    public List<PostureRealResponseDto> getChangeHistory(final Long memberSeq, final LocalDate date){
+        List<PostureResponseDto> postureResponseDtoList =
+                videoOrderRepository.findBySleepDateAndMember_MemberSeq(date, memberSeq, Sort.by("startTime"));
+
+        List<PostureRealResponseDto> responseDtoList = new ArrayList<>();
+
+        for (final PostureResponseDto responseDto : postureResponseDtoList) {
+            PostureRealResponseDto realResponseDto = PostureRealResponseDto.builder()
+                    .posture(responseDto.getPosture())
+                    .time(responseDto.getTime().toString())
+                    .capture(responseDto.getCapture())
+                    .build();
+
+            responseDtoList.add(realResponseDto);
+        }
+
+        return responseDtoList;
     }
 
     public PosturePercentageDto getMostFrequentPosture(final Long memberSeq, final LocalDate date){

@@ -12,6 +12,7 @@ import site.sleepmate.backend.dto.PostureResponseDto;
 import site.sleepmate.backend.dto.VideoRecordRequestDto;
 import site.sleepmate.backend.dto.posture.CheckRemSleepBehaviorDisorderRequestDto;
 import site.sleepmate.backend.dto.posture.CheckRemSleepBehaviorDisorderResponseDto;
+import site.sleepmate.backend.dto.posture.PostureRealResponseDto;
 import site.sleepmate.backend.dto.posture.SavePosturePictureRequestDto;
 import site.sleepmate.backend.service.PostureService;
 
@@ -27,10 +28,10 @@ public class PostureController {
     private final PostureService postureService;
 
     @PostMapping("/change")
-    public ResponseEntity<List<PostureResponseDto>> getChangeHistory(@RequestBody MemberRequestDto memberRequestDto){
+    public ResponseEntity<List<PostureRealResponseDto>> getChangeHistory(@RequestBody MemberRequestDto memberRequestDto){
         long memberSeq = memberRequestDto.getMemberSeq();
         LocalDate sleepDate = memberRequestDto.getSleepDate();
-        List<PostureResponseDto> changeHistory = postureService.getChangeHistory(memberSeq, sleepDate);
+        List<PostureRealResponseDto> changeHistory = postureService.getChangeHistory(memberSeq, sleepDate);
 
         return new ResponseEntity<>(changeHistory, HttpStatus.OK);
     }
