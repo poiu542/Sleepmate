@@ -5,7 +5,10 @@ import site.sleepmate.backend.domain.AccelerometerRecord;
 
 import java.time.LocalDate;
 import java.util.List;
+import java.util.Optional;
 
 public interface AccelerometerRecordRepository extends JpaRepository<AccelerometerRecord, Long> {
     List<AccelerometerRecord> findAllByMember_MemberSeqAndSleepDateOrderByTime(final Long memberSeq, final LocalDate date);
+
+    Optional<AccelerometerRecord> findTop1ByMember_MemberSeqOrderByTime(final Long memberSeq);
 }

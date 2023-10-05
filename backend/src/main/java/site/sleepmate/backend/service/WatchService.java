@@ -1,6 +1,7 @@
 package site.sleepmate.backend.service;
 
 import lombok.RequiredArgsConstructor;
+import org.springframework.cglib.core.Local;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Service;
@@ -137,6 +138,21 @@ public class WatchService {
                 .orElseThrow(() -> new IllegalArgumentException("최근 connection이 없습니다."));
 
         final boolean isConnected = connection.getState();
+
+        return ConnectionResponseDto.builder()
+                .connection(isConnected)
+                .build();
+    }
+
+    public ConnectionResponseDto isSendingData(final Long memberSeq) {
+        final AccelerometerRecord accelerometerRecord =
+                accelerometerRecordRepository.findTop1ByMember_MemberSeqOrderByTime(memberSeq).orElseThrow(
+                        () -> new IllegalArgumentException("최근 Accelerometer 레코드가 없습니다.")
+                );
+
+        final LocalDateTime localDateTime = accelerometerRecord.getTime();
+
+        final boolean isConnected = LocalDateTime.now().minusSeconds(2).isBefore(localDateTime);
 
         return ConnectionResponseDto.builder()
                 .connection(isConnected)

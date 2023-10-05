@@ -81,4 +81,11 @@ public class WatchController {
 
         return new ResponseEntity<>(responseDto, HttpStatus.OK);
     }
+
+    @GetMapping("/sending/{memberSeq}")
+    public ResponseEntity<ConnectionResponseDto> isSendingData(@PathVariable final Long memberSeq) {
+        final ConnectionResponseDto responseDto = watchService.isSendingData(memberSeq);
+
+        return new ResponseEntity<>(responseDto, HttpStatus.OK);
+    }
 }
