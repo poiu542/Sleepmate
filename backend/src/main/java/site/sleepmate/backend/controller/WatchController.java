@@ -3,15 +3,13 @@ package site.sleepmate.backend.controller;
 import lombok.RequiredArgsConstructor;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
-import org.springframework.web.bind.annotation.PostMapping;
-import org.springframework.web.bind.annotation.RequestBody;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.bind.annotation.*;
 import site.sleepmate.backend.dto.AccelerometerRequestDto;
 import site.sleepmate.backend.dto.LuxRequestDto;
 import site.sleepmate.backend.dto.MemberRequestDto;
 import site.sleepmate.backend.dto.WakeUpResponseDto;
 import site.sleepmate.backend.dto.watch.ConnectionRequestDto;
+import site.sleepmate.backend.dto.watch.ConnectionResponseDto;
 import site.sleepmate.backend.service.WatchService;
 
 import java.time.LocalDate;
@@ -64,6 +62,15 @@ public class WatchController {
         final Long memberSeq = requestDto.getMemberSeq();
 
         watchService.connection(memberSeq);
+
+        return new ResponseEntity<>(HttpStatus.OK);
+    }
+
+    @PostMapping("/disconnection")
+    public ResponseEntity<Void> disconnection(@RequestBody final ConnectionRequestDto requestDto) {
+        final Long memberSeq = requestDto.getMemberSeq();
+
+        watchService.disconnection(memberSeq);
 
         return new ResponseEntity<>(HttpStatus.OK);
     }

@@ -116,4 +116,19 @@ public class WatchService {
 
         connectionRepository.save(connection);
     }
+
+    @Transactional
+    public void disconnection(final Long memberSeq) {
+        final Member member = memberRepository.findByMemberSeq(memberSeq).orElseThrow(
+                () -> new IllegalArgumentException("해당하는 유저가 없습니다.")
+        );
+
+        final Connection connection = Connection.builder()
+                .member(member)
+                .state(false)
+                .time(LocalDateTime.now())
+                .build();
+
+        connectionRepository.save(connection);
+    }
 }
