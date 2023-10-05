@@ -13,6 +13,12 @@ const ClockPicker = ({display}) => {
     const [time, setTime] = React.useState(asPickerFormat(new Date()));
     const height = Dimensions.get("window").height-900;
 
+    console.log(new Date()); //2023-10-03T16:15:00.000Z
+
+    React.useState(()=>{
+        // setTime(asPickerFormat("2023-10-04T14:00:00.000Z"));
+    },[])
+
     return (
         <>
             {display===4?<View style={tw`flex-1 items-center justify-center mt-[${height}] p-8`}>
