@@ -85,7 +85,7 @@ function Rem(props) {
                         </View>
                         {/* body */}
                         <View style={tw `flex-2 flex-row p-2 my-3 self-center`}>
-                            <Text style={tw `text-white py-5`}>데이터가 없습니다.</Text>
+                            <Text style={tw `text-white py-5`}>...</Text>
                         </View>
                         {/* tail */}
                         <View style={tw `flex-1 items-center`}>

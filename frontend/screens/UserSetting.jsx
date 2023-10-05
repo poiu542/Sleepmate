@@ -2,12 +2,12 @@ import React, { useEffect, useRef, useState } from 'react';
 import {View, Text, TextInput, Dimensions, ScrollView, TouchableOpacity} from 'react-native';
 import { StatusBar } from "expo-status-bar";
 import tw from 'twrnc'
-
+import { useNavigation } from '@react-navigation/native';
 
 const UserSetting = () => {
     const widthInput = Dimensions.get("window").width/2-150;
     const heightInput = Dimensions.get("window").height-500;
-
+    const navigate = useNavigation();
     const [cm, setCm] = useState(175);
     const [kg, setKg] = useState(60);
     const [bmi, setBmi] = useState(0);
@@ -83,10 +83,10 @@ const UserSetting = () => {
 
                 </View>
                 {
-                    bmi<=18.5?<Text style={tw`flex-1 text-white p-5 text-4 text-center font-black text-white mt--10`}>원준님은 저체중 범위의 BMI 지수입니다.</Text>
-                    :(bmi<=22.9?<Text style={tw`flex-1 text-white p-5 text-4 text-center font-black text-white mt--10`}>원준님은 정상 범위의 BMI 지수입니다.</Text>
-                    :(bmi<=24.9?<Text style={tw`flex-1 text-white p-5 text-4 text-center font-black text-white mt--10`}>원준님은 정상 범위의 BMI 지수입니다.</Text>
-                    :<Text style={tw`flex-1 text-white p-5 text-4 text-center font-black text-white mt--10`}>원준님은 비만 범위의 BMI 지수입니다.</Text>))
+                    bmi<=18.5?<Text style={tw`flex-1 text-white p-5 text-4 text-center font-black text-white mt--10`}>저체중 범위의 BMI 지수입니다.</Text>
+                    :(bmi<=22.9?<Text style={tw`flex-1 text-white p-5 text-4 text-center font-black text-white mt--10`}>정상 범위의 BMI 지수입니다.</Text>
+                    :(bmi<=24.9?<Text style={tw`flex-1 text-white p-5 text-4 text-center font-black text-white mt--10`}>정상 범위의 BMI 지수입니다.</Text>
+                    :<Text style={tw`flex-1 text-white p-5 text-4 text-center font-black text-white mt--10`}>비만 범위의 BMI 지수입니다.</Text>))
                 }
                 
             </View>

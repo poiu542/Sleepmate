@@ -26,7 +26,7 @@ const SleepSetting = () => {
         <StatusBar style="light" />
         
         <View style={tw`flex-4 z-10 p-5`}>
-          <Text style={tw `text-white text-lg mt-40`}>{`안녕하세요 잠 좀 자자님!`}</Text>
+          <Text style={tw `text-white text-lg font-bold mt-40`}>{`나의 설정페이지 입니다.`}</Text>
 
           <TouchableOpacity onPress={()=>{navigate.navigate("AlarmSetting")}} style={tw `flex-row border-white border-[0.3] rounded-2 h-17 items-center mt-15 bg-white`}>
               <Ionicons name="alarm" size={30} color="#11161A" style={tw`p-5 mt--1`}/>

@@ -27,7 +27,7 @@ function Circadian(props) {
             try {
                 const response = await nonAuthHttp.post(`api/watch/luxAndTime`, send);
                 const response2 = await nonAuthHttp.post(`api/watch/rhythm`, send);
-                console.log(response.data);
+                console.log(response.data.endTime);
                 console.log(response2.data.rhythm);
                 setRhythm(response2.data.rhythm);
                 setData(response.data)
@@ -92,7 +92,7 @@ function Circadian(props) {
                         </View>
                         {/* body */}
                         <View style={tw `flex-2 flex-row p-2 my-3 self-center`}>
-                            <Text style={tw `text-white py-5`}>데이터가 없습니다.</Text>
+                            <Text style={tw `text-white py-5`}>...</Text>
                         </View>
                         {/* tail */}
                         <View style={tw `flex-1 items-center`}>
