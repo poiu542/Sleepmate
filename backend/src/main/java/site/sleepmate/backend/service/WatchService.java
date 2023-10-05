@@ -1,15 +1,20 @@
 package site.sleepmate.backend.service;
 
 import lombok.RequiredArgsConstructor;
+import org.springframework.http.HttpStatus;
+import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
-import site.sleepmate.backend.domain.AccelerometerRecord;
-import site.sleepmate.backend.domain.LuxRecord;
-import site.sleepmate.backend.domain.Member;
-import site.sleepmate.backend.domain.VideoRecord;
+import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.PathVariable;
+import org.springframework.web.bind.annotation.PostMapping;
+import org.springframework.web.bind.annotation.RequestBody;
+import site.sleepmate.backend.domain.*;
 import site.sleepmate.backend.dto.AccelerometerRequestDto;
 import site.sleepmate.backend.dto.LuxRequestDto;
 import site.sleepmate.backend.dto.WakeUpResponseDto;
+import site.sleepmate.backend.dto.watch.ConnectionRequestDto;
+import site.sleepmate.backend.dto.watch.ConnectionResponseDto;
 import site.sleepmate.backend.repository.*;
 
 import java.time.LocalDate;
@@ -22,7 +27,7 @@ import java.util.*;
 @Transactional(readOnly = true)
 public class WatchService {
     private final LuxRecordRepository luxRecordRepository;
-    private final VideoOrderRepository videoOrderRepository;
+    private final ConnectionRepository connectionRepository;
     private final VideoRecordRepository videoRecordRepository;
     private final MemberRepository memberRepository;
     private final AccelerometerRecordRepository accelerometerRecordRepository;
@@ -95,5 +100,20 @@ public class WatchService {
         System.out.println(accelerometerRequestDto.getMvalue());
         AccelerometerRecord accelerometerRecord = accelerometerRequestDto.toEntity(accelerometerRequestDto, member);
         accelerometerRecordRepository.save(accelerometerRecord);
+    }
+
+    @Transactional
+    public void connection(final Long memberSeq) {
+        final Member member = memberRepository.findByMemberSeq(memberSeq).orElseThrow(
+                () -> new IllegalArgumentException("해당하는 유저가 없습니다.")
+        );
+
+        final Connection connection = Connection.builder()
+                .member(member)
+                .state(true)
+                .time(LocalDateTime.now())
+                .build();
+
+        connectionRepository.save(connection);
     }
 }
