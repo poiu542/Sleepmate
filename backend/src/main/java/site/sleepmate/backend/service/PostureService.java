@@ -110,6 +110,10 @@ public class PostureService {
 
         String result;
 
+        if (accelerometerRecordList.isEmpty()) {
+            throw new IllegalArgumentException("해당하는 날에는 기록이 존재하지 않습니다.");
+        }
+
         for (final AccelerometerRecord accelerometerRecord : accelerometerRecordList) {
             if (accelerometerRecord.getMValue() >= 15) {
                 abnormalCnt++;
