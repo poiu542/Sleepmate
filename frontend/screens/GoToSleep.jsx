@@ -10,6 +10,7 @@ import {useForm, Controller} from 'react-hook-form';
 // recoil
 import {useRecoilState} from "recoil";
 import {sleepBackState} from '../recoil/sleepBack/sleepBackAtom';
+import { wakeupMusicState } from "../recoil/timerAlarm/wakeupMusictAtom";
 
 // 음악
 import volumeUp from '../assets/sounds/volumeUp.png';
@@ -17,9 +18,12 @@ import mute from '../assets/sounds/mute.png';
 
 // 컴포넌트
 import BackGroundPick from "../components/DropDown/BackGroundPick";
+import AlarmTimer from "../components/Timer/AlarmTimer";
 
 const GoToSleep = () => {
     const [back, setBack] = useRecoilState(sleepBackState);
+    const [alarm, setAlarm] = useRecoilState(wakeupMusicState);
+
     const navigate = useNavigation()
 
     const [sound, setSound] = useState(null);
@@ -96,11 +100,12 @@ const GoToSleep = () => {
     }
 
     useEffect(()=>{
-        console.log(back);
+        // console.log(back);
+        console.log(`alarm = ${alarm}`);
         //음악 처음 자동 시작
-        if(back===1){stopSound2(); playSound1();}
-        else if(back===2){stopSound1(); playSound2();}
-    },[back])
+        if(back===1){stopSound2(); stopSound1(); playSound1();}
+        else if(back===2){stopSound1(); stopSound2(); playSound2();}
+    },[back, alarm])
 
     
 
@@ -138,6 +143,11 @@ const GoToSleep = () => {
                     // :
                     // <TouchableOpacity style={tw`absolute top-0 left-80 right-0 bottom-0 mt-20 w-10 h-10 justify-center items-center z-10`} onPress={() => playSound1()}><Image source={mute} resizeMode="contain" style={tw`w-7 h-10`}></Image></TouchableOpacity>
             }
+
+
+                {/* 타이머 예시용 */}
+                <AlarmTimer/>
+
                 <View style={tw`absolute mt-145 ml-[37%] w-full h-5 z-10`}> 
                     <View style={tw`bg-red-700 w-5 h-5 rounded-xl`}></View>
                     <Text style={tw`text-white ml-7 w-30 h-full mt--4`}>RECORD</Text>
