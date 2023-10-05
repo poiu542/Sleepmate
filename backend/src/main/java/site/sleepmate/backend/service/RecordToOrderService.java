@@ -18,7 +18,7 @@ import java.util.Optional;
 
 @Service
 @RequiredArgsConstructor
-@Transactional(readOnly = true)
+@Transactional
 public class RecordToOrderService {
     private final VideoRecordRepository videoRecordRepository;
     private final MemberRepository memberRepository;
