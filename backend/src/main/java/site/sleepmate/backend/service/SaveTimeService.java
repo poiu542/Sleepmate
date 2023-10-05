@@ -2,10 +2,13 @@ package site.sleepmate.backend.service;
 
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
+import org.springframework.transaction.annotation.Transactional;
+import site.sleepmate.backend.domain.AccelerometerRecord;
 import site.sleepmate.backend.domain.Member;
 import site.sleepmate.backend.domain.VideoRecord;
 import site.sleepmate.backend.dto.AlarmRequestDto;
 import site.sleepmate.backend.dto.SleepAndWakeUpTimeResponseDto;
+import site.sleepmate.backend.repository.AccelerometerRecordRepository;
 import site.sleepmate.backend.repository.MemberRepository;
 import site.sleepmate.backend.repository.VideoRecordRepository;
 
@@ -16,24 +19,31 @@ import java.util.NoSuchElementException;
 
 @Service
 @RequiredArgsConstructor
+@Transactional(readOnly = true)
 public class SaveTimeService {
-    private final VideoRecordRepository videoRecordRepository;
+    private final AccelerometerRecordRepository accelerometerRecordRepository;
     private final MemberRepository memberRepository;
 
-    public SleepAndWakeUpTimeResponseDto getSleepAndWakeupTime(Long memberSeq, LocalDate sleepDate) {
-        List<VideoRecord> videoRecords = videoRecordRepository.findAllByMember_MemberSeqAndSleepDateOrderByTimeDesc(memberSeq, sleepDate);
+    public SleepAndWakeUpTimeResponseDto getSleepAndWakeupTime(final Long memberSeq, final LocalDate sleepDate) {
+        final AccelerometerRecord startSleep =
+                accelerometerRecordRepository.findTop1ByMember_MemberSeqAndSleepDateOrderByTimeAsc(memberSeq, sleepDate)
+                        .orElseThrow(
+                                () -> new IllegalArgumentException("최근 Accelerometer 레코드가 없습니다.")
+                        );
 
-        LocalTime sleepTime = LocalTime.from(videoRecords.get(videoRecords.size()-1).getTime());
-        LocalTime wakeUpTime = LocalTime.from(videoRecords.get(0).getTime());
+        final AccelerometerRecord endSleep =
+                accelerometerRecordRepository.findTop1ByMember_MemberSeqAndSleepDateOrderByTimeDesc(memberSeq, sleepDate)
+                        .orElseThrow(
+                                () -> new IllegalArgumentException("최근 Accelerometer 레코드가 없습니다.")
+                        );
 
         return SleepAndWakeUpTimeResponseDto.builder()
-                .sleepTime(sleepTime)
-                .wakeUpTime(wakeUpTime)
+                .sleepTime(startSleep.getTime().toLocalTime().toString())
+                .wakeUpTime(endSleep.getTime().toLocalTime().toString())
                 .build();
     }
 
     public void saveAlarmTime(Long memberSeq, LocalTime alarmTime) {
-        Member member = memberRepository.findById(memberSeq).orElseThrow(NoSuchElementException::new);
         memberRepository.updateMemberAlarmInfo(memberSeq, alarmTime);
     }
 }
