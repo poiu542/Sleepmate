@@ -14,6 +14,10 @@ import androidx.compose.foundation.layout.Row
 import androidx.compose.foundation.layout.fillMaxSize
 import androidx.compose.foundation.layout.padding
 import androidx.compose.runtime.Composable
+import androidx.compose.runtime.getValue
+import androidx.compose.runtime.mutableStateOf
+import androidx.compose.runtime.remember
+import androidx.compose.runtime.setValue
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.unit.dp
@@ -23,11 +27,7 @@ import androidx.wear.compose.material.Button
 import androidx.wear.compose.material.MaterialTheme
 import androidx.wear.compose.material.Text
 import com.example.sleepmate.complication.MyForegroundService
-import com.example.sleepmate.complication.UdpClient
 import com.example.sleepmate.presentation.theme.SleepmateTheme
-import kotlinx.coroutines.CoroutineScope
-import kotlinx.coroutines.Dispatchers
-import kotlinx.coroutines.launch
 
 /**
  *  센서를 추가하기 위해서는 AndroidManifest.xml에 permission 추가
@@ -39,11 +39,6 @@ import kotlinx.coroutines.launch
 
 private var isServiceRunning = false
 class MainActivity : ComponentActivity() {
-
-    // 전송 테스트 버튼을 눌렀을 때 연결할 udp address
-    private val udpClient: UdpClient by lazy {
-        UdpClient(this,"192.168.169.212", 9894)
-    }
 
     // Manifest 파일에서 permission 가져오기
     private val permissions = arrayOf(
@@ -60,7 +55,7 @@ class MainActivity : ComponentActivity() {
         setContent {
             ActivityCompat.requestPermissions(this, permissions, requestCode)
 
-            WearApp("Android", context = this, udpClient = udpClient)
+            WearApp("Android", context = this)
         }
     }
 
@@ -82,7 +77,9 @@ fun endForegroundService(context: Context) {
 }
 
 @Composable
-fun WearApp(greetingName: String, context: Context, udpClient: UdpClient) {
+fun WearApp(greetingName: String, context: Context) {
+    var isSendingData by remember { mutableStateOf(false) }
+
     SleepmateTheme {
         Row(
             modifier = Modifier
@@ -91,40 +88,26 @@ fun WearApp(greetingName: String, context: Context, udpClient: UdpClient) {
             horizontalArrangement = Arrangement.Center,
             verticalAlignment = Alignment.CenterVertically,
         ) {
-            startSendingData(context)
-            endSendingData(context)
-        }
-    }
-}
-
-// 전송 테스트 하는 버튼
-@Composable
-fun SendUdpDataButton(udpClient: UdpClient) {
-    Button(
-        onClick = {
-            Log.d(TAG, "Button Clicked")
-            val dataToSend = "연결 확인 중입니다."
-            CoroutineScope(Dispatchers.IO).launch {
-                try {
-                    udpClient.sendData(dataToSend)
-                    Log.d("MyApp", "Data sent successfully")
-                } catch (e: Exception) {
-                    Log.e("MyApp", "Error sending data: ${e.message}", e)
+            if (!isSendingData) {
+                startSendingData(context) {
+                    isSendingData = true
+                }
+            } else {
+                endSendingData(context) {
+                    isSendingData = false
                 }
             }
-        },
-        modifier = Modifier.padding(16.dp)
-    ) {
-        Text("전송 테스트")
+        }
     }
 }
 
 // 포그라운드 서비스 (데이터 전송) 시작 버튼
 @Composable
-fun startSendingData(context: Context) {
+fun startSendingData(context: Context, onStartSending: () -> Unit) {
     Button(
         onClick = {
             Log.d(TAG, "Start Sending Data")
+            onStartSending()
             isServiceRunning = true
             startForegroundService(context)
         },
@@ -136,10 +119,11 @@ fun startSendingData(context: Context) {
 
 // 포그라운드 서비스 (데이터 전송 중지) 중지 버튼
 @Composable
-fun endSendingData(context: Context) {
+fun endSendingData(context: Context, onEndSending: () -> Unit) {
     Button(
         onClick = {
             Log.d(TAG, "End Sending Data")
+            onEndSending()
             isServiceRunning = false
             endForegroundService(context)
         },
