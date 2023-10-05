@@ -1,27 +1,22 @@
 package site.sleepmate.backend.service;
 
 import lombok.RequiredArgsConstructor;
-import org.springframework.cglib.core.Local;
-import org.springframework.http.HttpStatus;
-import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
-import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.PathVariable;
-import org.springframework.web.bind.annotation.PostMapping;
-import org.springframework.web.bind.annotation.RequestBody;
 import site.sleepmate.backend.domain.*;
 import site.sleepmate.backend.dto.AccelerometerRequestDto;
 import site.sleepmate.backend.dto.LuxRequestDto;
 import site.sleepmate.backend.dto.WakeUpResponseDto;
-import site.sleepmate.backend.dto.watch.ConnectionRequestDto;
 import site.sleepmate.backend.dto.watch.ConnectionResponseDto;
 import site.sleepmate.backend.repository.*;
 
 import java.time.LocalDate;
 import java.time.LocalDateTime;
 import java.time.LocalTime;
-import java.util.*;
+import java.util.HashMap;
+import java.util.List;
+import java.util.Map;
+import java.util.NoSuchElementException;
 
 @Service
 @RequiredArgsConstructor
@@ -146,7 +141,7 @@ public class WatchService {
 
     public ConnectionResponseDto isSendingData(final Long memberSeq) {
         final AccelerometerRecord accelerometerRecord =
-                accelerometerRecordRepository.findTop1ByMember_MemberSeqOrderByTime(memberSeq).orElseThrow(
+                accelerometerRecordRepository.findTop1ByMember_MemberSeqOrderByTimeDesc(memberSeq).orElseThrow(
                         () -> new IllegalArgumentException("최근 Accelerometer 레코드가 없습니다.")
                 );
 
