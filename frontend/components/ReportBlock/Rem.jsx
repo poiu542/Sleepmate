@@ -39,10 +39,11 @@ function Rem(props) {
         );
     };
     function getRem(){
+        
         async function requestRem(){
-            console.log(memberSeq);
+            console.log("test");
+            console.log("memberSeq"+memberSeq);
             const send = {
-                // sleepDate : "2023-09-20",
                 sleepDate : date,
                 memberSeq : memberSeq
             }
