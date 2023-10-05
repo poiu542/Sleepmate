@@ -9,6 +9,7 @@ import org.springframework.web.multipart.MultipartFile;
 import site.sleepmate.backend.dto.MemberRequestDto;
 import site.sleepmate.backend.dto.PosturePercentageDto;
 import site.sleepmate.backend.dto.PostureResponseDto;
+import site.sleepmate.backend.dto.VideoRecordRequestDto;
 import site.sleepmate.backend.dto.posture.CheckRemSleepBehaviorDisorderRequestDto;
 import site.sleepmate.backend.dto.posture.CheckRemSleepBehaviorDisorderResponseDto;
 import site.sleepmate.backend.dto.posture.SavePosturePictureRequestDto;
@@ -80,5 +81,15 @@ public class PostureController {
         final CheckRemSleepBehaviorDisorderResponseDto responseDto = postureService.checkRemSleepBehaviorDisorder(memberSeq, sleepDate);
 
         return new ResponseEntity<>(responseDto, HttpStatus.OK);
+    }
+
+    @PostMapping("/videoRecord")
+    public ResponseEntity<?> saveVideoRecord(@RequestBody VideoRecordRequestDto videoRecordRequestDto){
+        try{
+            postureService.saveVideoRecord(videoRecordRequestDto);
+        } catch(Exception e){
+            return new ResponseEntity<>(HttpStatus.INTERNAL_SERVER_ERROR);
+        }
+        return new ResponseEntity<>(HttpStatus.OK);
     }
 }
