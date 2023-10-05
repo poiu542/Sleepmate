@@ -10,10 +10,10 @@ import java.time.LocalTime;
 @Builder
 @NoArgsConstructor
 public class SleepAndWakeUpTimeResponseDto {
-    private LocalTime sleepTime;
-    private LocalTime wakeUpTime;
+    private String sleepTime;
+    private String wakeUpTime;
 
-    public SleepAndWakeUpTimeResponseDto(LocalTime sleepTime, LocalTime wakeUpTime) {
+    public SleepAndWakeUpTimeResponseDto(String sleepTime, String wakeUpTime) {
         this.sleepTime = sleepTime;
         this.wakeUpTime = wakeUpTime;
     }
