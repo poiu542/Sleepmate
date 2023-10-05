@@ -6,12 +6,15 @@ import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 import org.springframework.web.multipart.MultipartFile;
 import site.sleepmate.backend.domain.AccelerometerRecord;
+import site.sleepmate.backend.domain.Member;
 import site.sleepmate.backend.domain.VideoRecord;
 import site.sleepmate.backend.dto.PosturePercentageDto;
 import site.sleepmate.backend.dto.PostureResponseDto;
+import site.sleepmate.backend.dto.VideoRecordRequestDto;
 import site.sleepmate.backend.dto.posture.CheckRemSleepBehaviorDisorderResponseDto;
 import site.sleepmate.backend.properties.AwsS3Properties;
 import site.sleepmate.backend.repository.AccelerometerRecordRepository;
+import site.sleepmate.backend.repository.MemberRepository;
 import site.sleepmate.backend.repository.VideoOrderRepository;
 import site.sleepmate.backend.repository.VideoRecordRepository;
 import site.sleepmate.backend.util.AwsS3Manager;
@@ -29,6 +32,7 @@ public class PostureService {
     private final VideoOrderRepository videoOrderRepository;
     private final VideoRecordRepository videoRecordRepository;
     private final AccelerometerRecordRepository accelerometerRecordRepository;
+    private final MemberRepository memberRepository;
 
     private final AwsS3Manager awsS3Manager;
     private final AwsS3Properties awsS3Properties;
@@ -131,5 +135,13 @@ public class PostureService {
         return CheckRemSleepBehaviorDisorderResponseDto.builder()
                 .disorderState(result)
                 .build();
+    }
+
+    @Transactional
+    public void saveVideoRecord(VideoRecordRequestDto videoRecordRequestDto){
+        Member member = memberRepository.findByMemberSeq(videoRecordRequestDto.getMemberSeq()).orElseThrow(() ->
+                new NoSuchElementException());
+        VideoRecord videoRecord = videoRecordRequestDto.toEntity(videoRecordRequestDto, member);
+        videoRecordRepository.save(videoRecord);
     }
 }
