@@ -147,7 +147,7 @@ public class WatchService {
 
         final LocalDateTime localDateTime = accelerometerRecord.getTime();
 
-        final boolean isConnected = LocalDateTime.now().minusSeconds(2).isBefore(localDateTime);
+        final boolean isConnected = LocalDateTime.now().minusSeconds(5).isBefore(localDateTime);
 
         return ConnectionResponseDto.builder()
                 .connection(isConnected)
