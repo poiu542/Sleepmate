@@ -51,6 +51,9 @@ public class Member {
     private Boolean visit;
 
     @OneToMany(mappedBy = "member")
+    private List<Connection> connections = new ArrayList<Connection>();
+
+    @OneToMany(mappedBy = "member")
     private List<HeartRateRecord> heartRateRecords = new ArrayList<HeartRateRecord>();
 
     @OneToMany(mappedBy = "member")
