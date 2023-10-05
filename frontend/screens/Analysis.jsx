@@ -1,4 +1,4 @@
-import {View, ScrollView, Dimensions, StyleSheet, Text, Image, ImageBackground} from "react-native";
+import {View, ScrollView, Dimensions, StyleSheet, Text, Image, ImageBackground, ActivityIndicator} from "react-native";
 import { useEffect, useState } from "react";
 import { Video } from "expo-av";
 import { StatusBar } from 'expo-status-bar';
@@ -46,6 +46,8 @@ const Analysis = () => {
 
     const [selectedDate, setSelectedDate] = useState(null);
     const [modalVisible, setModalVisible] = useRecoilState(motionModalState);
+
+    const [loadingBar, setLoadingBar] = useState(true);
     
 
     useEffect(()=>{
@@ -60,9 +62,9 @@ const Analysis = () => {
     return(
         <View style={tw`flex-1 bg-white w-full h-full`}>
             {/* <Image style={tw`absolute top-0 left-0 right-0 bottom-0 w-full h-100`} source={turnOnTheLight}/> */}
-            <Video style={tw`absolute top-0 left-0 right-0 bottom-0 w-full h-full`} source={homevideo2} resizeMode={"cover"} repeat={true} paused={false} onAnimatedValueUpdate={() => {}}></Video>
+            <Video style={tw`absolute top-0 left-0 right-0 bottom-0 w-full h-full`} source={homevideo2} resizeMode={"cover"} repeat={true} paused={false} accessible={()=>{setLoadingBar(false); console.log(false);}} onAnimatedValueUpdate={() => {setLoadingBar(false)}}></Video>
             {/* <Image style={tw `flex-1 absolute top-0 left-0 right-0 bottom-0 w-100 h-70`} source={turnOnTheLight} resizeMode="cover" ></Image> */}
-            <ScrollView>
+            {loadingBar&&<ScrollView>
                 <View style={tw`rounded-5 shadow-2xl w-full h-full mb-5 self-center mt-25 px-3 bg-[#000]/60`}>
                     <View style={styles.container}>
                         <CalendarHorizontal onSelectDate={setSelectedDate} selected={selectedDate} />
@@ -89,7 +91,7 @@ const Analysis = () => {
 
                     {modalVisible&&<BackDrop/>}
                     </View>
-            </ScrollView>
+            </ScrollView>}
 
 
         </View>

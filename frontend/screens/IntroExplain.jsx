@@ -32,7 +32,6 @@ const IntroExplain = () => {
     const [animation10, setAnimation10] = useState(null);
     const [animation11, setAnimation11] = useState(null);
     const [animation12, setAnimation12] = useState(null);
-    const [loading, setLoading] = useState(false);
 
     const [sceen, setSceen] = useRecoilState(sceenNumberState);
     const [sound, setSound] = useState(null);
@@ -55,9 +54,7 @@ const IntroExplain = () => {
                 height : cm
             }
             try {
-                console.log(send);
                 const response = await nonAuthHttp.post(`/api/member/body-info`, send);
-                console.log(response.data);
                 
             } catch (error) {
                 console.log(error);
@@ -128,13 +125,11 @@ const IntroExplain = () => {
     // 애니메이션 효과
     useEffect(() => {
         if (sceen===1 && animation1) {
-            setLoading(true);
             setTimeout(() => {
                 animation1.fadeOut(1000).then(() => {
                     setAnimation2(animation2Ref => {
                         setSceen(2);
                         if (animation2Ref) {
-                            setLoading(false);
                             animation2Ref.fadeIn(1000);
                         }
                         return animation2Ref;
@@ -144,13 +139,11 @@ const IntroExplain = () => {
         }
 
         if (sceen===2 && animation1) {
-            setLoading(true);
             setTimeout(() => {
                 animation2.fadeOut(1000).then(() => {
                     setSceen(3);
                     setAnimation3(animation3Ref => {
                         if (animation3Ref) {
-                            setLoading(false);
                             animation3Ref.fadeIn(1000);
                         }
                         return animation3Ref;
@@ -160,13 +153,11 @@ const IntroExplain = () => {
         }
 
         if (sceen===3 && animation1) {
-            setLoading(true);
             setTimeout(() => {
                 animation3.fadeOut(0).then(() => {
                     setSceen(4);
                     setAnimation4(animation4Ref => { //평소 몇 시에 잠에 드시나요?
                         if (animation4Ref) {
-                            setLoading(false);
                             playEffect();
                             animation4Ref.fadeIn(1000);
                         }
@@ -181,14 +172,11 @@ const IntroExplain = () => {
 
         if (sceen===5 && animation1) {
             //sceen==4 없애고, sceen==5 질문 띄우기
-
-            setLoading(true);
             setTimeout(() => {
                 animation4.fadeOut(1000).then(() => {
                     setSceen(6);
                     setAnimation6(animation6Ref => {//평소 몇 시간 정도 잠에 드시나요?
                         if (animation6Ref) {
-                            setLoading(false);
                             playEffect();
                             animation6Ref.fadeIn(2000);
                         }
@@ -201,14 +189,12 @@ const IntroExplain = () => {
         //sceen==5일땐 fade out 되면 안되니까 생략
 
         if (sceen===7 && animation1) {
-            setLoading(true);
 
             setTimeout(() => {
                 animation6.fadeOut(1000).then(() => {
                     setSceen(8);
                     setAnimation8(animation8Ref => {
                         if (animation8Ref) {
-                            setLoading(false);
                             playEffect();
                             animation8Ref.fadeIn(2000);
                         }
@@ -219,13 +205,11 @@ const IntroExplain = () => {
         }
 
         if (sceen===9 && animation1) {
-            setLoading(true);
             setTimeout(() => {
                 animation8.fadeOut(1000).then(() => {
                     setSceen(10);
                     setAnimation10(animation10Ref => {
                         if (animation10Ref) {
-                            setLoading(false);
                             animation10Ref.fadeIn(1000);
                         }
                         return animation10Ref;
@@ -235,13 +219,11 @@ const IntroExplain = () => {
         }
 
         if (sceen===10 && animation1) {
-            setLoading(true);
             setTimeout(() => {
                 animation10.fadeOut(1000).then(() => {
                     setSceen(11);
                     setAnimation11(animation11Ref => {
                         if (animation11Ref) {
-                            setLoading(false);
                             animation11Ref.fadeIn(1000);
                         }
                         return animation11Ref;
@@ -251,13 +233,11 @@ const IntroExplain = () => {
         }
 
         if (sceen===11 && animation1) {
-            setLoading(true);
             setTimeout(() => {
                 animation11.fadeOut(1000).then(() => {
                     setSceen(12);
                     setAnimation12(animation12Ref => {
                         if (animation12Ref) {
-                            setLoading(false);
                             animation12Ref.fadeOut(1000);
                         }
                         return animation12Ref;
@@ -352,10 +332,6 @@ const IntroExplain = () => {
                 <Animatable.Text ref={(ref) => setAnimation10(ref)} style={sceen===10?tw`absolute top-0 left-0 right-0 bottom-0 text-white text-4.2 font-bold mt-[${height}] text-center`:tw`hidden`}>감사합니다.</Animatable.Text>
                 <Animatable.Text ref={(ref) => setAnimation11(ref)} style={sceen===11?tw`absolute top-0 left-0 right-0 bottom-0 text-white text-4.2 font-bold mt-[${height}] text-center`:tw`hidden`}>{`sleep mate가\n행복한 수면 경험을 선사해드리겠습니다.`}</Animatable.Text>
             </View>
-            {
-                loading&&<ActivityIndicator style={tw`flex-1 mt--150`} color="white" size="large"/>
-            }
-
         </Animatable.View>
         </TouchableWithoutFeedback>
     )
