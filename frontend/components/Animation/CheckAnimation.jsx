@@ -2,18 +2,51 @@ import LottieView from 'lottie-react-native';
 import tw from 'twrnc'; 
 // import {useRecoilState} from 'recoil';
 // import {centerModalState} from '../../recoil/centerModal/atom';
-import {View, Dimensions} from "react-native";
+import {View, Dimensions, StyleSheet, Button} from "react-native";
 
-import React, {useState, useEffect} from 'react';
+import React, {useState, useEffect, useRef} from 'react';
 
 const CheckAnimation = () => {
+    const animation = useRef(null);
+    useEffect(() => {
+        // You can control the ref programmatically, rather than using autoPlay
+        // animation.current?.play();
+    }, []);
 
-    // const [modalVisible, setModalVisible] = useRecoilState(centerModalState);
+    const handleAnimationFailure = () => {
+        console.log(12);
+        // 또는 실패했을 때 수행하고자 하는 다른 작업을 여기에 추가하세요.
+    };
+
     
 
     return(
-        <View style={tw`absolute w-full items-center justify-center ml-30 mt-3`}><LottieView style={tw`z-10 w-150 h-150`} source={require('../../assets/lotties/checkAnimation.json')} autoPlay loop/></View>
+        <View style={tw`absolute w-full items-center justify-center ml-0 mt-3`}>
+            {<LottieView
+                style={tw`z-10 w-150 h-150`}
+                source={require('../../assets/lotties/checkAnimation.json')}
+                ref={animation}
+                autoPlay
+                loop
+                onAnimationFailure={handleAnimationFailure}
+                onLoad={() => console.log("lottie start")}
+            />}
+
+        </View>
     )
 }
 
 export default CheckAnimation
+
+
+const styles = StyleSheet.create({
+    animationContainer: {
+      backgroundColor: '#fff',
+      alignItems: 'center',
+      justifyContent: 'center',
+      flex: 1,
+    },
+    buttonContainer: {
+      paddingTop: 1,
+    },
+  });
