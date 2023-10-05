@@ -72,10 +72,10 @@ public class WatchService {
 
         int result = -1;
         if(!isRhythmFine){ //일주기 리듬 안좋으면
-            //조도가 50lux보다 작으면
-            result = (lux.getLux() < 50) ? 0 : 1;
+            //조도가 20lux보다 작으면
+            result = (lux.getLux() < 20) ? 0 : 1;
         } else{
-            result = (lux.getLux() < 50) ? 2 : 3;
+            result = (lux.getLux() < 20) ? 2 : 3;
         }
 
         Map<String, Integer> resultMap = new HashMap<>();
