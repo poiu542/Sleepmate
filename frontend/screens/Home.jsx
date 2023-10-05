@@ -50,7 +50,7 @@ const Home = () => {
                 
                 <View style={tw `flex-1 px-10 z-10`}>
                     {/* IntroExplain로 바꿔야 함 */}
-                <TouchableOpacity onPress={()=>{navigate.navigate("Sleep")}} style={tw `bg-[#FFDC00]/70 rounded-2 h-13 items-center justify-center`}>
+                <TouchableOpacity onPress={()=>{navigate.navigate("MainTabNavigator")}} style={tw `bg-[#FFDC00]/70 rounded-2 h-13 items-center justify-center`}>
                     <Text style={tw `text-base`}><Ionicons style={tw `mt-3`} name="enter-outline" size={18} color="black" /> &nbsp; 카카오 로그인</Text>
                 </TouchableOpacity>
                 {/* <Webview 
@@ -79,7 +79,7 @@ const Home = () => {
                 </View>
 
             <View style={tw `flex-1 px-10 z-10`}>
-            <TouchableOpacity onPress={()=>{setShowLogin(true)}} style={tw `border-[#fff] border-[0.3] rounded-2 h-13 items-center justify-center`}>
+            <TouchableOpacity onPress={()=>{navigate.navigate("IntroExplain")}} style={tw `border-[#fff] border-[0.3] rounded-2 h-13 items-center justify-center`}>
                 <Text style={tw `text-white text-lg`}>입장하기</Text>
             </TouchableOpacity>
             </View>
