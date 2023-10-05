@@ -28,9 +28,9 @@ const Watch = () => {
      
 
       <View style={tw `absolute top-140 left-0 right-0 bottom-0 px-10 z-10 w-full h-100`}>
-            <Text style={tw `text-center mb-5 text-white`}>{`갤럭시 워치가 없으신가요?\nNEXT 버튼을 눌러주세요`}</Text>
+            <Text style={tw `text-center mb-5 text-white`}>{`갤럭시 워치가 없으신가요?\nSKIP 버튼을 눌러주세요`}</Text>
             <TouchableOpacity onPress={()=>{navigate.navigate("Test")}} style={tw `border-white border-[0.3] rounded-2 h-13 items-center justify-center`}>
-                <Text style={tw `text-white text-lg`}>NEXT</Text>
+                <Text style={tw `text-white text-lg`}>SKIP</Text>
             </TouchableOpacity>
         </View>
     </View>

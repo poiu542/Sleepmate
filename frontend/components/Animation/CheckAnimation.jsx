@@ -2,7 +2,7 @@ import LottieView from 'lottie-react-native';
 import tw from 'twrnc'; 
 // import {useRecoilState} from 'recoil';
 // import {centerModalState} from '../../recoil/centerModal/atom';
-import {View, Dimensions, StyleSheet, Button} from "react-native";
+import {View, Dimensions, StyleSheet, Button, Text} from "react-native";
 
 import React, {useState, useEffect, useRef} from 'react';
 
@@ -21,8 +21,8 @@ const CheckAnimation = () => {
     
 
     return(
-        <View style={tw`absolute w-full items-center justify-center ml-0 mt-3`}>
-            {<LottieView
+        <View style={tw`absolute w-full items-center justify-center ml-0`}>
+            <LottieView
                 style={tw`z-10 w-150 h-150`}
                 source={require('../../assets/lotties/checkAnimation.json')}
                 ref={animation}
@@ -30,7 +30,9 @@ const CheckAnimation = () => {
                 loop
                 onAnimationFailure={handleAnimationFailure}
                 onLoad={() => console.log("lottie start")}
-            />}
+            />
+
+            <Text style={tw`flex-1 z-10 w-150 h-150`}>연결중...</Text>
 
         </View>
     )
