@@ -2,6 +2,7 @@ package site.sleepmate.backend.service;
 
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
+import org.springframework.transaction.annotation.Transactional;
 import site.sleepmate.backend.domain.Member;
 import site.sleepmate.backend.domain.VideoOrder;
 import site.sleepmate.backend.domain.VideoRecord;
@@ -17,14 +18,17 @@ import java.util.Optional;
 
 @Service
 @RequiredArgsConstructor
+@Transactional(readOnly = true)
 public class RecordToOrderService {
     private final VideoRecordRepository videoRecordRepository;
     private final MemberRepository memberRepository;
     private final VideoOrderRepository videoOrderRepository;
 
-    public void getVideoOrder(Long memberSeq, LocalDate sleepDate) {
-        List<VideoRecord> videoRecords = videoRecordRepository.findAllByMember_MemberSeqAndSleepDateOrderByTimeAsc(memberSeq, sleepDate);
-        Member member = memberRepository.findById(memberSeq).orElseThrow(NoSuchElementException::new);
+    public void getVideoOrder(final Long memberSeq, final LocalDate sleepDate) {
+        final List<VideoRecord> videoRecords = videoRecordRepository.findAllByMember_MemberSeqAndSleepDateOrderByTimeAsc(memberSeq, sleepDate);
+
+        final Member member = memberRepository.findById(memberSeq).orElseThrow(NoSuchElementException::new);
+
         // 처음 들어온 자세
         Integer temp = videoRecords.get(0).getPosture();
         LocalDateTime startTime = videoRecords.get(0).getTime();
@@ -32,7 +36,7 @@ public class RecordToOrderService {
 
         for (int i = 1; i < videoRecords.size(); i++) {
             // 첫 자세 시각, 자세, 자세캡쳐화면만 넣고 객체 생성
-            VideoOrder videoOrder = VideoOrder.builder()
+            final VideoOrder videoOrder = VideoOrder.builder()
                     .posture(temp)
                     .startTime(startTime)
                     .endTime(null)

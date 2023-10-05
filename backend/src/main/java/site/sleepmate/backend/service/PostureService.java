@@ -37,37 +37,50 @@ public class PostureService {
     private final AwsS3Manager awsS3Manager;
     private final AwsS3Properties awsS3Properties;
 
-    public List<PostureResponseDto> getChangeHistory(Long memberSeq, LocalDate date){
+    public List<PostureResponseDto> getChangeHistory(final Long memberSeq, final LocalDate date){
         return videoOrderRepository.findBySleepDateAndMember_MemberSeq(date, memberSeq, Sort.by("startTime"));
     }
 
-    public PosturePercentageDto getMostFrequentPosture(Long memberSeq, LocalDate date){
+    public PosturePercentageDto getMostFrequentPosture(final Long memberSeq, final LocalDate date){
         //0~8 포즈 집계
-        PosturePercentageDto[] postures = new PosturePercentageDto[9];
-        int totalCount = videoRecordRepository.countBySleepDateAndMember_MemberSeq(date, memberSeq);
+        final PosturePercentageDto[] postures = new PosturePercentageDto[9];
+
+        final int totalCount = videoRecordRepository.countBySleepDateAndMember_MemberSeq(date, memberSeq);
+
         for(int posture = 0; posture < 9; posture++){
-            int postureCount = videoRecordRepository.countBySleepDateAndPostureAndMember_MemberSeq(date, posture, memberSeq);
-            double percentage = (double) postureCount / totalCount;
+            final int postureCount = videoRecordRepository.countBySleepDateAndPostureAndMember_MemberSeq(date, posture, memberSeq);
+
+            final double percentage = (double) postureCount / totalCount;
+
             postures[posture] = new PosturePercentageDto(posture, percentage);
         }
+
         Arrays.sort(postures);
+
         return postures[postures.length-1];
     }
 
-    public List<PosturePercentageDto> getPostures(Long memberSeq, LocalDate date){
-        List<PosturePercentageDto> postures = new ArrayList<>();
-        int totalCount = videoRecordRepository.countBySleepDateAndMember_MemberSeq(date, memberSeq);
-        for(int posture = 0; posture < 9; posture++){
-            int postureCount = videoRecordRepository.countBySleepDateAndPostureAndMember_MemberSeq(date, posture, memberSeq);
-            double percentage = (double) postureCount / totalCount;
+    public List<PosturePercentageDto> getPostures(final Long memberSeq, final LocalDate date){
+        final List<PosturePercentageDto> postures = new ArrayList<>();
+
+        final int totalCount = videoRecordRepository.countBySleepDateAndMember_MemberSeq(date, memberSeq);
+
+        for (int posture = 0; posture < 9; posture++) {
+            final int postureCount = videoRecordRepository.countBySleepDateAndPostureAndMember_MemberSeq(date, posture, memberSeq);
+
+            final double percentage = (double) postureCount / totalCount;
+
             postures.add(new PosturePercentageDto(posture, percentage));
         }
+
         return postures;
     }
 
-    public Map<String, Integer> getChangeCount(Long memberSeq, LocalDate date){
-        int changeCount = videoOrderRepository.countBySleepDateAndMember_MemberSeq(date, memberSeq);
-        Map<String, Integer> result = new HashMap<>();
+    public Map<String, Integer> getChangeCount(final Long memberSeq, final LocalDate date){
+        final int changeCount = videoOrderRepository.countBySleepDateAndMember_MemberSeq(date, memberSeq);
+
+        final Map<String, Integer> result = new HashMap<>();
+
         result.put("result", changeCount);
 
         return result;
@@ -138,10 +151,12 @@ public class PostureService {
     }
 
     @Transactional
-    public void saveVideoRecord(VideoRecordRequestDto videoRecordRequestDto){
-        Member member = memberRepository.findByMemberSeq(videoRecordRequestDto.getMemberSeq()).orElseThrow(() ->
-                new NoSuchElementException());
-        VideoRecord videoRecord = videoRecordRequestDto.toEntity(videoRecordRequestDto, member);
+    public void saveVideoRecord(final VideoRecordRequestDto videoRecordRequestDto){
+        final Member member = memberRepository.findByMemberSeq(videoRecordRequestDto.getMemberSeq())
+                .orElseThrow(NoSuchElementException::new);
+
+        final VideoRecord videoRecord = videoRecordRequestDto.toEntity(videoRecordRequestDto, member);
+
         videoRecordRepository.save(videoRecord);
     }
 }
