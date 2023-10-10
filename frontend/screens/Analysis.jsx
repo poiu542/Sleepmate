@@ -37,7 +37,7 @@ const Analysis = () => {
     let day = String(today.getDate());
 
     if((month.length)==1) month=`0${month}`;
-    if((day.length)==1) day=`0${day}`;
+    if((day.length)==1) day=`0${day-1}`;
 
     const width = Dimensions.get("window").width;
     const height = Dimensions.get("window").height-500;

@@ -23,7 +23,7 @@ const Home = () => {
                 </View>
 
             <View style={tw `flex-1 px-10 z-10`}>
-            <TouchableOpacity onPress={()=>{navigate.navigate("MainTabNavigator")}} style={tw `border-[#fff] border-[0.3] rounded-2 h-13 items-center justify-center`}>
+            <TouchableOpacity onPress={()=>{navigate.navigate("IntroExplain")}} style={tw `border-[#fff] border-[0.3] rounded-2 h-13 items-center justify-center`}>
                 <Text style={tw `text-white text-lg`}>입장하기</Text>
             </TouchableOpacity>
             </View>

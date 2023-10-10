@@ -56,7 +56,7 @@ const SleepDataInfo = ({selectedDate}) => {
 
             {/* 시간 */}
             <Text style={tw`text-white text-4 text-center font-bold mt-2`}>나의 수면 시간</Text>
-            <Text style={tw`text-[#FFF1D4] text-3.3 text-center mt-2`}>{sleepTime.sleepTime} - {sleepTime.wakeUpTime}</Text>
+            <Text style={tw`text-[#FFF1D4] text-3.3 font-bold text-center mt-2`}>{sleepTime.sleepTime.slice(0,5)} - {sleepTime.wakeUpTime.slice(0,5)}</Text>
 
 
             {/* 실제 잔 시간 */}

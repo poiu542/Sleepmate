@@ -142,6 +142,7 @@ function Circadian(props) {
                                 {renderMsg()}
                                 
                             </View>
+                            <Text style={tw `text-[3] text-[#FFF1D4] tracking-tight leading-5`}>20Lux 이상의 조도에서 기상하기를 권장합니다.</Text>
                         </View>
                     </View>
                     <BottomSheetModal isVisible={isBottomSheetVisible} onClose={toggleBottomSheet} modalN={1} />

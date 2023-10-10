@@ -1,7 +1,7 @@
 {
   "expo": {
     "name": "SleepMate",
-    "slug": "SleepMate",
+    "slug": "frontend",
     "version": "1.0.0",
     "orientation": "portrait",
     "icon": "./assets/config/icon.png",

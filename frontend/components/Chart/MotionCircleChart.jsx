@@ -190,17 +190,17 @@ const MotionCircleChart = ({selectedDate}) => {
               isAnimated
               textColor="black"
               data={[
-                {value: totalPose[0].percentage=="NaN"?0:totalPose[0].percentage*100, color: '#FFAB91'},
-                {value: totalPose[1].percentage=="NaN"?0:totalPose[1].percentage*100, color: '#FFD700'},
-                {value: totalPose[2].percentage=="NaN"?0:totalPose[2].percentage*100, color: '#FFECB3'},
+                {value: totalPose[0].percentage=="NaN"?0:Number(String(totalPose[0].percentage*100).slice(0,2)), color: '#FFAB91'},
+                {value: totalPose[1].percentage=="NaN"?0:Number(String(totalPose[1].percentage*100).slice(0,2)), color: '#FFD700'},
+                {value: totalPose[2].percentage=="NaN"?0:Number(String(totalPose[2].percentage*100).slice(0,2)), color: '#FFECB3'},
 
-                {value: totalPose[3].percentage=="NaN"?0:totalPose[3].percentage*100, color: '#98FB98'},
-                {value: totalPose[4].percentage=="NaN"?0:totalPose[4].percentage*100, color: '#ADD8E6'},
-                {value: totalPose[5].percentage=="NaN"?0:totalPose[5].percentage*100, color: '#D8BFD8'},
+                {value: totalPose[3].percentage=="NaN"?0:Number(String(totalPose[3].percentage*100).slice(0,2)), color: '#98FB98'},
+                {value: totalPose[4].percentage=="NaN"?0:Number(String(totalPose[4].percentage*100).slice(0,2)), color: '#ADD8E6'},
+                {value: totalPose[5].percentage=="NaN"?0:Number(String(totalPose[5].percentage*100).slice(0,2)), color: '#D8BFD8'},
 
-                {value: totalPose[6].percentage=="NaN"?0:totalPose[6].percentage*100, color: '#E6E6FA'},
-                {value: totalPose[7].percentage=="NaN"?0:totalPose[7].percentage*100, color: '#D3D3D3'},
-                {value: totalPose[8].percentage=="NaN"?0:totalPose[8].percentage*100, color: '#D3D3D3'},
+                {value: totalPose[6].percentage=="NaN"?0:Number(String(totalPose[6].percentage*100).slice(0,2)), color: '#E6E6FA'},
+                {value: totalPose[7].percentage=="NaN"?0:Number(String(totalPose[7].percentage*100).slice(0,2)), color: '#D3D3D3'},
+                {value: totalPose[8].percentage=="NaN"?0:Number(String(totalPose[8].percentage*100).slice(0,2)), color: '#D3D3D3'},
               ]}
               innerCircleColor="#000"
               innerCircleBorderWidth={4}
@@ -243,7 +243,7 @@ const MotionCircleChart = ({selectedDate}) => {
                         )
                       )}
                     </Text>
-                    <Text style={{color: 'white', fontSize: 18, textAlign:"center"}}>{bestPose.percentage!="NaN"?bestPose.percentage*100:0}%</Text>
+                    <Text style={{color: 'white', fontSize: 18, textAlign:"center"}}>{bestPose.percentage!="NaN"?String(bestPose.percentage*100).slice(0,2):0}%</Text>
                   </View>
                 );
               }}
