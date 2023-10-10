@@ -1,0 +1,42 @@
+{
+  "expo": {
+    "name": "SleepMate",
+    "slug": "frontend",
+    "version": "1.0.0",
+    "orientation": "portrait",
+    "icon": "./assets/config/icon.png",
+    "userInterfaceStyle": "light",
+    "splash": {
+      "image": "./assets/config/splash.png",
+      "resizeMode": "contain",
+      "backgroundColor": "#ffffff"
+    },
+    "assetBundlePatterns": [
+      "**/*"
+    ],
+    "ios": {
+      "supportsTablet": true
+    },
+    "android": {
+      "adaptiveIcon": {
+        "foregroundImage": "./assets/config/adaptive-icon.png",
+        "backgroundColor": "#ffffff"
+      },
+      "package": "com.anonymous.frontend"
+    },
+    "web": {
+      "favicon": "./assets/favicon.png"
+    },
+    "extra": {
+      "eas": {
+        "projectId": "5e739149-9b5c-49fe-ac7d-8b32815d9110"
+      }
+    },
+    "permissions": [
+      "CAMERA",
+      "AUDIO_RECORDING",
+      "RECORD_AUDIO",
+      "ACCESS_FINE_LOCATION"
+    ]
+  }
+}
