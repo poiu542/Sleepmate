@@ -1,13 +1,15 @@
 spring:
-  h2:
-    console:
-      enabled: true
-
   datasource:
-    driver-class-name: org.h2.Driver
-    url: jdbc:h2:mem:sleepmate;MODE=MYSQL
-    username: sa
-    password:
+#    driver-class-name: org.h2.Driver
+#    url: jdbc:h2:mem:sleepmate;MODE=MYSQL
+#    username: sa
+#    password:
+      driver-class-name: com.mysql.cj.jdbc.Driver
+#      url: jdbc:mysql://localhost:3306/sleepmate
+      url: jdbc:mysql://j9b103.p.ssafy.io:3306/sleepmate?useUnicode=true&serverTimezone=Asia/Seoul
+      useSSL: false
+      username: root
+      password: samjijiksong-parutparut
 
   jpa:
     hibernate:
@@ -18,3 +20,29 @@ spring:
     properties:
       hibernate:
         format_sql: true
+
+  security:
+    oauth2:
+      client:
+        registration:
+          Kakao:
+            client-id: 1e4417060773b8517915b413b7a1942d
+            redirect-uri: "http://localhost:8080/login/oauth2/code/kakao"
+            client-authentication-method: POST
+            authorization-grant-type: authorization_code
+            client-name: Kakao
+            scope: profile_nickname, profile_image, account_email, gender, birthday, friends #동의 항목
+        provider:
+          Kakao:
+            authorization-uri: https://kauth.kakao.com/oauth/authorize
+            token-uri: https://kauth.kakao.com/oauth/token
+            user-info-uri: https://kapi.kakao.com/v2/user/me
+            user-name-attribute: id
+
+aws:
+  access-key: ${ACCESS:access-key}
+  secret-key: ${REFRESH:refresh-key}
+  s3:
+    region: ${REGION:ap-northeast-2}
+    bucket: ${BUCKET:sleepmate}
+    url: ${URL:http://localhost:8080}
