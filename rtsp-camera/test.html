@@ -1,0 +1,66 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <style>
+        body, html {
+            margin: 0;
+            padding: 0;
+            height: 100%;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            background-color: #424045; /* Optional: set a background color */
+        }
+        div {
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            width: 100%;
+            height: 100%;
+        }
+        .overlay-text {
+            z-index: 10;
+            top: 0px;
+            left: 50%;
+            line-height: 3vh;
+            font-size: 2vh;
+            color: rgba(255, 255, 255, 0.701); /* Adjust text color */
+            text-align: center;
+        }
+        img {
+            position: absolute;
+            top: 50%;
+            left: 50%;
+            transform: translate(-50%, -50%);
+            max-width: 100%;
+            max-height: 100%;
+            height: 75%;
+        }
+        canvas {
+            position: fixed;
+            width: 80vh;
+            transform: rotate(90deg);
+            transform-origin: center center;
+            border-radius: 30px;
+        }
+    </style>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/jsmpeg/0.1/jsmpg.js"></script>
+</head>
+<body>
+    
+    <div>
+        <canvas></canvas>
+        <!-- <img src="./res/bathroom-sign-men.png" alt=""> -->
+        <div class="overlay-text">영역 안에 신체가 위치하도록<br> 카메라를 조정해주세요</div>
+    </div>
+
+    <script>
+        var client = new WebSocket('ws://j9b103.p.ssafy.io:9999');
+        var canvas = document.querySelector('canvas');
+        var player = new jsmpeg(client, {
+            canvas: canvas
+        });
+    </script>
+</body>
+</html>
